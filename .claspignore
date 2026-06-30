@@ -1,0 +1,7 @@
+# Ignore everything by default...
+**/**
+
+# ...then allow only the Apps Script web app files.
+!appsscript.json
+!Code.gs
+!Index.html
