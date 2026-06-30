@@ -3,5 +3,5 @@
 
 # ...then allow only the Apps Script web app files.
 !appsscript.json
-!Code.gs
+!Code.js
 !Index.html
