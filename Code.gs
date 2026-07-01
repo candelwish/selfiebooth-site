@@ -42,12 +42,24 @@ function doGet(e) {
     ).setTitle('Apps Script test');
   }
 
-  var template = HtmlService.createTemplateFromFile('Index');
-  template.deployUrl = DEPLOY_URL;
-  template.modulesParam = (e && e.parameter && e.parameter.modules) ? e.parameter.modules : '';
-  template.nameParam = (e && e.parameter && e.parameter.name) ? e.parameter.name : '';
+  var modules = (e && e.parameter && e.parameter.modules) ? e.parameter.modules : '';
+  var name = (e && e.parameter && e.parameter.name) ? e.parameter.name : '';
 
-  return template.evaluate()
+  // IMPORTANT: We deliberately do NOT use createTemplateFromFile(...).evaluate().
+  // Apps Script's template engine mangles this large file (with inlined React)
+  // during evaluation and emits broken JS -> blank page with a syntax error.
+  // Instead we read Index.html as static content and do safe string replacement
+  // for the three injected values, then serve it via createHtmlOutput (the same
+  // path the ?test=1 page uses successfully). JSON.stringify provides correct
+  // JS-string quoting/escaping; the function form avoids '$' being treated as a
+  // replacement pattern.
+  var html = HtmlService.createHtmlOutputFromFile('Index').getContent();
+  html = html
+    .replace('"<?= deployUrl ?>"', function () { return JSON.stringify(DEPLOY_URL); })
+    .replace('"<?= modulesParam ?>"', function () { return JSON.stringify(modules); })
+    .replace('"<?= nameParam ?>"', function () { return JSON.stringify(name); });
+
+  return HtmlService.createHtmlOutput(html)
     .setTitle('Speech Delivery Skills Series')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
 }
