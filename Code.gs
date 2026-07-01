@@ -42,6 +42,11 @@ function doGet(e) {
     ).setTitle('Apps Script test');
   }
 
+  // Diagnostic probes: ?probe=bigplain | libs  — isolate what breaks the sandbox.
+  if (e && e.parameter && e.parameter.probe) {
+    return probePage(e.parameter.probe);
+  }
+
   var modules = (e && e.parameter && e.parameter.modules) ? e.parameter.modules : '';
   var name = (e && e.parameter && e.parameter.name) ? e.parameter.name : '';
 
@@ -62,4 +67,48 @@ function doGet(e) {
   return HtmlService.createHtmlOutput(html)
     .setTitle('Speech Delivery Skills Series')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+// Diagnostic probe pages to isolate what breaks Google's sandbox content writer.
+function probePage(which) {
+  var head = '<!DOCTYPE html><html><head><base target="_top">'
+           + '<meta name="viewport" content="width=device-width, initial-scale=1"></head>'
+           + '<body style="font-family:sans-serif;padding:24px;line-height:1.5">';
+  var tail = '</body></html>';
+
+  if (which === 'bigplain') {
+    // ~250 KB of plain HTML: no scripts, no https URLs, no long lines.
+    // If this renders, large static payloads are fine and size is not the cause.
+    var s = '';
+    for (var i = 0; i < 5000; i++) {
+      s += '<p>Line ' + i + ' - filler text to reach a large payload size.</p>';
+    }
+    return HtmlService.createHtmlOutput(
+      head + '<h1>Probe: bigplain</h1><p>If you can see many numbered lines below, '
+      + 'large static payloads work fine.</p>' + s + tail
+    ).setTitle('probe bigplain');
+  }
+
+  var content = HtmlService.createHtmlOutputFromFile('Index').getContent();
+  var scripts = content.match(/<script>[\s\S]*?<\/script>/g) || [];
+
+  if (which === 'libs') {
+    // Everything EXCEPT the final (app) script block: globals + React + ReactDOM,
+    // then a status check. If this renders "React=... ReactDOM=ok", the inlined
+    // libraries deliver fine and the app block is the culprit. If it is blank,
+    // the library blocks (huge minified lines) break the sandbox writer.
+    var libs = '';
+    for (var j = 0; j < scripts.length - 1; j++) { libs += scripts[j] + '\n'; }
+    var check = '<script>try{document.getElementById("o").textContent='
+      + '"React="+(typeof React!=="undefined"?React.version:"MISSING")+'
+      + '" ReactDOM="+(typeof ReactDOM!=="undefined"?"ok":"MISSING");}'
+      + 'catch(err){document.getElementById("o").textContent="ERR "+err;}<\/script>';
+    return HtmlService.createHtmlOutput(
+      head + '<h1>Probe: libs (' + scripts.length + ' script blocks found)</h1>'
+      + '<div id="o" style="font-weight:bold">running...</div>' + libs + check + tail
+    ).setTitle('probe libs');
+  }
+
+  return HtmlService.createHtmlOutput(head + '<p>unknown probe: ' + which + '</p>' + tail)
+    .setTitle('probe');
 }
