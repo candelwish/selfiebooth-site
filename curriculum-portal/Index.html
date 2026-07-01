@@ -7,14 +7,23 @@
 <title>Course Curriculum Portal</title>
 <style>
   :root{
-    --navy:#1F2D5A; --red:#C9132B; --navy-2:#2C3E6E; --ink:#1a1d24;
-    --muted:#5b6472; --line:#e3e7ee; --bg:#f4f6fb; --card:#ffffff;
-    --chip:#eef1f8; --ok:#1f7a3d; --focus:#C9132B;
+    /* Gen-Z / Alpha palette: electric violet -> hot pink -> cyan */
+    --navy:#6D28D9;      /* primary (violet) */
+    --red:#EC4899;       /* accent (hot pink) */
+    --navy-2:#7C3AED;
+    --cyan:#06B6D4;
+    --grad:linear-gradient(90deg,#7C3AED 0%,#EC4899 55%,#06B6D4 120%);
+    --ink:#16121f;
+    --muted:#6b6480; --line:#ece7f6; --bg:#f6f2ff; --card:#ffffff;
+    --chip:#f3e8ff; --ok:#10B981; --focus:#EC4899;
   }
   *{box-sizing:border-box}
   html,body{margin:0}
   body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
-    color:var(--ink); background:var(--bg); line-height:1.5}
+    color:var(--ink); line-height:1.5;
+    background:radial-gradient(1200px 500px at 100% -10%, #ffe6f6 0%, rgba(255,230,246,0) 60%),
+               radial-gradient(1000px 500px at -10% 0%, #e6e0ff 0%, rgba(230,224,255,0) 55%),
+               var(--bg)}
   a{color:var(--navy)}
   .screen{display:none}
   .screen.active{display:block}
@@ -49,7 +58,7 @@
   .link{background:none;border:0;color:var(--navy);cursor:pointer;text-decoration:underline;padding:6px}
 
   /* App shell */
-  .topbar{position:sticky; top:0; z-index:20; background:var(--navy); color:#fff; display:flex;
+  .topbar{position:sticky; top:0; z-index:20; background:var(--grad); color:#fff; display:flex;
     align-items:center; gap:12px; padding:10px 14px}
   .topbar .title{font-weight:700}
   .topbar .spacer{flex:1}
@@ -103,7 +112,7 @@
 
   /* Lesson panel */
   .lhead{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:4px}
-  .pill{background:var(--navy); color:#fff; border-radius:999px; padding:4px 12px; font-size:.82rem; font-weight:700}
+  .pill{background:var(--grad); color:#fff; border-radius:999px; padding:4px 12px; font-size:.82rem; font-weight:700}
   h2#lesson-topic{margin:.2rem 0; color:var(--ink); font-size:1.5rem; outline:none}
   .meta{color:var(--muted); font-size:.92rem; margin-bottom:10px}
   .mark{margin-left:auto}
@@ -115,7 +124,7 @@
 
   .block{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px}
   .block h3{margin:0 0 8px; color:var(--navy); font-size:1.05rem}
-  .ican{background:linear-gradient(90deg,#eaf0ff,#f6f9ff); border-left:5px solid var(--navy)}
+  .ican{background:linear-gradient(90deg,#f3e8ff,#ffe8f6); border-left:5px solid var(--red)}
   .ican .big{font-size:1.15rem; font-weight:600}
   .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
   .chip{background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:.85rem; font-weight:600; color:var(--navy)}
@@ -227,155 +236,170 @@
 
 /* ---- Branding ---- */
 var COURSE = {
-  name: "AV Production Portal — La Joya ISD",
-  tagline: "Daily lessons, resources, and video tutorials."
+  name: "Building a Fluid Speaker",
+  tagline: "Daily targets, readings, and tutorials to help you speak with clarity, confidence, and flow."
 };
 
 /* ---- Instructor gate (client-side only; visible in source) ---- */
-var INSTRUCTOR_CODE = "avpro2026";
+var INSTRUCTOR_CODE = "speak2026";
 
-/* ---- Shared resource links ---- */
+/* ---- Shared resource links (replace with your real URLs) ---- */
 var LINKS = {
   syllabus: "https://example.com/syllabus",
-  textbook: "https://example.com/textbook",
+  textbook: "https://example.com/speaker-handbook",
   manual: "https://example.com/course-manual",
   scope: "https://example.com/scope-and-sequence",
   lesson_plans: "https://example.com/lesson-plans",
   supp_video: "https://example.com/supplements/video",
-  supp_photo: "https://example.com/supplements/photo",
+  supp_photo: "https://example.com/supplements/practice",
   supp_weekly: "https://example.com/supplements/weekly"
 };
 
-/* ---- Curriculum (keyed p{part}_{module}_{seq}) ----
-   NOTE: sample content. Replace with your real lessons. Keep strings
-   double-quoted; never use backticks. */
+/* ---- Curriculum (keyed p{part}_{module}_{seq}). Sample content; replace freely.
+   Keep strings double-quoted; never use backticks. ---- */
 var CURRICULUM = {
-  "p1_10_1": {
-    part:1, id:"10.1", module_num:10, module:"Camera Fundamentals",
-    topic:"Meet the Camera: Parts & Handling",
-    chapter:"Ch. 1", teks:"130.85(c)(1)(A)",
-    objectives:"Students will identify the major parts of a video camera and demonstrate their safe handling and setup.",
-    language_obj:"Students will label camera components using academic vocabulary (lens, sensor, viewfinder, tripod mount) in complete sentences (ELPS 1.C, 3.D).",
-    activation:"Show a short clip with shaky vs. stable footage; ask what makes the difference.",
-    i_do:"Name and point to each part on a demo camera; model a safe pick-up and mount.",
-    we_do:"Class walkthrough: each table names a part and its purpose aloud.",
-    you_do:"In pairs, mount a camera to a tripod and level it, then swap roles.",
-    demonstration:"Each student performs a clean setup checklist without prompting.",
-    closure:"Thumbs-up check: can you name three parts and one safety rule?",
-    reading_html:"<p>A video camera is a system of parts working together. The <strong>lens</strong> gathers light, the <strong>sensor</strong> converts it to a signal, and the <strong>viewfinder</strong> lets you frame the shot. Treat every camera as if it is the only one you have.</p>",
-    has_reading:true, assign_url:"", syllabus_url:"",
-    supp_video:true, supp_photo:false, supp_weekly:false
-  },
-  "p1_10_2": {
-    part:1, id:"10.2", module_num:10, module:"Camera Fundamentals",
-    topic:"Exposure Triangle: Aperture, Shutter, ISO",
-    chapter:"Ch. 3", teks:"130.85(c)(3)(A)",
-    objectives:"Students will explain how aperture, shutter speed, and ISO affect their exposure and adjust their settings to achieve a balanced image.",
-    language_obj:"Students will discuss exposure using academic vocabulary (aperture, shutter speed, ISO, exposure) and justify their choices in writing (ELPS 3.D, 4.F).",
-    activation:"Compare two photos of the same scene, one bright and one dark. What changed?",
-    i_do:"Demonstrate changing aperture and its effect on depth of field on a live view.",
-    we_do:"As a class, balance one setting against another to keep exposure constant.",
-    you_do:"In pairs, capture three versions of one subject at different apertures.",
-    demonstration:"Students capture one correctly exposed portrait and explain their settings.",
-    closure:"Exit ticket: name one setting you changed today and why.",
-    reading_html:"<p>The <strong>exposure triangle</strong> connects aperture, shutter speed, and ISO. Change one and you must compensate with another to keep a balanced image. Aperture also controls how much of the scene is in focus.</p>",
-    has_reading:true, assign_url:"https://example.com/assign/10-2", syllabus_url:"",
-    supp_video:true, supp_photo:true, supp_weekly:false
-  },
-  "p1_10_3": {
-    part:1, id:"10.3", module_num:10, module:"Camera Fundamentals",
-    topic:"White Balance & Color",
-    chapter:"Ch. 4", teks:"130.85(c)(3)(B)",
-    objectives:"Students will set white balance for a given light source so their footage shows accurate color.",
-    language_obj:"Students will describe color temperature using academic vocabulary (Kelvin, warm, cool, white balance) (ELPS 2.E, 3.F).",
-    activation:"Show the same shirt under warm and cool light. Which one is the true color?",
-    i_do:"Model a custom white balance using a gray card.",
-    we_do:"Set white balance together for the classroom lighting.",
-    you_do:"Balance for two different light sources and compare results.",
-    demonstration:"Students deliver one clip with correct, consistent color.",
-    closure:"One-sentence summary: when would you change white balance?",
-    reading_html:"<p>Different light sources have different <strong>color temperatures</strong>, measured in Kelvin. White balance tells the camera what should look white so every other color is accurate.</p>",
+  "p1_1_1": {
+    part:1, id:"1.1", module_num:1, module:"Clarity & Sound",
+    topic:"Vocal Clarity: Speaking So Every Word Lands",
+    chapter:"Unit 1", teks:"TEKS 110.24(b)(1)(A)",
+    objectives:"Students will use pronunciation, enunciation, and projection so their words are understood the first time.",
+    language_obj:"Students will describe clear speech using academic vocabulary (pronunciation, enunciation, diction, projection) in complete sentences (ELPS 1.C, 3.D).",
+    activation:"Play a clip of mumbled vs. crisp speech; ask which one is easier to follow and why.",
+    i_do:"Model warming up the articulators, then over-enunciate a sentence and dial it back.",
+    we_do:"As a class, read one line slowly and crisply, exaggerating word endings.",
+    you_do:"Record 30 seconds on your phone and listen for dropped -ing, -ed, and -t endings.",
+    demonstration:"Each student reads a short passage with clear, projected delivery.",
+    closure:"Name one habit (mumbling, dropped endings, soft volume) you will target next time.",
+    reading_html:"<p><strong>Clarity</strong> is the difference between an audience hearing you and understanding you. It is built from pronunciation, enunciation (diction), fluency, and projection. Most clarity problems are physical habits, which means they are trainable.</p>",
     has_reading:true, assign_url:"", syllabus_url:"",
     supp_video:false, supp_photo:true, supp_weekly:false
   },
-  "p1_11_1": {
-    part:1, id:"11.1", module_num:11, module:"Lighting & Composition",
-    topic:"Three-Point Lighting",
-    chapter:"Ch. 6", teks:"130.85(c)(4)(A)",
-    objectives:"Students will build a three-point lighting setup and explain the role of their key, fill, and back lights.",
-    language_obj:"Students will explain lighting roles using academic vocabulary (key light, fill light, back light, shadow) (ELPS 3.D, 4.G).",
-    activation:"Compare a flat-lit face to a three-point-lit face.",
-    i_do:"Place each light one at a time and narrate its job.",
-    we_do:"Class positions the fill light to control shadow ratio.",
-    you_do:"Teams light a subject and photograph the result.",
-    demonstration:"Each team presents a lit portrait and names each light.",
-    closure:"Which light adds depth by separating subject from background?",
-    reading_html:"<p><strong>Three-point lighting</strong> uses a key light for the main illumination, a fill light to soften shadows, and a back light to separate the subject from the background.</p>",
-    has_reading:true, assign_url:"https://example.com/assign/11-1", syllabus_url:"",
+  "p1_1_2": {
+    part:1, id:"1.2", module_num:1, module:"Clarity & Sound",
+    topic:"Vocal Variety: Keeping Your Voice Alive",
+    chapter:"Unit 1", teks:"TEKS 110.24(b)(1)(B)",
+    objectives:"Students will vary their pitch, pace, and volume, and use strategic pauses to keep an audience engaged.",
+    language_obj:"Students will discuss delivery using academic vocabulary (pitch, pace, volume, inflection, pause) and justify their choices (ELPS 3.D, 4.F).",
+    activation:"Compare a monotone reading to an expressive one of the same line.",
+    i_do:"Demonstrate a pitch ladder and a 2-second pause after a key sentence.",
+    we_do:"As a class, mark one sentence for a pause and one word for emphasis, then read it.",
+    you_do:"In pairs, read a passage twice, changing pace and emphasis the second time.",
+    demonstration:"Each student delivers one sentence with deliberate emphasis and a pause.",
+    closure:"Which tool (pitch, pace, volume, or pause) will you practice this week?",
+    reading_html:"<p>If clarity is being understood, <strong>vocal variety</strong> is being listened to. A flat, unchanging voice gets tuned out. Varying pitch, pace, and volume, plus well-placed pauses, signals what matters without you having to say so.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/1-2", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:false
+  },
+  "p1_1_3": {
+    part:1, id:"1.3", module_num:1, module:"Clarity & Sound",
+    topic:"Pacing, Pauses & Filler Words",
+    chapter:"Unit 1", teks:"TEKS 110.24(b)(1)(C)",
+    objectives:"Students will replace their filler words with silent pauses and control pacing at transition points.",
+    language_obj:"Students will identify speech habits using academic vocabulary (filler word, pause, pacing, transition) (ELPS 2.E, 3.F).",
+    activation:"Count the filler words in a 30-second unscripted clip.",
+    i_do:"Model swapping a filler word for a one-second silent pause.",
+    we_do:"Practice a transition sentence slowly, replacing filler with silence.",
+    you_do:"Record yourself answering a random question and count your top filler word.",
+    demonstration:"Each student delivers a transition with a clean, silent pause.",
+    closure:"What is your personal filler fingerprint (your most common filler)?",
+    reading_html:"<p>Filler words cluster where your brain is still loading the next thought, especially at transitions. The fix is not trying harder to avoid them, it is giving your mouth something else to do: <strong>pause</strong>. Silence feels long to you but reads as confidence to a listener.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
     supp_video:true, supp_photo:false, supp_weekly:true
   },
-  "p1_11_2": {
-    part:1, id:"11.2", module_num:11, module:"Lighting & Composition",
-    topic:"Framing & the Rule of Thirds",
-    chapter:"Ch. 7", teks:"130.85(c)(4)(B)",
-    objectives:"Students will compose shots using the rule of thirds and headroom to strengthen their framing.",
-    language_obj:"Students will critique composition using academic vocabulary (rule of thirds, headroom, lead room, frame) (ELPS 2.I, 3.E).",
-    activation:"Rank three thumbnails from weakest to strongest framing.",
-    i_do:"Overlay a thirds grid and place the subject on an intersection.",
-    we_do:"Reframe a centered shot together to improve it.",
-    you_do:"Shoot five stills that each use the rule of thirds.",
-    demonstration:"Students present their strongest frame and justify it.",
-    closure:"Where should the eyes sit in a standard interview frame?",
-    reading_html:"<p>The <strong>rule of thirds</strong> divides the frame into a 3x3 grid. Placing key elements along the lines or intersections usually creates a more balanced, engaging image than centering everything.</p>",
-    has_reading:true, assign_url:"", syllabus_url:"",
-    supp_video:false, supp_photo:true, supp_weekly:false
-  },
-  "p2_20_1": {
-    part:2, id:"20.1", module_num:20, module:"Editing Workflow",
-    topic:"Importing & Organizing Media",
-    chapter:"Ch. 10", teks:"130.85(c)(6)(A)",
-    objectives:"Students will import and organize their media into a clean project structure before editing.",
-    language_obj:"Students will describe an editing workflow using academic vocabulary (import, bin, timeline, project) (ELPS 3.D, 4.F).",
-    activation:"Show a messy project vs. an organized one. Which saves time?",
-    i_do:"Create bins and label clips in a demo project.",
-    we_do:"Sort a shared clip set into bins as a class.",
-    you_do:"Import your own footage and organize it into bins.",
-    demonstration:"Students show a labeled, organized project ready to edit.",
-    closure:"Name one habit that keeps a project organized.",
-    reading_html:"<p>Editing starts before the first cut. <strong>Importing</strong> media and organizing it into labeled <strong>bins</strong> makes everything that follows faster and less error-prone.</p>",
-    has_reading:true, assign_url:"https://example.com/assign/20-1", syllabus_url:"",
+  "p1_2_1": {
+    part:1, id:"2.1", module_num:2, module:"Confidence & Presence",
+    topic:"Managing Nerves, Not Eliminating Them",
+    chapter:"Unit 2", teks:"TEKS 110.24(b)(2)(A)",
+    objectives:"Students will use a reframe and a recovery plan to stay composed when their nerves show up.",
+    language_obj:"Students will describe composure using academic vocabulary (apprehension, reframe, composure, recovery) (ELPS 3.D, 4.G).",
+    activation:"Quick poll: what does nervousness feel like in your body before you speak?",
+    i_do:"Model the excited reframe and a calm recovery line for a stumble.",
+    we_do:"Practice one grounding breath and stance together before speaking.",
+    you_do:"Write one recovery phrase you can use if you lose your place.",
+    demonstration:"Each student starts a short talk using the anchor-and-breathe routine.",
+    closure:"Say your recovery line out loud once so it is ready when you need it.",
+    reading_html:"<p>Nerves are a physical response, not a flaw. The goal is not zero nerves, it is a plan for the adrenaline. Reframing nervousness as excitement, grounding your stance, and preparing a recovery line all help you stay composed.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/2-1", syllabus_url:"",
     supp_video:true, supp_photo:false, supp_weekly:false
   },
-  "p2_20_2": {
-    part:2, id:"20.2", module_num:20, module:"Editing Workflow",
-    topic:"The Rough Cut",
-    chapter:"Ch. 11", teks:"130.85(c)(6)(B)",
-    objectives:"Students will assemble a rough cut on the timeline that tells their story in order.",
-    language_obj:"Students will explain edit decisions using academic vocabulary (rough cut, trim, sequence, transition) (ELPS 3.G, 4.F).",
-    activation:"Watch two versions of a scene cut in different orders.",
-    i_do:"Lay clips on the timeline and trim to the action.",
-    we_do:"Reorder a shared sequence for a stronger story.",
-    you_do:"Build a 30-second rough cut from your footage.",
-    demonstration:"Students screen their rough cut for a peer.",
-    closure:"What is the goal of a rough cut (and what is it NOT)?",
-    reading_html:"<p>A <strong>rough cut</strong> is the first full assembly of the story in order. It is meant to be messy; the goal is structure and flow, not polish.</p>",
+  "p1_2_2": {
+    part:1, id:"2.2", module_num:2, module:"Confidence & Presence",
+    topic:"Nonverbal Delivery: What Your Body Says",
+    chapter:"Unit 2", teks:"TEKS 110.24(b)(2)(B)",
+    objectives:"Students will use purposeful gestures, posture, and eye contact so their body reinforces their message.",
+    language_obj:"Students will explain body language using academic vocabulary (gesture, posture, stance, eye contact) (ELPS 2.I, 3.E).",
+    activation:"Watch 20 seconds of a speaker with the sound off. What does the body say?",
+    i_do:"Model a hands home base and 2 to 3 purposeful gestures.",
+    we_do:"Practice a planted stance and one deliberate gesture as a class.",
+    you_do:"Deliver two sentences from a planted stance with one intentional gesture.",
+    demonstration:"Each student presents a line with matched facial expression and posture.",
+    closure:"If your body and words disagreed, which would the audience believe?",
+    reading_html:"<p>Audiences read body language almost instantly. When your gestures, posture, and expression match your message, they reinforce credibility. When they clash, the audience believes the body over the words.</p>",
     has_reading:true, assign_url:"", syllabus_url:"",
-    supp_video:false, supp_photo:false, supp_weekly:true
+    supp_video:true, supp_photo:true, supp_weekly:false
   },
-  "p2_21_1": {
-    part:2, id:"21.1", module_num:21, module:"Audio for Video",
-    topic:"Recording Clean Dialogue",
-    chapter:"Ch. 13", teks:"130.85(c)(7)(A)",
-    objectives:"Students will record clean dialogue by setting their levels and microphone placement correctly.",
-    language_obj:"Students will discuss audio using academic vocabulary (levels, clipping, lavalier, boom) (ELPS 3.D, 4.H).",
-    activation:"Compare clean dialogue to distorted, clipped audio.",
-    i_do:"Set levels so peaks stay in the safe range; place a lav mic.",
-    we_do:"Adjust gain together until the meter sits correctly.",
-    you_do:"Record a 20-second interview clip with clean levels.",
-    demonstration:"Students submit one clip with clear, unclipped dialogue.",
-    closure:"What does it mean when audio is clipping?",
-    reading_html:"<p>Good <strong>levels</strong> keep dialogue loud enough to hear but below the point of <strong>clipping</strong> (distortion). Microphone choice and placement matter as much as the settings.</p>",
-    has_reading:true, assign_url:"https://example.com/assign/21-1", syllabus_url:"",
+  "p2_3_1": {
+    part:2, id:"3.1", module_num:3, module:"Connection & Flow",
+    topic:"Language Fluency: Sounding Like Yourself",
+    chapter:"Unit 3", teks:"TEKS 110.24(b)(3)(A)",
+    objectives:"Students will speak from phrase cues instead of a full script so their delivery sounds natural.",
+    language_obj:"Students will discuss fluency using academic vocabulary (phrase cue, thought group, paraphrase, transition) (ELPS 3.D, 4.F).",
+    activation:"Compare a recited, robotic reading to a conversational one.",
+    i_do:"Model turning full sentences into 3 to 5 word phrase cues.",
+    we_do:"Rewrite one scripted line as phrase cues and say it two different ways.",
+    you_do:"Explain one idea out loud three times, changing the wording each time.",
+    demonstration:"Each student delivers a point from cues, not memorized text.",
+    closure:"What is one idea you can now say without reading it word for word?",
+    reading_html:"<p><strong>Fluency</strong> is sounding like a real person talking, not a recording being read. Building notes from phrase cues instead of full sentences keeps you flexible, so if you lose your place you can paraphrase instead of freezing.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/3-1", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:false
+  },
+  "p2_3_2": {
+    part:2, id:"3.2", module_num:3, module:"Connection & Flow",
+    topic:"Audience Connection: Talk With, Not At",
+    chapter:"Unit 3", teks:"TEKS 110.24(b)(3)(B)",
+    objectives:"Students will use eye contact and audience awareness so their talk feels like a conversation.",
+    language_obj:"Students will describe engagement using academic vocabulary (eye contact, audience awareness, inclusivity, feedback) (ELPS 3.G, 4.F).",
+    activation:"How can you tell when a speaker is really talking to you?",
+    i_do:"Model the lighthouse method: hold eye contact for one full thought, then move.",
+    we_do:"Practice scanning three sections of the room as a class.",
+    you_do:"Deliver two sentences, holding eye contact with a different person for each.",
+    demonstration:"Each student presents while connecting with all sides of the room.",
+    closure:"Did you look at individuals, or scan the room like a security camera?",
+    reading_html:"<p>Connection turns a monologue into something that feels like a conversation. It is built from small choices: steady eye contact with one person per thought, an opening that finds common ground, and responsiveness when the room reacts.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:true
+  },
+  "p2_4_1": {
+    part:2, id:"4.1", module_num:4, module:"Persuade & Polish",
+    topic:"Persuasive & Expressive Delivery",
+    chapter:"Unit 4", teks:"TEKS 110.24(b)(4)(A)",
+    objectives:"Students will organize a real conviction with a clear structure so their message moves an audience.",
+    language_obj:"Students will discuss persuasion using academic vocabulary (attention, interest, desire, action, story) (ELPS 3.D, 4.H).",
+    activation:"Which changes your mind more: a list of facts, or a story with a point?",
+    i_do:"Model an AIDA opening: attention, interest, desire, action.",
+    we_do:"Turn one dry fact into a 30-second specific story as a class.",
+    you_do:"Draft a persuasive opening with all four AIDA beats.",
+    demonstration:"Each student delivers a short persuasive opening with genuine energy.",
+    closure:"After your talk, would a listener feel something, not just learn something?",
+    reading_html:"<p>Persuasion is not manipulation, it is organizing real conviction so it lands. People are moved by facts and structure together. A specific, sensory story almost always lands harder than a general example.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/4-1", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:false
+  },
+  "p2_4_2": {
+    part:2, id:"4.2", module_num:4, module:"Persuade & Polish",
+    topic:"Professional Habits & Handling Q&A",
+    chapter:"Unit 4", teks:"TEKS 110.24(b)(4)(B)",
+    objectives:"Students will answer questions concisely and handle the tools of a talk so their audience trusts them.",
+    language_obj:"Students will discuss professionalism using academic vocabulary (credibility, concise, paraphrase, follow-up) (ELPS 3.D, 4.F).",
+    activation:"What makes a speaker sound trustworthy when answering a hard question?",
+    i_do:"Model PARA: point, action, result, ask, to answer a question concisely.",
+    we_do:"Practice repeating a question before answering it as a class.",
+    you_do:"Answer a surprise question using PARA and one graceful I-will-follow-up line.",
+    demonstration:"Each student fields one question calmly using PARA.",
+    closure:"Write one go-to phrase for when you honestly do not know the answer.",
+    reading_html:"<p>Professionalism in speaking is not stiffness, it is consistency, clarity, and honesty under pressure. Repeat a question before answering it, keep answers concise with PARA, and have a graceful way to say you will follow up.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
     supp_video:true, supp_photo:false, supp_weekly:false
   }
 };
@@ -383,29 +407,32 @@ var CURRICULUM = {
 /* ---- Module order per part ---- */
 var MODULES = {
   p1: [
-    { part:1, module_num:10, module:"Camera Fundamentals", lessons:["p1_10_1","p1_10_2","p1_10_3"] },
-    { part:1, module_num:11, module:"Lighting & Composition", lessons:["p1_11_1","p1_11_2"] }
+    { part:1, module_num:1, module:"Clarity & Sound", lessons:["p1_1_1","p1_1_2","p1_1_3"] },
+    { part:1, module_num:2, module:"Confidence & Presence", lessons:["p1_2_1","p1_2_2"] }
   ],
   p2: [
-    { part:2, module_num:20, module:"Editing Workflow", lessons:["p2_20_1","p2_20_2"] },
-    { part:2, module_num:21, module:"Audio for Video", lessons:["p2_21_1"] }
+    { part:2, module_num:3, module:"Connection & Flow", lessons:["p2_3_1","p2_3_2"] },
+    { part:2, module_num:4, module:"Persuade & Polish", lessons:["p2_4_1","p2_4_2"] }
   ]
 };
 
-/* ---- Videos (separate JSON map). Key = "p"+part+"_"+id.replace(".","_").
-   These are PLACEHOLDER demo videos; replace u with your real YouTube URLs. */
+/* ---- Videos (separate map). Key = "p"+part+"_"+id.replace(".","_").
+   Real tutorial videos from the Speech Delivery series. ---- */
 var VIDEOS = {
-  "p1_10_1": [ {t:"Camera Parts Overview", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"} ],
-  "p1_10_2": [
-    {t:"Understanding the Exposure Triangle", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"},
-    {t:"Aperture & Depth of Field (alt view)", u:"https://youtu.be/dQw4w9WgXcQ", s:"YouTube"}
+  "p1_1_2": [
+    {t:"How To Speak Louder Without Yelling", u:"https://youtu.be/jElQlNDazy8", s:"YouTube"},
+    {t:"Voice Inflections: How, When & Where (alt view)", u:"https://youtu.be/cv93bQgkYfs", s:"YouTube"}
   ],
-  "p1_11_1": [ {t:"Three-Point Lighting Explained", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"} ],
-  "p2_20_1": [
-    {t:"Organizing Your Edit Project", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"},
-    {t:"Bins & Labeling (alt view)", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"}
-  ],
-  "p2_21_1": [ {t:"Recording Clean Dialogue", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"} ]
+  "p1_1_3": [ {t:"How To Stop Using Filler Words", u:"https://youtu.be/MMjImcord5A", s:"YouTube"} ],
+  "p1_2_1": [ {t:"Public Speaking Anxiety: 6 Mindset Tips", u:"https://youtu.be/83wYDzO3CzI", s:"YouTube"} ],
+  "p1_2_2": [ {t:"4 Essential Body Language Tips (World Champion)", u:"https://youtu.be/ZK3jSXYBNak", s:"YouTube"} ],
+  "p2_3_1": [ {t:"How to Sound Natural While Giving a Speech", u:"https://youtu.be/QeDF7xV4pq0", s:"YouTube"} ],
+  "p2_3_2": [ {t:"How to Make Eye Contact When Public Speaking", u:"https://youtu.be/gwypzoyUjNU", s:"YouTube"} ],
+  "p2_4_1": [ {t:"The Art of Persuasive Storytelling (TED)", u:"https://youtu.be/Oo2upU6ny-I", s:"YouTube"} ],
+  "p2_4_2": [
+    {t:"Handling Q&A Sessions During a Presentation", u:"https://youtu.be/jHIfj011QRY", s:"YouTube"},
+    {t:"The Proper Way to Use a Microphone (alt view)", u:"https://youtu.be/twuRPGDDD5I", s:"YouTube"}
+  ]
 };
 
 /* ======================= State ======================= */

@@ -14,7 +14,7 @@
 
 function doGet(e) {
   return HtmlService.createHtmlOutputFromFile('Index')
-    .setTitle('Course Curriculum Portal')
+    .setTitle('Building a Fluid Speaker')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
 }
