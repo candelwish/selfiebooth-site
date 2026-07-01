@@ -109,6 +109,22 @@ function probePage(which) {
     ).setTitle('probe libs');
   }
 
+  if (which === 'appnourl') {
+    // The full app, but with the 3 https URLs in the app block neutralized.
+    // If THIS renders the "Choose Your Modules" screen, then one of those URL
+    // strings is what breaks Google's sandbox serializer, and we fix the source.
+    var h = HtmlService.createHtmlOutputFromFile('Index').getContent();
+    h = h
+      .replace('"<?= deployUrl ?>"', function () { return JSON.stringify(DEPLOY_URL); })
+      .replace('"<?= modulesParam ?>"', function () { return '""'; })
+      .replace('"<?= nameParam ?>"', function () { return '""'; });
+    h = h.split('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&display=swap').join('about:blank');
+    h = h.split('https://www.youtube.com/embed/').join('https-x-//www.youtube.com/embed/');
+    h = h.split('https://www.youtube.com/watch?v=').join('https-x-//www.youtube.com/watch?v=');
+    return HtmlService.createHtmlOutput(h).setTitle('probe appnourl')
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+  }
+
   return HtmlService.createHtmlOutput(head + '<p>unknown probe: ' + which + '</p>' + tail)
     .setTitle('probe');
 }
