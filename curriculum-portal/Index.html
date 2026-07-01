@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<base target="_top">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Course Curriculum Portal</title>
+<style>
+  :root{
+    --navy:#1F2D5A; --red:#C9132B; --navy-2:#2C3E6E; --ink:#1a1d24;
+    --muted:#5b6472; --line:#e3e7ee; --bg:#f4f6fb; --card:#ffffff;
+    --chip:#eef1f8; --ok:#1f7a3d; --focus:#C9132B;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink); background:var(--bg); line-height:1.5}
+  a{color:var(--navy)}
+  .screen{display:none}
+  .screen.active{display:block}
+  :focus-visible{outline:3px solid var(--focus); outline-offset:2px; border-radius:6px}
+
+  /* Landing */
+  .wrap{max-width:920px; margin:0 auto; padding:40px 20px}
+  .brandbar{display:flex; align-items:center; gap:14px; margin-bottom:8px}
+  .brandbar .dot{width:14px;height:34px;background:var(--red);border-radius:3px}
+  .brandbar h1{margin:0; color:var(--navy); font-size:1.7rem}
+  .sub{color:var(--muted); margin:0 0 28px}
+  .cards{display:grid; grid-template-columns:1fr 1fr; gap:18px}
+  .card{background:var(--card); border:1px solid var(--line); border-radius:14px; padding:26px;
+    cursor:pointer; transition:box-shadow .15s, transform .05s; box-shadow:0 1px 3px rgba(20,30,60,.06)}
+  .card:hover{box-shadow:0 6px 18px rgba(20,30,60,.12)}
+  .card:active{transform:translateY(1px)}
+  .card h2{margin:.2rem 0 .3rem; color:var(--navy)}
+  .card p{margin:0; color:var(--muted)}
+  .card .ico{font-size:2rem}
+  @media(max-width:640px){ .cards{grid-template-columns:1fr} }
+
+  /* Passcode */
+  .pc{max-width:420px; margin:8vh auto; background:var(--card); border:1px solid var(--line);
+    border-radius:14px; padding:28px}
+  .pc h2{margin:0 0 6px; color:var(--navy)}
+  .pc input{width:100%; padding:12px; font-size:1rem; border:1px solid var(--line); border-radius:10px; margin:14px 0}
+  .btn{display:inline-flex; align-items:center; gap:8px; background:var(--navy); color:#fff; border:0;
+    padding:11px 18px; border-radius:10px; font-size:1rem; cursor:pointer}
+  .btn.red{background:var(--red)}
+  .btn.ghost{background:transparent; color:var(--navy); border:1px solid var(--line)}
+  .err{color:var(--red); min-height:1.2em; font-size:.92rem}
+  .link{background:none;border:0;color:var(--navy);cursor:pointer;text-decoration:underline;padding:6px}
+
+  /* App shell */
+  .topbar{position:sticky; top:0; z-index:20; background:var(--navy); color:#fff; display:flex;
+    align-items:center; gap:12px; padding:10px 14px}
+  .topbar .title{font-weight:700}
+  .topbar .spacer{flex:1}
+  .parttoggle{display:inline-flex; background:rgba(255,255,255,.12); border-radius:999px; padding:3px}
+  .parttoggle .seg{padding:6px 14px; border-radius:999px; cursor:pointer; color:#dfe4f2; font-size:.9rem}
+  .parttoggle .seg.on{background:#fff; color:var(--navy); font-weight:700}
+  .badge{background:var(--red); color:#fff; padding:4px 10px; border-radius:999px; font-size:.8rem; font-weight:700}
+  .badge.instr{background:#f0a500; color:#231a00}
+  .tb-btn{background:rgba(255,255,255,.12); color:#fff; border:0; padding:8px 12px; border-radius:8px; cursor:pointer}
+  .menu-btn{display:none}
+  @media(max-width:820px){ .menu-btn{display:inline-block} }
+
+  .layout{display:flex; align-items:flex-start}
+  .sidebar{width:320px; flex:0 0 320px; border-right:1px solid var(--line); background:var(--card);
+    height:calc(100vh - 52px); position:sticky; top:52px; overflow:auto; padding:14px}
+  .panel{flex:1; min-width:0; padding:22px; max-width:900px}
+  @media(max-width:820px){
+    .layout{flex-direction:column}
+    .sidebar{width:100%; flex-basis:auto; height:auto; position:static; border-right:0; border-bottom:1px solid var(--line); display:none}
+    .sidebar.open{display:block}
+    .panel{width:100%; padding:16px}
+  }
+
+  .progwrap{margin:2px 0 14px}
+  .progwrap .lab{display:flex; justify-content:space-between; font-size:.82rem; color:var(--muted); margin-bottom:4px}
+  .progbar{height:10px; background:var(--chip); border-radius:999px; overflow:hidden}
+  .progbar > i{display:block; height:100%; background:var(--ok); width:0%}
+  .viewtoggle{display:flex; gap:6px; margin-bottom:12px}
+  .viewtoggle .seg{flex:1; text-align:center; padding:7px; border:1px solid var(--line); border-radius:8px; cursor:pointer; font-size:.88rem; color:var(--muted)}
+  .viewtoggle .seg.on{background:var(--navy); color:#fff; border-color:var(--navy)}
+
+  .modgroup{border:1px solid var(--line); border-radius:10px; margin-bottom:10px; overflow:hidden}
+  .modhead{display:flex; align-items:center; gap:8px; padding:10px 12px; background:#f8f9fd; cursor:pointer; font-weight:600}
+  .modhead .caret{transition:transform .15s}
+  .modhead[aria-expanded="false"] .caret{transform:rotate(-90deg)}
+  .modlist{padding:6px}
+  .modgroup[data-open="false"] .modlist{display:none}
+  .lrow{display:flex; align-items:center; gap:8px; padding:8px 10px; border-radius:8px; cursor:pointer}
+  .lrow:hover{background:#f4f6fb}
+  .lrow.sel{background:#eaf0ff; outline:2px solid #c9d6ff}
+  .lrow.done .lid{background:var(--ok)}
+  .lid{background:var(--navy); color:#fff; border-radius:6px; padding:2px 7px; font-size:.78rem; font-weight:700; min-width:38px; text-align:center}
+  .lrow .lt{flex:1; font-size:.9rem}
+  .vid-flag{color:var(--red); font-weight:700}
+  .daygrid{display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:8px}
+  .daycell{position:relative; border:1px solid var(--line); border-radius:10px; padding:10px 6px; text-align:center; cursor:pointer; font-weight:700; color:var(--navy)}
+  .daycell:hover{background:#f4f6fb}
+  .daycell.sel{background:var(--navy); color:#fff}
+  .daycell.done{border-color:var(--ok)}
+  .daycell .v{position:absolute; top:4px; right:6px; color:var(--red); font-size:.7rem}
+
+  /* Lesson panel */
+  .lhead{display:flex; flex-wrap:wrap; align-items:center; gap:10px; margin-bottom:4px}
+  .pill{background:var(--navy); color:#fff; border-radius:999px; padding:4px 12px; font-size:.82rem; font-weight:700}
+  h2#lesson-topic{margin:.2rem 0; color:var(--ink); font-size:1.5rem; outline:none}
+  .meta{color:var(--muted); font-size:.92rem; margin-bottom:10px}
+  .mark{margin-left:auto}
+  .mark.done{background:var(--ok)}
+  .resbar{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0 18px}
+  .res{display:inline-flex; align-items:center; gap:6px; background:var(--chip); color:var(--navy);
+    border:1px solid var(--line); border-radius:999px; padding:7px 13px; text-decoration:none; font-size:.88rem; font-weight:600}
+  .res:hover{background:#e3e9f8}
+
+  .block{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:14px}
+  .block h3{margin:0 0 8px; color:var(--navy); font-size:1.05rem}
+  .ican{background:linear-gradient(90deg,#eaf0ff,#f6f9ff); border-left:5px solid var(--navy)}
+  .ican .big{font-size:1.15rem; font-weight:600}
+  .chips{display:flex; flex-wrap:wrap; gap:8px; margin-top:6px}
+  .chip{background:var(--chip); border:1px solid var(--line); border-radius:999px; padding:5px 12px; font-size:.85rem; font-weight:600; color:var(--navy)}
+  .collap > .block-h{display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:700; color:var(--navy)}
+  .collap[data-open="false"] .block-b{display:none}
+  .collap .caret{transition:transform .15s}
+  .collap[aria-expanded="false"] .caret{transform:rotate(-90deg)}
+
+  .videos{display:grid; gap:14px}
+  .vcard{border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#0d1220}
+  .vfacade{position:relative; cursor:pointer; aspect-ratio:16/9; background:#000}
+  .vfacade img{width:100%; height:100%; object-fit:cover; display:block; opacity:.86}
+  .vfacade .play{position:absolute; inset:0; display:flex; align-items:center; justify-content:center}
+  .vfacade .play span{width:68px; height:48px; background:rgba(201,19,43,.92); border-radius:12px; display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.4rem}
+  .vcard .vmeta{display:flex; align-items:center; gap:8px; padding:10px 12px; background:#141b2e; color:#eef}
+  .vtag{font-size:.72rem; font-weight:700; padding:2px 8px; border-radius:999px}
+  .vtag.primary{background:var(--red); color:#fff}
+  .vtag.alt{background:#33405f; color:#dfe6ff}
+  .vcard .vmeta .vt{flex:1; font-size:.92rem}
+  .vcard .vmeta a{color:#bcd0ff; font-size:.82rem; white-space:nowrap}
+  .vcard iframe{width:100%; aspect-ratio:16/9; border:0; display:block}
+
+  .navbtns{display:flex; justify-content:space-between; gap:10px; margin-top:20px}
+  .navbtns .btn.ghost:disabled{opacity:.4; cursor:not-allowed}
+  .foot{color:var(--muted); font-size:.8rem; margin-top:26px; padding-top:14px; border-top:1px solid var(--line)}
+  .hidden{display:none !important}
+</style>
+</head>
+<body>
+<div id="app-root">
+
+  <!-- LANDING -->
+  <section id="screen-landing" class="screen active">
+    <div class="wrap">
+      <div class="brandbar"><span class="dot" aria-hidden="true"></span>
+        <h1 id="course-name">Course Curriculum Portal</h1></div>
+      <p class="sub" id="course-sub">Daily lessons, resources, and video tutorials.</p>
+      <div class="cards">
+        <div class="card" id="card-student">
+          <div class="ico" aria-hidden="true">&#127891;</div>
+          <h2>Student</h2>
+          <p>Open the daily lessons, learning targets, readings, and video tutorials.</p>
+        </div>
+        <div class="card" id="card-instructor">
+          <div class="ico" aria-hidden="true">&#128273;</div>
+          <h2>Instructor</h2>
+          <p>Everything students see, plus TEKS, objectives, and lesson-plan tools.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PASSCODE -->
+  <section id="screen-passcode" class="screen">
+    <div class="pc">
+      <h2>Instructor Access</h2>
+      <p class="sub">Enter the instructor code. (Client-side gate &mdash; hides UI, not data.)</p>
+      <label for="code-input" class="hidden">Instructor code</label>
+      <input id="code-input" type="password" autocomplete="off" placeholder="Instructor code"
+        aria-describedby="code-err">
+      <div id="code-err" class="err" role="alert"></div>
+      <div style="display:flex; gap:10px">
+        <button class="btn red" id="code-go">Enter</button>
+        <button class="link" id="code-back">&larr; Back</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- APP -->
+  <section id="screen-app" class="screen">
+    <div class="topbar">
+      <button class="tb-btn menu-btn" id="menu-btn" aria-label="Toggle lesson menu">&#9776;</button>
+      <span class="title" id="tb-title">Curriculum Portal</span>
+      <div class="parttoggle" role="tablist" aria-label="Course part">
+        <div class="seg" id="seg-p1" role="tab">Part 1</div>
+        <div class="seg" id="seg-p2" role="tab">Part 2</div>
+      </div>
+      <span class="badge" id="mode-badge">Student</span>
+      <span class="spacer"></span>
+      <button class="tb-btn" id="home-btn">Home</button>
+    </div>
+    <div class="layout">
+      <aside class="sidebar" id="sidebar" aria-label="Lessons">
+        <div class="progwrap">
+          <div class="lab"><span id="prog-text">0 of 0 done</span><span id="prog-pct">0%</span></div>
+          <div class="progbar" id="progbar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Lessons completed">
+            <i id="prog-fill"></i>
+          </div>
+        </div>
+        <div class="viewtoggle">
+          <div class="seg on" id="view-modules" role="button">Modules</div>
+          <div class="seg" id="view-days" role="button">Day Grid</div>
+        </div>
+        <div id="side-list"></div>
+      </aside>
+      <main class="panel" id="panel" tabindex="-1">
+        <p class="meta">Select a lesson from the menu to begin.</p>
+      </main>
+    </div>
+  </section>
+
+</div>
+
+<script>
+"use strict";
+/* ==========================================================================
+   Course Curriculum Portal — client-side app (NO backticks / template literals)
+   ========================================================================== */
+
+/* ---- Branding ---- */
+var COURSE = {
+  name: "AV Production Portal — La Joya ISD",
+  tagline: "Daily lessons, resources, and video tutorials."
+};
+
+/* ---- Instructor gate (client-side only; visible in source) ---- */
+var INSTRUCTOR_CODE = "avpro2026";
+
+/* ---- Shared resource links ---- */
+var LINKS = {
+  syllabus: "https://example.com/syllabus",
+  textbook: "https://example.com/textbook",
+  manual: "https://example.com/course-manual",
+  scope: "https://example.com/scope-and-sequence",
+  lesson_plans: "https://example.com/lesson-plans",
+  supp_video: "https://example.com/supplements/video",
+  supp_photo: "https://example.com/supplements/photo",
+  supp_weekly: "https://example.com/supplements/weekly"
+};
+
+/* ---- Curriculum (keyed p{part}_{module}_{seq}) ----
+   NOTE: sample content. Replace with your real lessons. Keep strings
+   double-quoted; never use backticks. */
+var CURRICULUM = {
+  "p1_10_1": {
+    part:1, id:"10.1", module_num:10, module:"Camera Fundamentals",
+    topic:"Meet the Camera: Parts & Handling",
+    chapter:"Ch. 1", teks:"130.85(c)(1)(A)",
+    objectives:"Students will identify the major parts of a video camera and demonstrate their safe handling and setup.",
+    language_obj:"Students will label camera components using academic vocabulary (lens, sensor, viewfinder, tripod mount) in complete sentences (ELPS 1.C, 3.D).",
+    activation:"Show a short clip with shaky vs. stable footage; ask what makes the difference.",
+    i_do:"Name and point to each part on a demo camera; model a safe pick-up and mount.",
+    we_do:"Class walkthrough: each table names a part and its purpose aloud.",
+    you_do:"In pairs, mount a camera to a tripod and level it, then swap roles.",
+    demonstration:"Each student performs a clean setup checklist without prompting.",
+    closure:"Thumbs-up check: can you name three parts and one safety rule?",
+    reading_html:"<p>A video camera is a system of parts working together. The <strong>lens</strong> gathers light, the <strong>sensor</strong> converts it to a signal, and the <strong>viewfinder</strong> lets you frame the shot. Treat every camera as if it is the only one you have.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:false
+  },
+  "p1_10_2": {
+    part:1, id:"10.2", module_num:10, module:"Camera Fundamentals",
+    topic:"Exposure Triangle: Aperture, Shutter, ISO",
+    chapter:"Ch. 3", teks:"130.85(c)(3)(A)",
+    objectives:"Students will explain how aperture, shutter speed, and ISO affect their exposure and adjust their settings to achieve a balanced image.",
+    language_obj:"Students will discuss exposure using academic vocabulary (aperture, shutter speed, ISO, exposure) and justify their choices in writing (ELPS 3.D, 4.F).",
+    activation:"Compare two photos of the same scene, one bright and one dark. What changed?",
+    i_do:"Demonstrate changing aperture and its effect on depth of field on a live view.",
+    we_do:"As a class, balance one setting against another to keep exposure constant.",
+    you_do:"In pairs, capture three versions of one subject at different apertures.",
+    demonstration:"Students capture one correctly exposed portrait and explain their settings.",
+    closure:"Exit ticket: name one setting you changed today and why.",
+    reading_html:"<p>The <strong>exposure triangle</strong> connects aperture, shutter speed, and ISO. Change one and you must compensate with another to keep a balanced image. Aperture also controls how much of the scene is in focus.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/10-2", syllabus_url:"",
+    supp_video:true, supp_photo:true, supp_weekly:false
+  },
+  "p1_10_3": {
+    part:1, id:"10.3", module_num:10, module:"Camera Fundamentals",
+    topic:"White Balance & Color",
+    chapter:"Ch. 4", teks:"130.85(c)(3)(B)",
+    objectives:"Students will set white balance for a given light source so their footage shows accurate color.",
+    language_obj:"Students will describe color temperature using academic vocabulary (Kelvin, warm, cool, white balance) (ELPS 2.E, 3.F).",
+    activation:"Show the same shirt under warm and cool light. Which one is the true color?",
+    i_do:"Model a custom white balance using a gray card.",
+    we_do:"Set white balance together for the classroom lighting.",
+    you_do:"Balance for two different light sources and compare results.",
+    demonstration:"Students deliver one clip with correct, consistent color.",
+    closure:"One-sentence summary: when would you change white balance?",
+    reading_html:"<p>Different light sources have different <strong>color temperatures</strong>, measured in Kelvin. White balance tells the camera what should look white so every other color is accurate.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
+    supp_video:false, supp_photo:true, supp_weekly:false
+  },
+  "p1_11_1": {
+    part:1, id:"11.1", module_num:11, module:"Lighting & Composition",
+    topic:"Three-Point Lighting",
+    chapter:"Ch. 6", teks:"130.85(c)(4)(A)",
+    objectives:"Students will build a three-point lighting setup and explain the role of their key, fill, and back lights.",
+    language_obj:"Students will explain lighting roles using academic vocabulary (key light, fill light, back light, shadow) (ELPS 3.D, 4.G).",
+    activation:"Compare a flat-lit face to a three-point-lit face.",
+    i_do:"Place each light one at a time and narrate its job.",
+    we_do:"Class positions the fill light to control shadow ratio.",
+    you_do:"Teams light a subject and photograph the result.",
+    demonstration:"Each team presents a lit portrait and names each light.",
+    closure:"Which light adds depth by separating subject from background?",
+    reading_html:"<p><strong>Three-point lighting</strong> uses a key light for the main illumination, a fill light to soften shadows, and a back light to separate the subject from the background.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/11-1", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:true
+  },
+  "p1_11_2": {
+    part:1, id:"11.2", module_num:11, module:"Lighting & Composition",
+    topic:"Framing & the Rule of Thirds",
+    chapter:"Ch. 7", teks:"130.85(c)(4)(B)",
+    objectives:"Students will compose shots using the rule of thirds and headroom to strengthen their framing.",
+    language_obj:"Students will critique composition using academic vocabulary (rule of thirds, headroom, lead room, frame) (ELPS 2.I, 3.E).",
+    activation:"Rank three thumbnails from weakest to strongest framing.",
+    i_do:"Overlay a thirds grid and place the subject on an intersection.",
+    we_do:"Reframe a centered shot together to improve it.",
+    you_do:"Shoot five stills that each use the rule of thirds.",
+    demonstration:"Students present their strongest frame and justify it.",
+    closure:"Where should the eyes sit in a standard interview frame?",
+    reading_html:"<p>The <strong>rule of thirds</strong> divides the frame into a 3x3 grid. Placing key elements along the lines or intersections usually creates a more balanced, engaging image than centering everything.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
+    supp_video:false, supp_photo:true, supp_weekly:false
+  },
+  "p2_20_1": {
+    part:2, id:"20.1", module_num:20, module:"Editing Workflow",
+    topic:"Importing & Organizing Media",
+    chapter:"Ch. 10", teks:"130.85(c)(6)(A)",
+    objectives:"Students will import and organize their media into a clean project structure before editing.",
+    language_obj:"Students will describe an editing workflow using academic vocabulary (import, bin, timeline, project) (ELPS 3.D, 4.F).",
+    activation:"Show a messy project vs. an organized one. Which saves time?",
+    i_do:"Create bins and label clips in a demo project.",
+    we_do:"Sort a shared clip set into bins as a class.",
+    you_do:"Import your own footage and organize it into bins.",
+    demonstration:"Students show a labeled, organized project ready to edit.",
+    closure:"Name one habit that keeps a project organized.",
+    reading_html:"<p>Editing starts before the first cut. <strong>Importing</strong> media and organizing it into labeled <strong>bins</strong> makes everything that follows faster and less error-prone.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/20-1", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:false
+  },
+  "p2_20_2": {
+    part:2, id:"20.2", module_num:20, module:"Editing Workflow",
+    topic:"The Rough Cut",
+    chapter:"Ch. 11", teks:"130.85(c)(6)(B)",
+    objectives:"Students will assemble a rough cut on the timeline that tells their story in order.",
+    language_obj:"Students will explain edit decisions using academic vocabulary (rough cut, trim, sequence, transition) (ELPS 3.G, 4.F).",
+    activation:"Watch two versions of a scene cut in different orders.",
+    i_do:"Lay clips on the timeline and trim to the action.",
+    we_do:"Reorder a shared sequence for a stronger story.",
+    you_do:"Build a 30-second rough cut from your footage.",
+    demonstration:"Students screen their rough cut for a peer.",
+    closure:"What is the goal of a rough cut (and what is it NOT)?",
+    reading_html:"<p>A <strong>rough cut</strong> is the first full assembly of the story in order. It is meant to be messy; the goal is structure and flow, not polish.</p>",
+    has_reading:true, assign_url:"", syllabus_url:"",
+    supp_video:false, supp_photo:false, supp_weekly:true
+  },
+  "p2_21_1": {
+    part:2, id:"21.1", module_num:21, module:"Audio for Video",
+    topic:"Recording Clean Dialogue",
+    chapter:"Ch. 13", teks:"130.85(c)(7)(A)",
+    objectives:"Students will record clean dialogue by setting their levels and microphone placement correctly.",
+    language_obj:"Students will discuss audio using academic vocabulary (levels, clipping, lavalier, boom) (ELPS 3.D, 4.H).",
+    activation:"Compare clean dialogue to distorted, clipped audio.",
+    i_do:"Set levels so peaks stay in the safe range; place a lav mic.",
+    we_do:"Adjust gain together until the meter sits correctly.",
+    you_do:"Record a 20-second interview clip with clean levels.",
+    demonstration:"Students submit one clip with clear, unclipped dialogue.",
+    closure:"What does it mean when audio is clipping?",
+    reading_html:"<p>Good <strong>levels</strong> keep dialogue loud enough to hear but below the point of <strong>clipping</strong> (distortion). Microphone choice and placement matter as much as the settings.</p>",
+    has_reading:true, assign_url:"https://example.com/assign/21-1", syllabus_url:"",
+    supp_video:true, supp_photo:false, supp_weekly:false
+  }
+};
+
+/* ---- Module order per part ---- */
+var MODULES = {
+  p1: [
+    { part:1, module_num:10, module:"Camera Fundamentals", lessons:["p1_10_1","p1_10_2","p1_10_3"] },
+    { part:1, module_num:11, module:"Lighting & Composition", lessons:["p1_11_1","p1_11_2"] }
+  ],
+  p2: [
+    { part:2, module_num:20, module:"Editing Workflow", lessons:["p2_20_1","p2_20_2"] },
+    { part:2, module_num:21, module:"Audio for Video", lessons:["p2_21_1"] }
+  ]
+};
+
+/* ---- Videos (separate JSON map). Key = "p"+part+"_"+id.replace(".","_").
+   These are PLACEHOLDER demo videos; replace u with your real YouTube URLs. */
+var VIDEOS = {
+  "p1_10_1": [ {t:"Camera Parts Overview", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"} ],
+  "p1_10_2": [
+    {t:"Understanding the Exposure Triangle", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"},
+    {t:"Aperture & Depth of Field (alt view)", u:"https://youtu.be/dQw4w9WgXcQ", s:"YouTube"}
+  ],
+  "p1_11_1": [ {t:"Three-Point Lighting Explained", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"} ],
+  "p2_20_1": [
+    {t:"Organizing Your Edit Project", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"},
+    {t:"Bins & Labeling (alt view)", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"}
+  ],
+  "p2_21_1": [ {t:"Recording Clean Dialogue", u:"https://www.youtube.com/watch?v=dQw4w9WgXcQ", s:"YouTube"} ]
+};
+
+/* ======================= State ======================= */
+var state = { mode:"student", part:1, view:"modules", current:null };
+
+function LS(k, v){
+  try{
+    if(v === undefined){ return localStorage.getItem(k); }
+    localStorage.setItem(k, v); return v;
+  }catch(e){ return null; }
+}
+function doneKey(){ return "ccp_done_" + state.mode + "_" + state.part; }
+function resumeKey(){ return "ccp_resume_" + state.mode; }
+function getDone(){
+  var raw = LS(doneKey());
+  if(!raw){ return {}; }
+  try{ var arr = JSON.parse(raw); var o={}; for(var i=0;i<arr.length;i++){ o[arr[i]]=1; } return o; }
+  catch(e){ return {}; }
+}
+function setDone(o){
+  var arr=[]; for(var k in o){ if(o[k]){ arr.push(k); } }
+  LS(doneKey(), JSON.stringify(arr));
+}
+
+/* ======================= Helpers ======================= */
+function $(id){ return document.getElementById(id); }
+function esc(s){
+  s = (s==null) ? "" : String(s);
+  return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function makeButton(node, handler){
+  if(!node){ return; }
+  node.setAttribute("role","button");
+  if(!node.hasAttribute("tabindex")){ node.tabIndex = 0; }
+  node.addEventListener("click", handler);
+}
+/* Global Enter/Space activation for any role="button" element */
+document.addEventListener("keydown", function(ev){
+  if(ev.key === "Enter" || ev.key === " " || ev.key === "Spacebar"){
+    var t = ev.target;
+    if(t && t.getAttribute && t.getAttribute("role") === "button"){
+      ev.preventDefault();
+      if(typeof t.click === "function"){ t.click(); }
+    }
+  }
+});
+
+function ytId(u){
+  if(!u){ return ""; }
+  var m = String(u).match(/(?:v=|\/embed\/|youtu\.be\/|\/v\/|\/shorts\/)([A-Za-z0-9_-]{6,})/);
+  return m ? m[1] : "";
+}
+function lessonVideos(key){ return VIDEOS[key] || []; }
+function hasVideos(key){ return lessonVideos(key).length > 0; }
+
+/* Derive an "I can..." target from objectives:
+   strip a leading "Students will", swap "their" -> "my". */
+function iCan(objectives){
+  var s = (objectives || "").trim();
+  s = s.replace(/^students\s+will\s+/i, "");
+  s = s.replace(/\btheir\b/gi, "my");
+  s = s.replace(/\bthemselves\b/gi, "myself");
+  if(!s){ return ""; }
+  return "I can " + s.charAt(0).toLowerCase() + s.slice(1);
+}
+/* Extract key vocabulary from parenthetical lists in language_obj,
+   skipping ELPS codes and bare code tokens. */
+function extractVocab(langObj){
+  var out = [], seen = {};
+  var re = /\(([^)]*)\)/g, m;
+  while((m = re.exec(langObj || ""))){
+    var inner = m[1];
+    if(/ELPS/i.test(inner)){ continue; } /* whole group is codes */
+    var parts = inner.split(/[,;]/);
+    for(var i=0;i<parts.length;i++){
+      var t = parts[i].trim();
+      if(!t){ continue; }
+      if(/ELPS/i.test(t)){ continue; }
+      if(/^\d+(\.\w+)?$/.test(t)){ continue; } /* e.g. 3.C */
+      var lc = t.toLowerCase();
+      if(seen[lc]){ continue; }
+      seen[lc] = 1;
+      out.push(t);
+    }
+  }
+  return out;
+}
+
+function orderedKeys(part){
+  var groups = MODULES["p"+part] || [];
+  var keys = [];
+  for(var i=0;i<groups.length;i++){
+    for(var j=0;j<groups[i].lessons.length;j++){ keys.push(groups[i].lessons[j]); }
+  }
+  return keys;
+}
+
+/* ======================= Screens ======================= */
+function showScreen(name){
+  var ids = ["landing","passcode","app"];
+  for(var i=0;i<ids.length;i++){
+    var s = $("screen-"+ids[i]);
+    if(s){ s.classList.toggle("active", ids[i] === name); }
+  }
+}
+
+function chooseStudent(){ state.mode = "student"; enterApp(); }
+function chooseInstructor(){
+  $("code-err").textContent = "";
+  $("code-input").value = "";
+  showScreen("passcode");
+  setTimeout(function(){ $("code-input").focus(); }, 30);
+}
+function submitCode(){
+  var v = $("code-input").value.trim();
+  if(v === INSTRUCTOR_CODE){
+    state.mode = "instructor";
+    enterApp();
+  } else {
+    $("code-err").textContent = "Incorrect code. Please try again.";
+    $("code-input").focus();
+  }
+}
+
+function enterApp(){
+  $("mode-badge").textContent = (state.mode === "instructor") ? "Instructor" : "Student";
+  $("mode-badge").className = "badge" + (state.mode === "instructor" ? " instr" : "");
+  $("tb-title").textContent = COURSE.name;
+  /* remember part across sessions */
+  var savedPart = LS("ccp_part");
+  state.part = (savedPart === "2") ? 2 : 1;
+  var savedView = LS("ccp_view");
+  state.view = (savedView === "days") ? "days" : "modules";
+  setPartUI();
+  setViewUI();
+  buildSidebar();
+  showScreen("app");
+  /* Resume last-opened lesson if it belongs to this part; else first lesson */
+  var resume = LS(resumeKey());
+  var keys = orderedKeys(state.part);
+  if(resume && CURRICULUM[resume] && keys.indexOf(resume) !== -1){
+    selectLesson(resume, true);
+  } else if(keys.length){
+    selectLesson(keys[0], true);
+  }
+}
+
+function goHome(){ showScreen("landing"); }
+
+function setPart(p){
+  state.part = p;
+  LS("ccp_part", String(p));
+  setPartUI();
+  buildSidebar();
+  var keys = orderedKeys(p);
+  var resume = LS(resumeKey());
+  if(resume && CURRICULUM[resume] && keys.indexOf(resume) !== -1){ selectLesson(resume, true); }
+  else if(keys.length){ selectLesson(keys[0], true); }
+}
+function setPartUI(){
+  $("seg-p1").classList.toggle("on", state.part === 1);
+  $("seg-p2").classList.toggle("on", state.part === 2);
+  $("seg-p1").setAttribute("aria-selected", state.part === 1 ? "true" : "false");
+  $("seg-p2").setAttribute("aria-selected", state.part === 2 ? "true" : "false");
+}
+function setView(v){ state.view = v; LS("ccp_view", v); setViewUI(); buildSidebar(); }
+function setViewUI(){
+  $("view-modules").classList.toggle("on", state.view === "modules");
+  $("view-days").classList.toggle("on", state.view === "days");
+}
+
+/* ======================= Progress ======================= */
+function updateProgress(){
+  var keys = orderedKeys(state.part);
+  var done = getDone();
+  var d = 0;
+  for(var i=0;i<keys.length;i++){ if(done[keys[i]]){ d++; } }
+  var total = keys.length || 1;
+  var pct = Math.round((d/total)*100);
+  $("prog-text").textContent = d + " of " + keys.length + " done";
+  $("prog-pct").textContent = pct + "%";
+  $("prog-fill").style.width = pct + "%";
+  var pb = $("progbar");
+  pb.setAttribute("aria-valuenow", String(pct));
+  pb.setAttribute("aria-valuetext", d + " of " + keys.length + " lessons done");
+}
+
+/* ======================= Sidebar ======================= */
+function buildSidebar(){
+  updateProgress();
+  var host = $("side-list");
+  host.innerHTML = "";
+  if(state.view === "days"){ buildDayGrid(host); }
+  else { buildModules(host); }
+}
+
+function buildModules(host){
+  var groups = MODULES["p"+state.part] || [];
+  var done = getDone();
+  for(var g=0; g<groups.length; g++){
+    (function(grp){
+      var wrap = document.createElement("div");
+      wrap.className = "modgroup";
+      wrap.setAttribute("data-open","true");
+
+      var head = document.createElement("div");
+      head.className = "modhead";
+      head.setAttribute("aria-expanded","true");
+      head.innerHTML = "<span class='caret' aria-hidden='true'>&#9660;</span>" +
+        "<span>Module " + esc(grp.module_num) + " &middot; " + esc(grp.module) + "</span>";
+      makeButton(head, function(){
+        var open = wrap.getAttribute("data-open") === "true";
+        wrap.setAttribute("data-open", open ? "false" : "true");
+        head.setAttribute("aria-expanded", open ? "false" : "true");
+      });
+
+      var list = document.createElement("div");
+      list.className = "modlist";
+      for(var i=0;i<grp.lessons.length;i++){
+        (function(key){
+          var L = CURRICULUM[key]; if(!L){ return; }
+          var row = document.createElement("div");
+          row.className = "lrow" + (done[key] ? " done" : "") + (state.current === key ? " sel" : "");
+          row.setAttribute("data-key", key);
+          row.innerHTML =
+            "<span class='lid'>" + esc(L.id) + "</span>" +
+            "<span class='lt'>" + esc(L.topic) + "</span>" +
+            (hasVideos(key) ? "<span class='vid-flag' aria-label='Has videos' title='Has videos'>&#9654;</span>" : "");
+          makeButton(row, function(){ selectLesson(key); });
+          list.appendChild(row);
+        })(grp.lessons[i]);
+      }
+      wrap.appendChild(head);
+      wrap.appendChild(list);
+      host.appendChild(wrap);
+    })(groups[g]);
+  }
+}
+
+function buildDayGrid(host){
+  var keys = orderedKeys(state.part);
+  var done = getDone();
+  var grid = document.createElement("div");
+  grid.className = "daygrid";
+  for(var i=0;i<keys.length;i++){
+    (function(key){
+      var L = CURRICULUM[key]; if(!L){ return; }
+      var cell = document.createElement("div");
+      cell.className = "daycell" + (done[key] ? " done" : "") + (state.current === key ? " sel" : "");
+      cell.setAttribute("aria-label", "Lesson " + L.id + ": " + L.topic);
+      cell.innerHTML = esc(L.id) +
+        (hasVideos(key) ? "<span class='v' aria-hidden='true'>&#9654;</span>" : "");
+      makeButton(cell, function(){ selectLesson(key); });
+      grid.appendChild(cell);
+    })(keys[i]);
+  }
+  host.appendChild(grid);
+}
+
+/* ======================= Lesson panel ======================= */
+function resLink(href, label){
+  return "<a class='res' href='" + esc(href) + "' target='_blank' rel='noopener'>" +
+    "<span aria-hidden='true'>&#128279;</span>" + esc(label) + "</a>";
+}
+
+function selectLesson(key, noScroll){
+  if(!CURRICULUM[key]){ return; }
+  state.current = key;
+  LS(resumeKey(), key);
+  renderLesson(key);
+  /* reflect selection in sidebar */
+  buildSidebar();
+  /* close mobile sidebar after choosing */
+  $("sidebar").classList.remove("open");
+  /* move focus to the lesson heading */
+  var h = $("lesson-topic");
+  if(h){ h.focus(); }
+  if(!noScroll){ $("panel").scrollIntoView({block:"start"}); }
+}
+
+function renderLesson(key){
+  var L = CURRICULUM[key];
+  var instr = (state.mode === "instructor");
+  var done = getDone();
+  var isDone = !!done[key];
+  var html = "";
+
+  /* Header */
+  html += "<div class='lhead'>";
+  html += "<span class='pill'>Part " + esc(L.part) + " &middot; Lesson " + esc(L.id) + "</span>";
+  html += "<button class='btn mark" + (isDone ? " done" : "") + "' id='mark-btn'>" +
+    (isDone ? "&#10003; Done" : "Mark as Done") + "</button>";
+  html += "</div>";
+  html += "<h2 id='lesson-topic' tabindex='-1'>" + esc(L.topic) + "</h2>";
+  html += "<div class='meta'>Module " + esc(L.module_num) + " &middot; " + esc(L.module) +
+    " &nbsp;|&nbsp; " + esc(L.chapter) + "</div>";
+
+  /* Resource bar */
+  html += "<div class='resbar'>";
+  html += resLink(L.syllabus_url || LINKS.syllabus, "Syllabus");
+  if(L.assign_url){ html += resLink(L.assign_url, "Assignment"); }
+  html += resLink(LINKS.textbook, "Textbook");
+  if(instr){
+    html += resLink(LINKS.lesson_plans, "Lesson Plans");
+    html += resLink(LINKS.manual, "Course Manual");
+    html += resLink(LINKS.scope, "Scope & Sequence");
+  }
+  html += "</div>";
+
+  if(!instr){
+    /* Student: I can... + vocab */
+    var target = iCan(L.objectives);
+    if(target){
+      html += "<div class='block ican'><h3>Learning Target</h3><div class='big'>" + esc(target) + "</div></div>";
+    }
+    var vocab = extractVocab(L.language_obj);
+    if(vocab.length){
+      html += "<div class='block'><h3>Key Vocabulary</h3><div class='chips'>";
+      for(var i=0;i<vocab.length;i++){ html += "<span class='chip'>" + esc(vocab[i]) + "</span>"; }
+      html += "</div></div>";
+    }
+  } else {
+    /* Instructor: TEKS + objectives + collapsible planning cards */
+    html += "<div class='block'><h3>TEKS</h3><div>" + esc(L.teks || "—") + "</div></div>";
+    html += "<div class='block'><h3>Objectives</h3><div>" + esc(L.objectives) + "</div>" +
+      "<div style='margin-top:8px;color:#5b6472'><strong>Language:</strong> " + esc(L.language_obj) + "</div></div>";
+    html += collapCard("Activation / Warm-Up", L.activation);
+    html += collapCard("I Do (Model)", L.i_do);
+    html += collapCard("Demonstration", L.demonstration);
+    html += collapCard("Closure", L.closure);
+  }
+
+  /* Both roles */
+  html += simpleCard("We Do (Guided)", L.we_do);
+  html += simpleCard("You Do (Independent)", L.you_do);
+  if(L.has_reading && L.reading_html){
+    html += "<div class='block'><h3>Today's Reading</h3><div>" + L.reading_html + "</div></div>";
+  }
+  if(L.assign_url){
+    html += "<div class='block'><h3>Assignment</h3><div>" +
+      "<a class='res' href='" + esc(L.assign_url) + "' target='_blank' rel='noopener'>Open assignment &#8599;</a>" +
+      "</div></div>";
+  }
+
+  /* Supplemental resources */
+  var supp = [];
+  if(L.supp_video){ supp.push(["Video supplements", LINKS.supp_video]); }
+  if(L.supp_photo){ supp.push(["Photo supplements", LINKS.supp_photo]); }
+  if(L.supp_weekly){ supp.push(["Weekly supplements", LINKS.supp_weekly]); }
+  if(supp.length){
+    html += "<div class='block'><h3>Supplemental Resources</h3><div class='resbar' style='margin:0'>";
+    for(var s2=0;s2<supp.length;s2++){ html += resLink(supp[s2][1], supp[s2][0]); }
+    html += "</div></div>";
+  }
+
+  /* Videos */
+  var vids = lessonVideos(key);
+  if(vids.length){
+    html += "<div class='block'><h3><span aria-hidden='true'>&#128250;</span> Watch: Video Tutorials</h3>";
+    html += "<div class='videos' id='videos-host'></div></div>";
+  }
+
+  /* Prev / Next */
+  var keys = orderedKeys(state.part);
+  var idx = keys.indexOf(key);
+  var prev = idx > 0 ? keys[idx-1] : null;
+  var next = idx < keys.length-1 ? keys[idx+1] : null;
+  html += "<div class='navbtns'>";
+  html += "<button class='btn ghost' id='prev-btn'" + (prev ? "" : " disabled") + ">&larr; Previous</button>";
+  html += "<button class='btn ghost' id='next-btn'" + (next ? "" : " disabled") + ">Next &rarr;</button>";
+  html += "</div>";
+  html += "<div class='foot'>Progress is saved on this device only (self-checklist), not visible to your teacher.</div>";
+
+  $("panel").innerHTML = html;
+
+  /* wire up */
+  $("mark-btn").addEventListener("click", function(){ toggleDone(key); });
+  if(prev){ $("prev-btn").addEventListener("click", function(){ selectLesson(prev); }); }
+  if(next){ $("next-btn").addEventListener("click", function(){ selectLesson(next); }); }
+  wireCollapsibles();
+  if(vids.length){ renderVideos(key); }
+}
+
+function simpleCard(title, body){
+  if(!body){ return ""; }
+  return "<div class='block'><h3>" + esc(title) + "</h3><div>" + esc(body) + "</div></div>";
+}
+function collapCard(title, body){
+  if(!body){ return ""; }
+  return "<div class='block collap' data-open='false' aria-expanded='false'>" +
+    "<div class='block-h' role='button' tabindex='0'>" +
+      "<span class='caret' aria-hidden='true'>&#9660;</span>" + esc(title) +
+    "</div>" +
+    "<div class='block-b' style='margin-top:8px'>" + esc(body) + "</div>" +
+  "</div>";
+}
+function wireCollapsibles(){
+  var cs = document.querySelectorAll(".collap");
+  for(var i=0;i<cs.length;i++){
+    (function(c){
+      var head = c.querySelector(".block-h");
+      makeButton(head, function(){
+        var open = c.getAttribute("data-open") === "true";
+        c.setAttribute("data-open", open ? "false" : "true");
+        c.setAttribute("aria-expanded", open ? "false" : "true");
+      });
+    })(cs[i]);
+  }
+}
+
+function toggleDone(key){
+  var done = getDone();
+  if(done[key]){ delete done[key]; } else { done[key] = 1; }
+  setDone(done);
+  updateProgress();
+  /* refresh the button + sidebar states without losing scroll */
+  var btn = $("mark-btn");
+  if(btn){
+    var nowDone = !!getDone()[key];
+    btn.className = "btn mark" + (nowDone ? " done" : "");
+    btn.innerHTML = nowDone ? "&#10003; Done" : "Mark as Done";
+  }
+  buildSidebar();
+}
+
+/* ---- Video facades (click to play; youtube-nocookie embed) ---- */
+function renderVideos(key){
+  var host = $("videos-host");
+  if(!host){ return; }
+  var vids = lessonVideos(key);
+  for(var i=0;i<vids.length;i++){
+    (function(v, idx){
+      var id = ytId(v.u);
+      var card = document.createElement("div");
+      card.className = "vcard";
+
+      var facade = document.createElement("div");
+      facade.className = "vfacade";
+      var thumb = id ? ("https://img.youtube.com/vi/" + id + "/hqdefault.jpg") : "";
+      facade.innerHTML =
+        (thumb ? "<img alt='Video thumbnail: " + esc(v.t) + "' src='" + esc(thumb) + "'>" : "") +
+        "<div class='play' aria-hidden='true'><span>&#9654;</span></div>";
+      facade.setAttribute("aria-label", "Play video: " + v.t);
+      makeButton(facade, function(){
+        if(!id){ return; }
+        var iframe = document.createElement("iframe");
+        iframe.setAttribute("title", v.t);
+        iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture");
+        iframe.setAttribute("allowfullscreen", "true");
+        iframe.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+        card.replaceChild(iframe, facade);
+      });
+
+      var meta = document.createElement("div");
+      meta.className = "vmeta";
+      var tag = (idx === 0) ? "<span class='vtag primary'>Primary</span>" : "<span class='vtag alt'>Alternate view</span>";
+      var watchUrl = id ? ("https://www.youtube.com/watch?v=" + id) : (v.u || "#");
+      meta.innerHTML = tag +
+        "<span class='vt'>" + esc(v.t) + "</span>" +
+        "<a href='" + esc(watchUrl) + "' target='_blank' rel='noopener'>Open on YouTube &#8599;</a>";
+
+      card.appendChild(facade);
+      card.appendChild(meta);
+      host.appendChild(card);
+    })(vids[i], i);
+  }
+}
+
+/* ======================= Init ======================= */
+function init(){
+  $("course-name").textContent = COURSE.name;
+  $("course-sub").textContent = COURSE.tagline;
+
+  makeButton($("card-student"), chooseStudent);
+  makeButton($("card-instructor"), chooseInstructor);
+  $("code-go").addEventListener("click", submitCode);
+  $("code-back").addEventListener("click", function(){ showScreen("landing"); });
+  $("code-input").addEventListener("keydown", function(ev){
+    if(ev.key === "Enter"){ submitCode(); }
+  });
+
+  makeButton($("seg-p1"), function(){ setPart(1); });
+  makeButton($("seg-p2"), function(){ setPart(2); });
+  makeButton($("view-modules"), function(){ setView("modules"); });
+  makeButton($("view-days"), function(){ setView("days"); });
+  $("home-btn").addEventListener("click", goHome);
+  $("menu-btn").addEventListener("click", function(){
+    $("sidebar").classList.toggle("open");
+  });
+
+  showScreen("landing");
+}
+if(document.readyState === "loading"){
+  document.addEventListener("DOMContentLoaded", init);
+} else { init(); }
+</script>
+</body>
+</html>
