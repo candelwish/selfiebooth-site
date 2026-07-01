@@ -325,20 +325,140 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
 <script>
 (() => {
   // gas_app_injected.jsx
-  var { useState, useEffect, useMemo } = React;
+  var {
+    useState,
+    useEffect,
+    useMemo
+  } = React;
   window.storage = {
-    get: async (key) => {
+    get: async key => {
       const v = localStorage.getItem(key);
-      return v === null ? null : { key, value: v };
+      return v === null ? null : {
+        key,
+        value: v
+      };
     },
     set: async (key, value) => {
       localStorage.setItem(key, value);
-      return { key, value };
+      return {
+        key,
+        value
+      };
     }
   };
   var DEPLOY_URL = window.__DEPLOY_URL__ || "REPLACE_WITH_YOUR_WEB_APP_URL";
-  var LESSONS = [{ "number": 1, "slug": "vocal-clarity", "title": "Vocal Clarity: Speaking So Every Word Lands", "quick_lesson": "Vocal clarity is the foundation every other delivery skill builds on. It's the difference between an audience hearing you and an audience understanding you the first time, without straining to fill in gaps. Clarity is made up of a few working parts: Pronunciation (saying words the way they're meant to be said), Enunciation/Diction (articulating each sound distinctly instead of blending words together), Fluency (smooth, uninterrupted delivery without excessive hesitation), and Projection (speaking with enough vocal energy to reach the whole room without shouting). Most clarity problems aren't about what a speaker knows \u2014 they're about how the words leave the mouth. Common culprits: mumbling, slurred or dropped word endings (\u201Cgoin'\u201D instead of \u201Cgoing\u201D), weak consonants, and lazy vowel formation. These are physical habits, which means they're trainable.", "takeaway": "If your audience has to work to understand your words, they stop listening to your message. Clarity isn't about sounding formal \u2014 it's about removing friction between your idea and your listener's ear.", "steps": [["Warm up your articulators.", "Your articulators are the moving parts that shape sound \u2014 jaw, lips, tongue, and soft palate. Like any muscle group, they perform better warm than cold. Skipping a warm-up is often why the first 30 seconds of a speech sound mushier than the rest.", ["Jaw drops \u2014 open your mouth wide and let your jaw hang loose for 5 seconds. Repeat 5 times.", "Lip trills \u2014 blow air through closed lips to make a \u201Cmotorboat\u201D sound for 10 seconds.", "Tongue stretches \u2014 stick your tongue out, then move it side to side, up toward your nose, and down toward your chin."]], ["Over-enunciate in practice, then dial it back.", "\u201CPractice big, perform natural.\u201D Exaggerating your mouth movements in rehearsal trains the muscle memory you'll need when it counts. By the time you perform, your \u201Cdialed back\u201D version will still be clearer than your normal baseline.", ["Pick a paragraph from your speech.", "Read it aloud, over-pronouncing every syllable as if someone needed to lip-read along with you.", "Read it again at a natural pace, keeping the same crispness you just practiced."]], ["Record yourself reading a paragraph aloud.", "You don't hear your own voice the way an audience does. Sound traveling through your skull (bone conduction) makes your voice sound clearer and lower to you than it actually is. Recording is the only honest feedback you'll get.", ["Use your phone's voice memo app and read 100\u2013150 words.", "Play it back and listen specifically for dropped endings (-ing, -ed, -t sounds disappearing).", "Play it back again at 1.5x speed \u2014 this exaggerates slurred transitions so they're easier to catch."]], ["Slow down by 10\u201315% on multisyllabic or technical words.", "Clarity usually breaks down on the hardest words in a sentence \u2014 proper nouns, statistics, jargon \u2014 because the brain is still loading the word while the mouth is already moving. Slowing down buys your mouth time to catch up.", ["Go through your notes or outline and circle \u201Cdanger words\u201D \u2014 anything multisyllabic, technical, or unfamiliar to your audience.", "Practice those words in isolation first, slowly, until they feel automatic.", "In delivery, consciously slow down only on those words \u2014 not the whole speech."]], ["Project from the diaphragm, not the throat.", "Projection means filling the room with volume and energy. Speakers who push that volume from the throat strain their voice and sound harsh; speakers who project from the diaphragm (the muscle below your lungs) sound full and controlled.", ["Place a hand on your stomach and breathe in deeply \u2014 your stomach should expand, not your shoulders rise.", "As you exhale, push the air out with control while you speak, rather than tightening your throat.", "Practice with a sustained \u201Cha\u201D sound, feeling the push come from your stomach, not your throat."]], ["Build a 2-minute daily drill.", "Clarity is a physical skill, and physical skills are built through small, consistent reps \u2014 not occasional long sessions. Two minutes a day builds muscle memory faster than twenty minutes once a week.", ["Pick one tongue twister (for example, \u201Cred leather, yellow leather\u201D).", "Say it slowly and deliberately 3 times, then 3 times at full speed without losing clarity.", "Follow with a slow, deliberate read-aloud of one paragraph from a textbook, article, or your own speech notes."]]], "framework": null, "videos": [["Speak as Clearly as an Actor", "AQNMCgKvOk0", "Vocal warm-up exercises actors use before performing"], ["How to Stop Mumbling \u2014 Quick Technique", "iRKXOtwcDzI", "A fast, practical fix for mumbled speech"], ["Articulator Exercise for Clear Speech", "O86VWsXt-M4", "Jaw, tongue, and lip drills for English articulation"], ["Pronunciation Tutorial", "VcONw2BBfb8", "Foundational pronunciation practice"], ["How to Enunciate", "pBDS6Li2WQM", "Techniques for crisper, more distinct word formation"], ["5 Secrets to Stop Stuttering & Speak More Clearly", "6lfoYKUoYB0", "Fluency strategies for smoother delivery"]], "self_check": "Before your next speech or presentation, record 30 seconds of yourself speaking. Ask: Could a listener understand every word without needing me to repeat anything? If not, pick one practical step above and drill it for a week." }, { "number": 2, "slug": "vocal-variety", "title": "Vocal Variety: Keeping Your Voice Alive", "quick_lesson": 'Vocal variety covers inflection, pitch, tone, volume, pace, strategic pauses, emphasis, stress patterns, rhythm, and expressiveness. If vocal clarity is about being understood, vocal variety is about being listened to. A clear but flat voice can still lose an audience, because the brain tunes out repetitive, unchanging stimulation \u2014 including a monotone voice. Neuroimaging research shows monotone speech produces far fewer brain responses in listeners than varied speech does. Vocal variety is what signals meaning, emotion, and importance without you having to say "this part matters" out loud.', "takeaway": "Variety is what keeps a listener's brain engaged \u2014 monotone delivery, even with great content, gets tuned out before the message lands.", "steps": [["Identify your default pitch and stretch it.", "Pitch is how high or low your voice sounds, and most speakers stay in a narrow, habitual range without realizing it. Stretching that range \u2014 deliberately, not constantly \u2014 is what makes a voice sound alive instead of flat.", ["Record yourself reading a neutral paragraph and note your natural pitch range.", "Practice a \u201Cpitch ladder\u201D \u2014 say one sentence while gradually climbing your pitch from low to high, then back down.", "Mark 2\u20133 words per paragraph in your notes where you'll deliberately raise or lower your pitch for emphasis."]], ["Vary your pace to match meaning.", "Pace is your speed of delivery. A constant pace, even a good one, starts to feel like a metronome. Slowing down signals importance or complexity; speeding up signals energy or familiarity.", ["Mark \u201Cslow down\u201D next to your most complex or important sentences in your notes.", "Mark \u201Cspeed up\u201D on familiar, transitional, or lower-stakes material.", "Practice reading the same paragraph at three different speeds and notice how the meaning shifts each time."]], ["Use strategic pauses instead of filling silence.", "A pause before or after a key point creates emphasis and gives the audience a moment to absorb what you said. Silence feels longer to you than it does to your listeners.", ["Insert a deliberate 2-second pause immediately after your single most important sentence.", "Practice pausing and silently counting to two before answering a rehearsed question.", "Mark pause points with a symbol (like a slash) directly in your speaking notes so you don't forget them under pressure."]], ["Emphasize 2\u20133 key words per sentence, not every word.", "Over-emphasizing everything flattens the effect just as much as emphasizing nothing. Selective stress on the one or two words that carry the meaning is what makes emphasis actually work.", ["Underline the single most important word in each sentence of your introduction.", "Practice saying each sentence with stress only on that underlined word.", "Compare it to a flat read-through of the same sentence and notice the difference in how the meaning lands."]]], "framework": null, "videos": [["How To Speak Louder Without Yelling", "jElQlNDazy8", "Projecting volume without straining your voice"], ["Voice Inflections: How, When, and Where to Use Them", "cv93bQgkYfs", "Using pitch changes to add meaning and engagement"]], "self_check": "Record 30 seconds of yourself speaking. Ask: does my pitch, pace, or volume change at all \u2014 or does it stay flat the whole time?" }, { "number": 3, "slug": "language-fluency", "title": "Language Fluency: Sounding Like Yourself, Not a Script", "quick_lesson": "Language fluency covers smooth transitions, natural phrasing, conversational delivery, confidence in wording, sentence flow, and the ability to speak without reading verbatim. Fluent speakers sound like they're thinking and talking in real time \u2014 even when every word has been rehearsed. The opposite of fluency isn't silence or imperfection; it's sounding recited, stiff, or like you're reading someone else's words off a page.", "takeaway": "Fluency isn't about never pausing or never stumbling \u2014 it's about sounding like a real person talking to another person, not a recording being read aloud.", "steps": [["Build your notes from phrase cues, not full sentences.", "Writing and memorizing exact sentences locks you into rigid wording. The moment you lose your place in a memorized script, you freeze, because there's no flexibility built in.", ["Convert your speech notes into 3\u20135 word phrase cues per idea instead of full sentences.", "Practice saying each idea a slightly different way every time you rehearse it.", "If you blank on a cue, paraphrase it in your own words on the spot rather than stopping to recall the exact wording."]], ["Use the 3-2-1 framework for spontaneous moments.", "The 3-2-1 framework (3 steps, 2 types, 1 thing) is a mental scaffold popularized by communication coach Vinh Giang. Instead of your brain going blank when asked an unplanned question, you reach for a ready-made structure.", ["When asked an unplanned question, pick one structure on the spot: \u201Cthere are three main reasons...\u201D, \u201Cthere are two types of...\u201D, or \u201Cthe one thing to remember is...\u201D", "Practice this with random, low-stakes topics \u2014 your commute, your favorite meal \u2014 until reaching for a structure feels automatic.", "Use it specifically in moments where you'd otherwise ramble or freeze, like Q&A."]], ["Practice in thought groups, not word by word.", "Natural speech comes in small clusters of words tied to one idea, with a brief pause between groups. Reading word-by-word, with even emphasis on every syllable, sounds choppy and unnatural.", ["Mark slashes in your script between thought groups: \u201CToday / I want to talk about / three things.\u201D", "Practice reading with a small breath or pause at each slash mark.", "Listen for where you naturally pause in casual conversation and try to mimic that same rhythm in your speech."]], ["Rehearse ideas, not memorized phrasing.", "Memorizing exact words is fragile under nerves \u2014 lose one word and the whole sentence can collapse. Knowing the idea cold lets you rephrase smoothly on the fly if you lose your place.", ["After writing your speech, set the script aside and explain each section out loud in your own words.", "Repeat this 3\u20134 times until the ideas, not the sentences, feel automatic.", "Only go back to exact scripted wording for direct quotes, statistics, or technical terms that must be precise."]]], "framework": "3-2-1", "videos": [["How to Sound Natural While Giving a Speech", "QeDF7xV4pq0", "Strategies for conversational, unscripted-sounding delivery"]], "self_check": "Pick a random object in the room and talk about it for 30 seconds using the 3-2-1 structure, without writing anything down first." }, { "number": 4, "slug": "speech-confidence", "title": "Speech Confidence: Managing Nerves, Not Eliminating Them", "quick_lesson": "Speech confidence covers composure, poise, presence, managing communication apprehension, and recovering smoothly from mistakes. Nervousness before speaking is a physiological response, not a character flaw \u2014 nearly every speaker feels it, including experienced ones. The goal isn't to make the nerves disappear; it's to have a plan for what to do with the adrenaline once it shows up.", "takeaway": "Confidence isn't the absence of nerves \u2014 it's having a plan for what to do with the adrenaline once it shows up.", "steps": [["Reframe nervous energy as readiness, not danger.", "Physically, anxiety and excitement feel almost identical \u2014 racing heart, heightened alertness. The label your brain attaches to that sensation changes how it affects your delivery.", ["Right before speaking, say out loud (even quietly) \u201CI'm excited\u201D instead of \u201CI'm nervous.\u201D Research shows this simple reframe measurably improves performance.", "Pair the reframe with one slow breath: in through the nose, out through the mouth.", "Practice this reframe in low-stakes moments first, so it's a habit by the time you need it for something high-stakes."]], ["Prepare a recovery line for mistakes.", "Composure isn't never making an error \u2014 it's not letting a stumble visibly rattle you. Audiences forget small mistakes quickly if the speaker doesn't dwell on them.", ["Write one neutral recovery phrase you can use any time you lose your place, such as \u201CLet me say that more clearly.\u201D", "Practice saying it out loud in rehearsal so it comes out smoothly, not panicked, if you need it live.", "Resist the urge to apologize repeatedly for a small mistake \u2014 one calm correction is enough."]], ["Anchor your body before you speak.", "Poise is physical as much as it is mental. A grounded stance signals \u2014 and helps create \u2014 a sense of calm, both to the audience and to your own nervous system.", ["Before starting, plant both feet shoulder-width apart and roll your shoulders back once.", "Take one full breath before your first word.", "Treat this 3-second routine as a \u201Creset\u201D you can return to any time nerves spike mid-speech."]], ["Use a structured reflection after every practice run.", "Confidence builds through evidence, not pep talks. Reviewing what actually went well \u2014 specifically \u2014 trains your brain to expect success next time instead of replaying only the mistakes.", ["After each rehearsal, write down two specific things that went well.", "Write down one specific thing to adjust next time.", "Set one clear, small goal for your next run-through based on that adjustment."]]], "framework": null, "videos": [["Public Speaking Anxiety Tips: 6 Mindset Tips", "83wYDzO3CzI", "Practical mindset shifts for reducing public speaking anxiety"]], "self_check": "Before your next speech, say \u201CI'm excited\u201D out loud three times and notice whether your breathing changes." }, { "number": 5, "slug": "verbal-habits", "title": "Verbal Habits: Cleaning Up the Words You Don't Mean to Say", "quick_lesson": "Verbal habits include filler words (\u201Cum,\u201D \u201Cuh,\u201D \u201Clike,\u201D \u201Cyou know\u201D), repetitive phrases, verbal tics, unnecessary apologies, vocal fry, and uptalk (ending statements like questions). These are unconscious patterns picked up from everyday speech that become noticeably distracting once a speaker is in front of an audience or a microphone. None of them are signs of poor intelligence or preparation \u2014 they're habits, and habits can be retrained.", "takeaway": "You don't eliminate filler words by trying harder not to say them \u2014 you eliminate them by giving your mouth something else to do: pause.", "steps": [["Identify your personal \u201Cfiller fingerprint.\u201D", "Everyone has a default filler word or sound \u2014 \u201Cum,\u201D \u201Clike,\u201D \u201Cyou know,\u201D \u201Cso.\u201D You can't fix a habit you haven't specifically named.", ["Record two minutes of yourself answering a random question off the top of your head.", "Transcribe it (or use a phone transcription app) and circle every filler word.", "Count the frequency to identify your top one or two offenders \u2014 that's what you'll target first."]], ["Replace filler words with silence.", "A pause feels like uncomfortable dead air to the speaker, but it reads as confident composure to a listener. Silence is almost always a better choice than a filler word.", ["Every time you feel a filler word coming, close your mouth and silently count \u201Cone-one-thousand\u201D instead of speaking.", "Practice this substitution in low-stakes daily conversations before relying on it in a speech.", "Notice that the pause feels much longer to you than it sounds to anyone listening."]], ["Slow down at your transition points specifically.", "Filler words cluster at the start of sentences and between main ideas, because that's exactly where your brain is still loading the next thought.", ["Identify the transition points in your outline \u2014 the moments between main points.", "Rehearse those specific transitions slowly and deliberately until they stop triggering a filler word.", "Write out your transition sentences in full, even if the rest of your notes are just phrase cues."]], ["Catch uptalk and vocal fry through playback.", "Uptalk means letting your pitch rise at the end of statements, making them sound like questions. Vocal fry is a low, creaky voice quality, often at the end of sentences. Both can undercut authority even when the content is strong.", ["Record yourself delivering your closing line or a key statement.", "Listen specifically for whether your pitch rises at the end of statements that aren't questions.", "Practice ending sentences with a level or slightly downward pitch instead, especially on your most important points."]]], "framework": null, "videos": [["How To Stop Using These 10 Filler Words When Public Speaking", "MMjImcord5A", "Identifying and eliminating common filler words"]], "self_check": "Record yourself answering \u201CWhat did you do this weekend?\u201D for 30 seconds. Count your filler words \u2014 that number is your baseline to beat." }, { "number": 6, "slug": "audience-connection", "title": "Audience Connection: Talking With Your Audience, Not At Them", "quick_lesson": "Audience connection covers eye contact, audience awareness, conversational engagement, responsiveness to feedback, and inclusivity in language. Connection is what turns a one-way monologue into something that feels like a conversation, even when one person is doing all the talking. It's built through small, deliberate choices \u2014 where you look, how you open, and how you respond when the room reacts.", "takeaway": "Audiences don't remember speakers who talked at them \u2014 they remember speakers who made them feel like they were being talked to.", "steps": [["Use the \u201Clighthouse\u201D method for eye contact.", "Scanning the room too fast looks shifty and nervous. Staring at one person too long feels awkward for them. The lighthouse method holds steady contact with one person for a complete thought, then moves on.", ["Pick one person and hold eye contact for a full sentence \u2014 roughly 3\u20135 seconds.", "Then deliberately move to someone in a different section of the room.", "Rotate evenly through left, center, and right sections so no part of the audience feels ignored."]], ["Open with FORD-style common ground.", "FORD (Family, Occupation, Recreation, Dreams) is a conversational framework usually used for small talk, but it works just as well for finding a relatable entry point with any audience before you dive into content.", ["Before writing your opening, ask which FORD category connects you to this specific audience \u2014 a shared interest, goal, or experience.", "Build your opening hook from that connection instead of a generic line like \u201CToday I'm going to talk about...\u201D", "Adjust which FORD category you lean on depending on the audience \u2014 a professional audience may respond better to Occupation than Family."]], ["Practice LEAPS when fielding audience reactions.", "LEAPS (Listen, Empathize, Ask, Paraphrase, Summarize) is a structured way to respond to real-time audience input \u2014 a question, a confused look, a pushback \u2014 without getting flustered.", ["When someone reacts or asks something mid-speech, let them finish completely before responding.", "Acknowledge how they might be feeling, even briefly (\u201CThat's a fair concern.\u201D)", "Ask a clarifying question if needed, then paraphrase what you heard before summarizing your response."]], ["Apply WAIT before adding extra explanation.", "WAIT stands for \u201CWhy Am I Talking?\u201D \u2014 a quick mental check against over-explaining, which can disconnect an audience that already understood the point.", ["After making a key point, pause and silently ask yourself WAIT before continuing.", "If the additional information doesn't genuinely serve the audience's understanding, cut it and move to your next point.", "Use this especially during Q&A, where the instinct to keep talking after answering a question can undercut a strong answer."]]], "framework": "FORD, LEAPS, WAIT", "videos": [["How to Make Eye Contact When Public Speaking", "gwypzoyUjNU", "Practical eye contact technique for connecting with a room"]], "self_check": "After your next practice run, ask: did I look at individuals, or did I scan the room like a security camera?" }, { "number": 7, "slug": "nonverbal-delivery", "title": "Nonverbal Delivery: What Your Body Says Before You Speak", "quick_lesson": "Nonverbal delivery covers facial expressions, gestures, posture, movement, use of space, and avoiding distracting habits like fidgeting, swaying, or pacing. Audiences process body language almost instantly \u2014 often before they've fully processed your words. When your body language matches your message, it reinforces credibility. When it contradicts your message, the audience tends to believe the body over the words.", "takeaway": "If your body language contradicts your words, the audience believes your body \u2014 not your script.", "steps": [["Give your hands a \u201Chome base.\u201D", "Undirected hands \u2014 in pockets, fidgeting, crossed arms \u2014 read as nervous or closed off. A neutral resting position frees your hands to gesture with purpose instead of drifting on their own.", ["Practice resting your hands loosely in front of you at waist height between gestures.", "Avoid pockets, crossed arms, or hands clasped behind your back as default positions.", "Return to that home base position after every intentional gesture, rather than letting your hands hang or wander."]], ["Make gestures purposeful, not decorative.", "Random hand movement is distracting. Gestures that match your words \u2014 counting on fingers, indicating size, pointing to a direction \u2014 reinforce meaning instead of competing with it.", ["Go through your outline and mark 3\u20134 places where a gesture would naturally illustrate the point \u2014 a number, a comparison, a direction.", "Rehearse only those marked gestures deliberately.", "Let your hands stay at home base everywhere else, rather than gesturing constantly."]], ["Anchor your stance and move with purpose.", "Pacing or swaying reads as nervous energy, even when the speaker doesn't feel nervous. Planted, purposeful movement reads as control.", ["Pick 2\u20133 spots in the room \u2014 center, left, right.", "Deliver one complete idea from each spot before moving.", "Walk deliberately between spots only during transitions, and plant your feet while actually speaking."]], ["Match facial expression to content.", "A flat or mismatched facial expression \u2014 smiling while delivering serious content, for example \u2014 undercuts your message the same way a flat voice does.", ["Identify the emotional tone of each section of your speech \u2014 serious, hopeful, urgent, light.", "Practice in a mirror or on video, checking that your facial expression matches that tone before moving to the next section.", "Pay particular attention to your face during your opening and closing lines, since those get the most audience attention."]]], "framework": null, "videos": [["4 Essential Body Language Tips From a World Champion Public Speaker", "ZK3jSXYBNak", "Toastmasters World Champion on gestures and stage presence"]], "self_check": "Watch 30 seconds of yourself with the sound off. What does your body language say about your message, independent of the words?" }, { "number": 8, "slug": "organization-during-delivery", "title": "Organization During Delivery: Helping Your Audience Follow Along", "quick_lesson": "Organization during delivery covers effective openings, clear transitions, signposting, memorable conclusions, and time management. Unlike a reader, a listener can't flip back a page to re-find their place. Organization is what lets an audience follow you in real time without getting lost \u2014 and it's what makes a speaker sound credible, even before the content is evaluated.", "takeaway": "A well-organized speech doesn't just sound clearer \u2014 it makes the audience trust you more, because they always know where they are and where you're headed.", "steps": [["Use PREP to structure a point on the spot.", "PREP stands for Point, Reason, Example, Point. It means leading with your conclusion first, then backing it up \u2014 instead of building up to your point and risking losing the audience before you get there.", ["Practice answering a discussion question out loud using PREP: state your point in one sentence.", "Give one clear reason that supports it.", "Give one concrete example, then restate your point to close the loop."]], ["Use STAR to organize a story or example.", "STAR stands for Situation, Task, Action, Result. It's a structure for telling a complete, clear story instead of a rambling anecdote that loses its point halfway through.", ["Take one example or story from your speech and outline it using the four STAR beats before writing the full version.", "Make sure each beat is present: what was the situation, what needed to happen, what action was taken, what was the result.", "Cut any detail that doesn't fit clearly into one of the four categories \u2014 it's probably a distraction."]], ["Use PEEL to build a supporting argument.", "PEEL stands for Point, Evidence, Explain, Link. It ensures every claim in your speech is backed up and clearly connected to your larger argument, rather than left to stand on its own.", ["For each main point in your outline, write one sentence for each PEEL stage: the point itself, the evidence behind it, an explanation of why the evidence matters, and a link to what comes next.", "Use the \u201CLink\u201D sentence as the raw material for your transition into the next point.", "Check that every point in your outline has all four PEEL elements before moving to full drafting."]], ["Signpost out loud, not just on paper.", "Signposting \u2014 phrases like \u201Cfirst,\u201D \u201Cmy second point,\u201D \u201Cfinally\u201D \u2014 helps a listener track a structure they can't see, the way headers help a reader scan a document.", ["Go through your script and insert a spoken signpost before every main point.", "Say the signposts out loud in rehearsal \u2014 a signpost that only exists in your head doesn't help the audience.", "Vary your signpost language slightly so it doesn't sound robotic or repetitive across a longer speech."]]], "framework": "PREP, STAR, PEEL", "videos": [["Signposting: Making It Easy for Your Audience to Follow Your Speech", "HEEcwL5mq6w", "How clear structural cues guide a listening audience"]], "self_check": "Could someone who only heard your speech once retell your three main points back to you? If not, the signposting needs work, not necessarily the content." }, { "number": 9, "slug": "persuasive-expressive-delivery", "title": "Persuasive & Expressive Delivery: Making Your Audience Feel It", "quick_lesson": "Persuasive and expressive delivery covers enthusiasm, authenticity, emotional expression, storytelling, and building suspense. Persuasion isn't manipulation \u2014 it's organizing real conviction so that it lands clearly with an audience. People are moved by facts and structure together, not facts alone; a well-organized emotional appeal tends to change minds far more reliably than data by itself.", "takeaway": "People are moved by stories and structure together \u2014 facts alone rarely change minds, but facts wrapped in a clear emotional structure often do.", "steps": [["Use AIDA to structure a persuasive opening.", "AIDA stands for Attention, Interest, Desire, Action \u2014 a classic structure for moving someone from noticing you to actually doing something as a result.", ["Draft your opening with all four AIDA beats in order: a hook that grabs Attention, a fact or story that builds Interest.", "A clear benefit that creates Desire for the outcome you're proposing.", "A specific, concrete Action you want the audience to take by the end."]], ["Use PAS to address a problem your audience cares about.", "PAS stands for Problem, Agitate, Solution. Name the problem, make its real cost genuinely felt, and only then offer your idea as the fix.", ["Write one sentence clearly naming the problem.", "Write one or two sentences showing why the problem matters more than the audience may currently realize \u2014 this is the \u201Cagitate\u201D step.", "Transition directly into your solution only after the problem has emotionally landed, not before."]], ["Build one specific, sensory story instead of a general example.", "Vague examples (\u201Cmany students struggle with...\u201D) rarely move an audience. One specific person, moment, and sensory detail almost always lands harder.", ["Take your strongest supporting point and rewrite it as a 30-second story.", "Include a named (or anonymized) person and a specific moment in time.", "Add one sensory detail \u2014 something they saw, said, or felt \u2014 that makes the moment concrete instead of abstract."]], ["Let your enthusiasm show physically, not just verbally.", "Authentic passion is communicated through energy in your voice and body, not just word choice. Flat delivery of passionate content reads as insincere, no matter how strong the words are.", ["Identify the one moment in your speech you genuinely care about most.", "Practice delivering just that section with deliberately more vocal energy and animated gesture than feels natural at first.", "Record it and compare to your normal delivery to see how much the energy actually shifted."]]], "framework": "AIDA, PAS", "videos": [["The Art of Persuasive Storytelling | Kelly D. Parker | TED", "Oo2upU6ny-I", "How storytelling structure makes ideas more persuasive and memorable"]], "self_check": "After practicing, ask a friend: \u201CWhat did you feel during that speech, not just what did you learn?\u201D If the answer is \u201Cnothing,\u201D the structure may be there but the emotion isn't yet." }, { "number": 10, "slug": "technical-speaking-skills", "title": "Technical Speaking Skills: Mastering the Stagecraft", "quick_lesson": "Technical speaking skills cover microphone technique, speaking to large audiences, adjusting to room acoustics, and coordinating speech with slides or other visual aids. These are the logistical, \u201Cstagecraft\u201D skills that even strong speakers can get wrong simply because they haven't practiced them. Done well, the technology disappears and only the message remains; done poorly, it becomes the most memorable part of the talk for all the wrong reasons.", "takeaway": "Technical skill is invisible when done right and distracting when done wrong \u2014 the goal is for the tools to disappear so only your message remains.", "steps": [["Test and adjust the microphone before you speak.", "Every microphone and room is different. What worked in rehearsal at home may not work live in an unfamiliar space.", ["Arrive early enough to test the mic at your actual speaking volume, not a quiet whisper check.", "Ask someone to stand in the back row and confirm they can hear you clearly at a normal speaking level.", "Adjust your position or the mic's settings based on that feedback before the audience arrives."]], ["Hold a handheld mic correctly.", "Holding a mic too low or angled away muffles your voice. Holding it like a singer \u2014 straight out, blocking your mouth \u2014 hides your face from the audience.", ["Hold the mic about 2\u20133 inches from your mouth, angled slightly downward so your mouth stays visible.", "Keep that distance consistent rather than letting it drift closer or farther as you gesture.", "Practice holding the mic steady while still gesturing naturally with your other hand."]], ["Build deliberate pauses around slide changes.", "Talking while a new slide is loading or appearing splits the audience's attention between reading and listening. A brief pause lets them look first, then listen.", ["When you advance a slide, pause for 2\u20133 seconds before speaking again.", "Use that pause to let the audience visually process the new slide.", "Resume speaking once you sense their attention has shifted back from the screen to you."]], ["Rehearse with the actual equipment when possible.", "Clicking through slides on your own laptop at home doesn't fully prepare you for an unfamiliar remote, podium setup, or room delay.", ["If possible, do at least one full run-through in the actual room or with the actual equipment before the real presentation.", "Specifically practice the transitions between talking and operating the technology \u2014 advancing slides, using a remote, adjusting a mic.", "Have a brief mental backup plan for what you'll do if a piece of equipment fails mid-presentation."]]], "framework": null, "videos": [["Toastmasters Tips \u2013 The Proper Way to Use a Microphone", "twuRPGDDD5I", "Microphone preparation, positioning, and troubleshooting"]], "self_check": "If your mic, slides, or remote failed right now, do you know your content well enough to keep going without them?" }, { "number": 11, "slug": "professional-speaking-habits", "title": "Professional Speaking Habits: Earning Trust in the Room", "quick_lesson": "Professional speaking habits cover credibility, appropriate vocabulary, audience adaptation, ethical communication, and confidence in Q&A. These habits are what separate someone who simply knows the content from someone the audience trusts to represent it accurately and handle their questions with respect. Professionalism in speaking isn't about sounding stiff or formal \u2014 it's about consistency, clarity, and honesty under pressure.", "takeaway": "Professionalism in speaking isn't about sounding stiff \u2014 it's about being someone your audience can trust to handle their questions and their attention with respect.", "steps": [["Use PARA to answer questions concisely.", "PARA stands for Point, Action, Result, Ask. It keeps your answers focused instead of rambling, especially useful under the pressure of a live Q&A.", ["State your Point first \u2014 the direct answer to the question.", "Briefly explain the Action you took or recommend, and the Result or outcome that followed.", "Optionally, Ask a follow-up question back to the person, keeping the exchange two-way rather than one-sided."]], ["Adjust vocabulary to your specific audience.", "The same content often needs different language depending on who's listening. Using the wrong register \u2014 too technical or too simplified \u2014 signals you haven't thought carefully about your audience.", ["Before finalizing your talk, list any jargon or technical terms you plan to use.", "For each term, decide whether to define it, replace it with plainer language, or keep it as-is based on your audience's background.", "When in doubt, briefly define a term the first time you use it rather than assuming familiarity."]], ["Repeat the question before answering it.", "Repeating or paraphrasing a question buys you a moment to think, ensures the whole room actually heard it, and confirms you understood it correctly before you respond.", ["Practice the habit of saying \u201CSo the question is...\u201D or paraphrasing the question before launching into your answer.", "Do this even when you're confident you understood the question the first time \u2014 it still benefits the rest of the audience.", "Use this pause as a natural moment to organize your PARA-structured response."]], ["Prepare a graceful way to say \u201CI don't know.\u201D", "Pretending to know something you don't damages credibility far more than honestly admitting a gap and offering to follow up.", ["Write one go-to phrase for this situation, such as \u201CThat's outside what I can speak to confidently right now, but I'll find out and follow up.\u201D", "Practice saying it calmly and without excessive apology.", "Follow through on any promise to follow up \u2014 this is what actually builds the trust the phrase is meant to protect."]]], "framework": "PARA", "videos": [["Handling Q&A Sessions During a Presentation: How to Answer Questions Effectively", "jHIfj011QRY", "Strategies for fielding audience questions with confidence"]], "self_check": "Think of the last question you struggled to answer. Could PARA have helped you structure that response more clearly?" }];
-  var FONT_IMPORT = `@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&display=swap');`;
+  var LESSONS = [{
+    "number": 1,
+    "slug": "vocal-clarity",
+    "title": "Vocal Clarity: Speaking So Every Word Lands",
+    "quick_lesson": "Vocal clarity is the foundation every other delivery skill builds on. It's the difference between an audience hearing you and an audience understanding you the first time, without straining to fill in gaps. Clarity is made up of a few working parts: Pronunciation (saying words the way they're meant to be said), Enunciation/Diction (articulating each sound distinctly instead of blending words together), Fluency (smooth, uninterrupted delivery without excessive hesitation), and Projection (speaking with enough vocal energy to reach the whole room without shouting). Most clarity problems aren't about what a speaker knows \u2014 they're about how the words leave the mouth. Common culprits: mumbling, slurred or dropped word endings (\u201Cgoin'\u201D instead of \u201Cgoing\u201D), weak consonants, and lazy vowel formation. These are physical habits, which means they're trainable.",
+    "takeaway": "If your audience has to work to understand your words, they stop listening to your message. Clarity isn't about sounding formal \u2014 it's about removing friction between your idea and your listener's ear.",
+    "steps": [["Warm up your articulators.", "Your articulators are the moving parts that shape sound \u2014 jaw, lips, tongue, and soft palate. Like any muscle group, they perform better warm than cold. Skipping a warm-up is often why the first 30 seconds of a speech sound mushier than the rest.", ["Jaw drops \u2014 open your mouth wide and let your jaw hang loose for 5 seconds. Repeat 5 times.", "Lip trills \u2014 blow air through closed lips to make a \u201Cmotorboat\u201D sound for 10 seconds.", "Tongue stretches \u2014 stick your tongue out, then move it side to side, up toward your nose, and down toward your chin."]], ["Over-enunciate in practice, then dial it back.", "\u201CPractice big, perform natural.\u201D Exaggerating your mouth movements in rehearsal trains the muscle memory you'll need when it counts. By the time you perform, your \u201Cdialed back\u201D version will still be clearer than your normal baseline.", ["Pick a paragraph from your speech.", "Read it aloud, over-pronouncing every syllable as if someone needed to lip-read along with you.", "Read it again at a natural pace, keeping the same crispness you just practiced."]], ["Record yourself reading a paragraph aloud.", "You don't hear your own voice the way an audience does. Sound traveling through your skull (bone conduction) makes your voice sound clearer and lower to you than it actually is. Recording is the only honest feedback you'll get.", ["Use your phone's voice memo app and read 100\u2013150 words.", "Play it back and listen specifically for dropped endings (-ing, -ed, -t sounds disappearing).", "Play it back again at 1.5x speed \u2014 this exaggerates slurred transitions so they're easier to catch."]], ["Slow down by 10\u201315% on multisyllabic or technical words.", "Clarity usually breaks down on the hardest words in a sentence \u2014 proper nouns, statistics, jargon \u2014 because the brain is still loading the word while the mouth is already moving. Slowing down buys your mouth time to catch up.", ["Go through your notes or outline and circle \u201Cdanger words\u201D \u2014 anything multisyllabic, technical, or unfamiliar to your audience.", "Practice those words in isolation first, slowly, until they feel automatic.", "In delivery, consciously slow down only on those words \u2014 not the whole speech."]], ["Project from the diaphragm, not the throat.", "Projection means filling the room with volume and energy. Speakers who push that volume from the throat strain their voice and sound harsh; speakers who project from the diaphragm (the muscle below your lungs) sound full and controlled.", ["Place a hand on your stomach and breathe in deeply \u2014 your stomach should expand, not your shoulders rise.", "As you exhale, push the air out with control while you speak, rather than tightening your throat.", "Practice with a sustained \u201Cha\u201D sound, feeling the push come from your stomach, not your throat."]], ["Build a 2-minute daily drill.", "Clarity is a physical skill, and physical skills are built through small, consistent reps \u2014 not occasional long sessions. Two minutes a day builds muscle memory faster than twenty minutes once a week.", ["Pick one tongue twister (for example, \u201Cred leather, yellow leather\u201D).", "Say it slowly and deliberately 3 times, then 3 times at full speed without losing clarity.", "Follow with a slow, deliberate read-aloud of one paragraph from a textbook, article, or your own speech notes."]]],
+    "framework": null,
+    "videos": [["Speak as Clearly as an Actor", "AQNMCgKvOk0", "Vocal warm-up exercises actors use before performing"], ["How to Stop Mumbling \u2014 Quick Technique", "iRKXOtwcDzI", "A fast, practical fix for mumbled speech"], ["Articulator Exercise for Clear Speech", "O86VWsXt-M4", "Jaw, tongue, and lip drills for English articulation"], ["Pronunciation Tutorial", "VcONw2BBfb8", "Foundational pronunciation practice"], ["How to Enunciate", "pBDS6Li2WQM", "Techniques for crisper, more distinct word formation"], ["5 Secrets to Stop Stuttering & Speak More Clearly", "6lfoYKUoYB0", "Fluency strategies for smoother delivery"]],
+    "self_check": "Before your next speech or presentation, record 30 seconds of yourself speaking. Ask: Could a listener understand every word without needing me to repeat anything? If not, pick one practical step above and drill it for a week."
+  }, {
+    "number": 2,
+    "slug": "vocal-variety",
+    "title": "Vocal Variety: Keeping Your Voice Alive",
+    "quick_lesson": 'Vocal variety covers inflection, pitch, tone, volume, pace, strategic pauses, emphasis, stress patterns, rhythm, and expressiveness. If vocal clarity is about being understood, vocal variety is about being listened to. A clear but flat voice can still lose an audience, because the brain tunes out repetitive, unchanging stimulation \u2014 including a monotone voice. Neuroimaging research shows monotone speech produces far fewer brain responses in listeners than varied speech does. Vocal variety is what signals meaning, emotion, and importance without you having to say "this part matters" out loud.',
+    "takeaway": "Variety is what keeps a listener's brain engaged \u2014 monotone delivery, even with great content, gets tuned out before the message lands.",
+    "steps": [["Identify your default pitch and stretch it.", "Pitch is how high or low your voice sounds, and most speakers stay in a narrow, habitual range without realizing it. Stretching that range \u2014 deliberately, not constantly \u2014 is what makes a voice sound alive instead of flat.", ["Record yourself reading a neutral paragraph and note your natural pitch range.", "Practice a \u201Cpitch ladder\u201D \u2014 say one sentence while gradually climbing your pitch from low to high, then back down.", "Mark 2\u20133 words per paragraph in your notes where you'll deliberately raise or lower your pitch for emphasis."]], ["Vary your pace to match meaning.", "Pace is your speed of delivery. A constant pace, even a good one, starts to feel like a metronome. Slowing down signals importance or complexity; speeding up signals energy or familiarity.", ["Mark \u201Cslow down\u201D next to your most complex or important sentences in your notes.", "Mark \u201Cspeed up\u201D on familiar, transitional, or lower-stakes material.", "Practice reading the same paragraph at three different speeds and notice how the meaning shifts each time."]], ["Use strategic pauses instead of filling silence.", "A pause before or after a key point creates emphasis and gives the audience a moment to absorb what you said. Silence feels longer to you than it does to your listeners.", ["Insert a deliberate 2-second pause immediately after your single most important sentence.", "Practice pausing and silently counting to two before answering a rehearsed question.", "Mark pause points with a symbol (like a slash) directly in your speaking notes so you don't forget them under pressure."]], ["Emphasize 2\u20133 key words per sentence, not every word.", "Over-emphasizing everything flattens the effect just as much as emphasizing nothing. Selective stress on the one or two words that carry the meaning is what makes emphasis actually work.", ["Underline the single most important word in each sentence of your introduction.", "Practice saying each sentence with stress only on that underlined word.", "Compare it to a flat read-through of the same sentence and notice the difference in how the meaning lands."]]],
+    "framework": null,
+    "videos": [["How To Speak Louder Without Yelling", "jElQlNDazy8", "Projecting volume without straining your voice"], ["Voice Inflections: How, When, and Where to Use Them", "cv93bQgkYfs", "Using pitch changes to add meaning and engagement"]],
+    "self_check": "Record 30 seconds of yourself speaking. Ask: does my pitch, pace, or volume change at all \u2014 or does it stay flat the whole time?"
+  }, {
+    "number": 3,
+    "slug": "language-fluency",
+    "title": "Language Fluency: Sounding Like Yourself, Not a Script",
+    "quick_lesson": "Language fluency covers smooth transitions, natural phrasing, conversational delivery, confidence in wording, sentence flow, and the ability to speak without reading verbatim. Fluent speakers sound like they're thinking and talking in real time \u2014 even when every word has been rehearsed. The opposite of fluency isn't silence or imperfection; it's sounding recited, stiff, or like you're reading someone else's words off a page.",
+    "takeaway": "Fluency isn't about never pausing or never stumbling \u2014 it's about sounding like a real person talking to another person, not a recording being read aloud.",
+    "steps": [["Build your notes from phrase cues, not full sentences.", "Writing and memorizing exact sentences locks you into rigid wording. The moment you lose your place in a memorized script, you freeze, because there's no flexibility built in.", ["Convert your speech notes into 3\u20135 word phrase cues per idea instead of full sentences.", "Practice saying each idea a slightly different way every time you rehearse it.", "If you blank on a cue, paraphrase it in your own words on the spot rather than stopping to recall the exact wording."]], ["Use the 3-2-1 framework for spontaneous moments.", "The 3-2-1 framework (3 steps, 2 types, 1 thing) is a mental scaffold popularized by communication coach Vinh Giang. Instead of your brain going blank when asked an unplanned question, you reach for a ready-made structure.", ["When asked an unplanned question, pick one structure on the spot: \u201Cthere are three main reasons...\u201D, \u201Cthere are two types of...\u201D, or \u201Cthe one thing to remember is...\u201D", "Practice this with random, low-stakes topics \u2014 your commute, your favorite meal \u2014 until reaching for a structure feels automatic.", "Use it specifically in moments where you'd otherwise ramble or freeze, like Q&A."]], ["Practice in thought groups, not word by word.", "Natural speech comes in small clusters of words tied to one idea, with a brief pause between groups. Reading word-by-word, with even emphasis on every syllable, sounds choppy and unnatural.", ["Mark slashes in your script between thought groups: \u201CToday / I want to talk about / three things.\u201D", "Practice reading with a small breath or pause at each slash mark.", "Listen for where you naturally pause in casual conversation and try to mimic that same rhythm in your speech."]], ["Rehearse ideas, not memorized phrasing.", "Memorizing exact words is fragile under nerves \u2014 lose one word and the whole sentence can collapse. Knowing the idea cold lets you rephrase smoothly on the fly if you lose your place.", ["After writing your speech, set the script aside and explain each section out loud in your own words.", "Repeat this 3\u20134 times until the ideas, not the sentences, feel automatic.", "Only go back to exact scripted wording for direct quotes, statistics, or technical terms that must be precise."]]],
+    "framework": "3-2-1",
+    "videos": [["How to Sound Natural While Giving a Speech", "QeDF7xV4pq0", "Strategies for conversational, unscripted-sounding delivery"]],
+    "self_check": "Pick a random object in the room and talk about it for 30 seconds using the 3-2-1 structure, without writing anything down first."
+  }, {
+    "number": 4,
+    "slug": "speech-confidence",
+    "title": "Speech Confidence: Managing Nerves, Not Eliminating Them",
+    "quick_lesson": "Speech confidence covers composure, poise, presence, managing communication apprehension, and recovering smoothly from mistakes. Nervousness before speaking is a physiological response, not a character flaw \u2014 nearly every speaker feels it, including experienced ones. The goal isn't to make the nerves disappear; it's to have a plan for what to do with the adrenaline once it shows up.",
+    "takeaway": "Confidence isn't the absence of nerves \u2014 it's having a plan for what to do with the adrenaline once it shows up.",
+    "steps": [["Reframe nervous energy as readiness, not danger.", "Physically, anxiety and excitement feel almost identical \u2014 racing heart, heightened alertness. The label your brain attaches to that sensation changes how it affects your delivery.", ["Right before speaking, say out loud (even quietly) \u201CI'm excited\u201D instead of \u201CI'm nervous.\u201D Research shows this simple reframe measurably improves performance.", "Pair the reframe with one slow breath: in through the nose, out through the mouth.", "Practice this reframe in low-stakes moments first, so it's a habit by the time you need it for something high-stakes."]], ["Prepare a recovery line for mistakes.", "Composure isn't never making an error \u2014 it's not letting a stumble visibly rattle you. Audiences forget small mistakes quickly if the speaker doesn't dwell on them.", ["Write one neutral recovery phrase you can use any time you lose your place, such as \u201CLet me say that more clearly.\u201D", "Practice saying it out loud in rehearsal so it comes out smoothly, not panicked, if you need it live.", "Resist the urge to apologize repeatedly for a small mistake \u2014 one calm correction is enough."]], ["Anchor your body before you speak.", "Poise is physical as much as it is mental. A grounded stance signals \u2014 and helps create \u2014 a sense of calm, both to the audience and to your own nervous system.", ["Before starting, plant both feet shoulder-width apart and roll your shoulders back once.", "Take one full breath before your first word.", "Treat this 3-second routine as a \u201Creset\u201D you can return to any time nerves spike mid-speech."]], ["Use a structured reflection after every practice run.", "Confidence builds through evidence, not pep talks. Reviewing what actually went well \u2014 specifically \u2014 trains your brain to expect success next time instead of replaying only the mistakes.", ["After each rehearsal, write down two specific things that went well.", "Write down one specific thing to adjust next time.", "Set one clear, small goal for your next run-through based on that adjustment."]]],
+    "framework": null,
+    "videos": [["Public Speaking Anxiety Tips: 6 Mindset Tips", "83wYDzO3CzI", "Practical mindset shifts for reducing public speaking anxiety"]],
+    "self_check": "Before your next speech, say \u201CI'm excited\u201D out loud three times and notice whether your breathing changes."
+  }, {
+    "number": 5,
+    "slug": "verbal-habits",
+    "title": "Verbal Habits: Cleaning Up the Words You Don't Mean to Say",
+    "quick_lesson": "Verbal habits include filler words (\u201Cum,\u201D \u201Cuh,\u201D \u201Clike,\u201D \u201Cyou know\u201D), repetitive phrases, verbal tics, unnecessary apologies, vocal fry, and uptalk (ending statements like questions). These are unconscious patterns picked up from everyday speech that become noticeably distracting once a speaker is in front of an audience or a microphone. None of them are signs of poor intelligence or preparation \u2014 they're habits, and habits can be retrained.",
+    "takeaway": "You don't eliminate filler words by trying harder not to say them \u2014 you eliminate them by giving your mouth something else to do: pause.",
+    "steps": [["Identify your personal \u201Cfiller fingerprint.\u201D", "Everyone has a default filler word or sound \u2014 \u201Cum,\u201D \u201Clike,\u201D \u201Cyou know,\u201D \u201Cso.\u201D You can't fix a habit you haven't specifically named.", ["Record two minutes of yourself answering a random question off the top of your head.", "Transcribe it (or use a phone transcription app) and circle every filler word.", "Count the frequency to identify your top one or two offenders \u2014 that's what you'll target first."]], ["Replace filler words with silence.", "A pause feels like uncomfortable dead air to the speaker, but it reads as confident composure to a listener. Silence is almost always a better choice than a filler word.", ["Every time you feel a filler word coming, close your mouth and silently count \u201Cone-one-thousand\u201D instead of speaking.", "Practice this substitution in low-stakes daily conversations before relying on it in a speech.", "Notice that the pause feels much longer to you than it sounds to anyone listening."]], ["Slow down at your transition points specifically.", "Filler words cluster at the start of sentences and between main ideas, because that's exactly where your brain is still loading the next thought.", ["Identify the transition points in your outline \u2014 the moments between main points.", "Rehearse those specific transitions slowly and deliberately until they stop triggering a filler word.", "Write out your transition sentences in full, even if the rest of your notes are just phrase cues."]], ["Catch uptalk and vocal fry through playback.", "Uptalk means letting your pitch rise at the end of statements, making them sound like questions. Vocal fry is a low, creaky voice quality, often at the end of sentences. Both can undercut authority even when the content is strong.", ["Record yourself delivering your closing line or a key statement.", "Listen specifically for whether your pitch rises at the end of statements that aren't questions.", "Practice ending sentences with a level or slightly downward pitch instead, especially on your most important points."]]],
+    "framework": null,
+    "videos": [["How To Stop Using These 10 Filler Words When Public Speaking", "MMjImcord5A", "Identifying and eliminating common filler words"]],
+    "self_check": "Record yourself answering \u201CWhat did you do this weekend?\u201D for 30 seconds. Count your filler words \u2014 that number is your baseline to beat."
+  }, {
+    "number": 6,
+    "slug": "audience-connection",
+    "title": "Audience Connection: Talking With Your Audience, Not At Them",
+    "quick_lesson": "Audience connection covers eye contact, audience awareness, conversational engagement, responsiveness to feedback, and inclusivity in language. Connection is what turns a one-way monologue into something that feels like a conversation, even when one person is doing all the talking. It's built through small, deliberate choices \u2014 where you look, how you open, and how you respond when the room reacts.",
+    "takeaway": "Audiences don't remember speakers who talked at them \u2014 they remember speakers who made them feel like they were being talked to.",
+    "steps": [["Use the \u201Clighthouse\u201D method for eye contact.", "Scanning the room too fast looks shifty and nervous. Staring at one person too long feels awkward for them. The lighthouse method holds steady contact with one person for a complete thought, then moves on.", ["Pick one person and hold eye contact for a full sentence \u2014 roughly 3\u20135 seconds.", "Then deliberately move to someone in a different section of the room.", "Rotate evenly through left, center, and right sections so no part of the audience feels ignored."]], ["Open with FORD-style common ground.", "FORD (Family, Occupation, Recreation, Dreams) is a conversational framework usually used for small talk, but it works just as well for finding a relatable entry point with any audience before you dive into content.", ["Before writing your opening, ask which FORD category connects you to this specific audience \u2014 a shared interest, goal, or experience.", "Build your opening hook from that connection instead of a generic line like \u201CToday I'm going to talk about...\u201D", "Adjust which FORD category you lean on depending on the audience \u2014 a professional audience may respond better to Occupation than Family."]], ["Practice LEAPS when fielding audience reactions.", "LEAPS (Listen, Empathize, Ask, Paraphrase, Summarize) is a structured way to respond to real-time audience input \u2014 a question, a confused look, a pushback \u2014 without getting flustered.", ["When someone reacts or asks something mid-speech, let them finish completely before responding.", "Acknowledge how they might be feeling, even briefly (\u201CThat's a fair concern.\u201D)", "Ask a clarifying question if needed, then paraphrase what you heard before summarizing your response."]], ["Apply WAIT before adding extra explanation.", "WAIT stands for \u201CWhy Am I Talking?\u201D \u2014 a quick mental check against over-explaining, which can disconnect an audience that already understood the point.", ["After making a key point, pause and silently ask yourself WAIT before continuing.", "If the additional information doesn't genuinely serve the audience's understanding, cut it and move to your next point.", "Use this especially during Q&A, where the instinct to keep talking after answering a question can undercut a strong answer."]]],
+    "framework": "FORD, LEAPS, WAIT",
+    "videos": [["How to Make Eye Contact When Public Speaking", "gwypzoyUjNU", "Practical eye contact technique for connecting with a room"]],
+    "self_check": "After your next practice run, ask: did I look at individuals, or did I scan the room like a security camera?"
+  }, {
+    "number": 7,
+    "slug": "nonverbal-delivery",
+    "title": "Nonverbal Delivery: What Your Body Says Before You Speak",
+    "quick_lesson": "Nonverbal delivery covers facial expressions, gestures, posture, movement, use of space, and avoiding distracting habits like fidgeting, swaying, or pacing. Audiences process body language almost instantly \u2014 often before they've fully processed your words. When your body language matches your message, it reinforces credibility. When it contradicts your message, the audience tends to believe the body over the words.",
+    "takeaway": "If your body language contradicts your words, the audience believes your body \u2014 not your script.",
+    "steps": [["Give your hands a \u201Chome base.\u201D", "Undirected hands \u2014 in pockets, fidgeting, crossed arms \u2014 read as nervous or closed off. A neutral resting position frees your hands to gesture with purpose instead of drifting on their own.", ["Practice resting your hands loosely in front of you at waist height between gestures.", "Avoid pockets, crossed arms, or hands clasped behind your back as default positions.", "Return to that home base position after every intentional gesture, rather than letting your hands hang or wander."]], ["Make gestures purposeful, not decorative.", "Random hand movement is distracting. Gestures that match your words \u2014 counting on fingers, indicating size, pointing to a direction \u2014 reinforce meaning instead of competing with it.", ["Go through your outline and mark 3\u20134 places where a gesture would naturally illustrate the point \u2014 a number, a comparison, a direction.", "Rehearse only those marked gestures deliberately.", "Let your hands stay at home base everywhere else, rather than gesturing constantly."]], ["Anchor your stance and move with purpose.", "Pacing or swaying reads as nervous energy, even when the speaker doesn't feel nervous. Planted, purposeful movement reads as control.", ["Pick 2\u20133 spots in the room \u2014 center, left, right.", "Deliver one complete idea from each spot before moving.", "Walk deliberately between spots only during transitions, and plant your feet while actually speaking."]], ["Match facial expression to content.", "A flat or mismatched facial expression \u2014 smiling while delivering serious content, for example \u2014 undercuts your message the same way a flat voice does.", ["Identify the emotional tone of each section of your speech \u2014 serious, hopeful, urgent, light.", "Practice in a mirror or on video, checking that your facial expression matches that tone before moving to the next section.", "Pay particular attention to your face during your opening and closing lines, since those get the most audience attention."]]],
+    "framework": null,
+    "videos": [["4 Essential Body Language Tips From a World Champion Public Speaker", "ZK3jSXYBNak", "Toastmasters World Champion on gestures and stage presence"]],
+    "self_check": "Watch 30 seconds of yourself with the sound off. What does your body language say about your message, independent of the words?"
+  }, {
+    "number": 8,
+    "slug": "organization-during-delivery",
+    "title": "Organization During Delivery: Helping Your Audience Follow Along",
+    "quick_lesson": "Organization during delivery covers effective openings, clear transitions, signposting, memorable conclusions, and time management. Unlike a reader, a listener can't flip back a page to re-find their place. Organization is what lets an audience follow you in real time without getting lost \u2014 and it's what makes a speaker sound credible, even before the content is evaluated.",
+    "takeaway": "A well-organized speech doesn't just sound clearer \u2014 it makes the audience trust you more, because they always know where they are and where you're headed.",
+    "steps": [["Use PREP to structure a point on the spot.", "PREP stands for Point, Reason, Example, Point. It means leading with your conclusion first, then backing it up \u2014 instead of building up to your point and risking losing the audience before you get there.", ["Practice answering a discussion question out loud using PREP: state your point in one sentence.", "Give one clear reason that supports it.", "Give one concrete example, then restate your point to close the loop."]], ["Use STAR to organize a story or example.", "STAR stands for Situation, Task, Action, Result. It's a structure for telling a complete, clear story instead of a rambling anecdote that loses its point halfway through.", ["Take one example or story from your speech and outline it using the four STAR beats before writing the full version.", "Make sure each beat is present: what was the situation, what needed to happen, what action was taken, what was the result.", "Cut any detail that doesn't fit clearly into one of the four categories \u2014 it's probably a distraction."]], ["Use PEEL to build a supporting argument.", "PEEL stands for Point, Evidence, Explain, Link. It ensures every claim in your speech is backed up and clearly connected to your larger argument, rather than left to stand on its own.", ["For each main point in your outline, write one sentence for each PEEL stage: the point itself, the evidence behind it, an explanation of why the evidence matters, and a link to what comes next.", "Use the \u201CLink\u201D sentence as the raw material for your transition into the next point.", "Check that every point in your outline has all four PEEL elements before moving to full drafting."]], ["Signpost out loud, not just on paper.", "Signposting \u2014 phrases like \u201Cfirst,\u201D \u201Cmy second point,\u201D \u201Cfinally\u201D \u2014 helps a listener track a structure they can't see, the way headers help a reader scan a document.", ["Go through your script and insert a spoken signpost before every main point.", "Say the signposts out loud in rehearsal \u2014 a signpost that only exists in your head doesn't help the audience.", "Vary your signpost language slightly so it doesn't sound robotic or repetitive across a longer speech."]]],
+    "framework": "PREP, STAR, PEEL",
+    "videos": [["Signposting: Making It Easy for Your Audience to Follow Your Speech", "HEEcwL5mq6w", "How clear structural cues guide a listening audience"]],
+    "self_check": "Could someone who only heard your speech once retell your three main points back to you? If not, the signposting needs work, not necessarily the content."
+  }, {
+    "number": 9,
+    "slug": "persuasive-expressive-delivery",
+    "title": "Persuasive & Expressive Delivery: Making Your Audience Feel It",
+    "quick_lesson": "Persuasive and expressive delivery covers enthusiasm, authenticity, emotional expression, storytelling, and building suspense. Persuasion isn't manipulation \u2014 it's organizing real conviction so that it lands clearly with an audience. People are moved by facts and structure together, not facts alone; a well-organized emotional appeal tends to change minds far more reliably than data by itself.",
+    "takeaway": "People are moved by stories and structure together \u2014 facts alone rarely change minds, but facts wrapped in a clear emotional structure often do.",
+    "steps": [["Use AIDA to structure a persuasive opening.", "AIDA stands for Attention, Interest, Desire, Action \u2014 a classic structure for moving someone from noticing you to actually doing something as a result.", ["Draft your opening with all four AIDA beats in order: a hook that grabs Attention, a fact or story that builds Interest.", "A clear benefit that creates Desire for the outcome you're proposing.", "A specific, concrete Action you want the audience to take by the end."]], ["Use PAS to address a problem your audience cares about.", "PAS stands for Problem, Agitate, Solution. Name the problem, make its real cost genuinely felt, and only then offer your idea as the fix.", ["Write one sentence clearly naming the problem.", "Write one or two sentences showing why the problem matters more than the audience may currently realize \u2014 this is the \u201Cagitate\u201D step.", "Transition directly into your solution only after the problem has emotionally landed, not before."]], ["Build one specific, sensory story instead of a general example.", "Vague examples (\u201Cmany students struggle with...\u201D) rarely move an audience. One specific person, moment, and sensory detail almost always lands harder.", ["Take your strongest supporting point and rewrite it as a 30-second story.", "Include a named (or anonymized) person and a specific moment in time.", "Add one sensory detail \u2014 something they saw, said, or felt \u2014 that makes the moment concrete instead of abstract."]], ["Let your enthusiasm show physically, not just verbally.", "Authentic passion is communicated through energy in your voice and body, not just word choice. Flat delivery of passionate content reads as insincere, no matter how strong the words are.", ["Identify the one moment in your speech you genuinely care about most.", "Practice delivering just that section with deliberately more vocal energy and animated gesture than feels natural at first.", "Record it and compare to your normal delivery to see how much the energy actually shifted."]]],
+    "framework": "AIDA, PAS",
+    "videos": [["The Art of Persuasive Storytelling | Kelly D. Parker | TED", "Oo2upU6ny-I", "How storytelling structure makes ideas more persuasive and memorable"]],
+    "self_check": "After practicing, ask a friend: \u201CWhat did you feel during that speech, not just what did you learn?\u201D If the answer is \u201Cnothing,\u201D the structure may be there but the emotion isn't yet."
+  }, {
+    "number": 10,
+    "slug": "technical-speaking-skills",
+    "title": "Technical Speaking Skills: Mastering the Stagecraft",
+    "quick_lesson": "Technical speaking skills cover microphone technique, speaking to large audiences, adjusting to room acoustics, and coordinating speech with slides or other visual aids. These are the logistical, \u201Cstagecraft\u201D skills that even strong speakers can get wrong simply because they haven't practiced them. Done well, the technology disappears and only the message remains; done poorly, it becomes the most memorable part of the talk for all the wrong reasons.",
+    "takeaway": "Technical skill is invisible when done right and distracting when done wrong \u2014 the goal is for the tools to disappear so only your message remains.",
+    "steps": [["Test and adjust the microphone before you speak.", "Every microphone and room is different. What worked in rehearsal at home may not work live in an unfamiliar space.", ["Arrive early enough to test the mic at your actual speaking volume, not a quiet whisper check.", "Ask someone to stand in the back row and confirm they can hear you clearly at a normal speaking level.", "Adjust your position or the mic's settings based on that feedback before the audience arrives."]], ["Hold a handheld mic correctly.", "Holding a mic too low or angled away muffles your voice. Holding it like a singer \u2014 straight out, blocking your mouth \u2014 hides your face from the audience.", ["Hold the mic about 2\u20133 inches from your mouth, angled slightly downward so your mouth stays visible.", "Keep that distance consistent rather than letting it drift closer or farther as you gesture.", "Practice holding the mic steady while still gesturing naturally with your other hand."]], ["Build deliberate pauses around slide changes.", "Talking while a new slide is loading or appearing splits the audience's attention between reading and listening. A brief pause lets them look first, then listen.", ["When you advance a slide, pause for 2\u20133 seconds before speaking again.", "Use that pause to let the audience visually process the new slide.", "Resume speaking once you sense their attention has shifted back from the screen to you."]], ["Rehearse with the actual equipment when possible.", "Clicking through slides on your own laptop at home doesn't fully prepare you for an unfamiliar remote, podium setup, or room delay.", ["If possible, do at least one full run-through in the actual room or with the actual equipment before the real presentation.", "Specifically practice the transitions between talking and operating the technology \u2014 advancing slides, using a remote, adjusting a mic.", "Have a brief mental backup plan for what you'll do if a piece of equipment fails mid-presentation."]]],
+    "framework": null,
+    "videos": [["Toastmasters Tips \u2013 The Proper Way to Use a Microphone", "twuRPGDDD5I", "Microphone preparation, positioning, and troubleshooting"]],
+    "self_check": "If your mic, slides, or remote failed right now, do you know your content well enough to keep going without them?"
+  }, {
+    "number": 11,
+    "slug": "professional-speaking-habits",
+    "title": "Professional Speaking Habits: Earning Trust in the Room",
+    "quick_lesson": "Professional speaking habits cover credibility, appropriate vocabulary, audience adaptation, ethical communication, and confidence in Q&A. These habits are what separate someone who simply knows the content from someone the audience trusts to represent it accurately and handle their questions with respect. Professionalism in speaking isn't about sounding stiff or formal \u2014 it's about consistency, clarity, and honesty under pressure.",
+    "takeaway": "Professionalism in speaking isn't about sounding stiff \u2014 it's about being someone your audience can trust to handle their questions and their attention with respect.",
+    "steps": [["Use PARA to answer questions concisely.", "PARA stands for Point, Action, Result, Ask. It keeps your answers focused instead of rambling, especially useful under the pressure of a live Q&A.", ["State your Point first \u2014 the direct answer to the question.", "Briefly explain the Action you took or recommend, and the Result or outcome that followed.", "Optionally, Ask a follow-up question back to the person, keeping the exchange two-way rather than one-sided."]], ["Adjust vocabulary to your specific audience.", "The same content often needs different language depending on who's listening. Using the wrong register \u2014 too technical or too simplified \u2014 signals you haven't thought carefully about your audience.", ["Before finalizing your talk, list any jargon or technical terms you plan to use.", "For each term, decide whether to define it, replace it with plainer language, or keep it as-is based on your audience's background.", "When in doubt, briefly define a term the first time you use it rather than assuming familiarity."]], ["Repeat the question before answering it.", "Repeating or paraphrasing a question buys you a moment to think, ensures the whole room actually heard it, and confirms you understood it correctly before you respond.", ["Practice the habit of saying \u201CSo the question is...\u201D or paraphrasing the question before launching into your answer.", "Do this even when you're confident you understood the question the first time \u2014 it still benefits the rest of the audience.", "Use this pause as a natural moment to organize your PARA-structured response."]], ["Prepare a graceful way to say \u201CI don't know.\u201D", "Pretending to know something you don't damages credibility far more than honestly admitting a gap and offering to follow up.", ["Write one go-to phrase for this situation, such as \u201CThat's outside what I can speak to confidently right now, but I'll find out and follow up.\u201D", "Practice saying it calmly and without excessive apology.", "Follow through on any promise to follow up \u2014 this is what actually builds the trust the phrase is meant to protect."]]],
+    "framework": "PARA",
+    "videos": [["Handling Q&A Sessions During a Presentation: How to Answer Questions Effectively", "jHIfj011QRY", "Strategies for fielding audience questions with confidence"]],
+    "self_check": "Think of the last question you struggled to answer. Could PARA have helped you structure that response more clearly?"
+  }];
+  var FONT_IMPORT = "@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500;600&display=swap');";
   var BLURBS = {
     1: "Fix mumbling, dropped endings, and unclear pronunciation.",
     2: "Stop sounding monotone \u2014 vary pitch, pace, and pauses.",
@@ -376,13 +496,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
           if (result && result.value) {
             setProgress(JSON.parse(result.value));
           }
-        } catch (e) {
-        } finally {
+        } catch (e) {} finally {
           setLoaded(true);
         }
       })();
     }, []);
-    const save = async (next) => {
+    const save = async next => {
       setProgress(next);
       try {
         await window.storage.set("speech-series-progress", JSON.stringify(next));
@@ -391,26 +510,52 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       }
     };
     const toggleStep = (lessonNum, stepIdx) => {
-      const key = `lesson-${lessonNum}`;
-      const current = progress[key] || { steps: [], selfCheck: false };
-      const steps = current.steps.includes(stepIdx) ? current.steps.filter((i) => i !== stepIdx) : [...current.steps, stepIdx];
-      save({ ...progress, [key]: { ...current, steps } });
+      const key = "lesson-".concat(lessonNum);
+      const current = progress[key] || {
+        steps: [],
+        selfCheck: false
+      };
+      const steps = current.steps.includes(stepIdx) ? current.steps.filter(i => i !== stepIdx) : [...current.steps, stepIdx];
+      save({
+        ...progress,
+        [key]: {
+          ...current,
+          steps
+        }
+      });
     };
-    const toggleSelfCheck = (lessonNum) => {
-      const key = `lesson-${lessonNum}`;
-      const current = progress[key] || { steps: [], selfCheck: false };
-      save({ ...progress, [key]: { ...current, selfCheck: !current.selfCheck } });
+    const toggleSelfCheck = lessonNum => {
+      const key = "lesson-".concat(lessonNum);
+      const current = progress[key] || {
+        steps: [],
+        selfCheck: false
+      };
+      save({
+        ...progress,
+        [key]: {
+          ...current,
+          selfCheck: !current.selfCheck
+        }
+      });
     };
-    return { progress, loaded, toggleStep, toggleSelfCheck };
+    return {
+      progress,
+      loaded,
+      toggleStep,
+      toggleSelfCheck
+    };
   }
   function parseModulesFromURL() {
     try {
       const raw = (window.__INITIAL_MODULES__ || "").trim();
       if (!raw) return null;
-      const nums = raw.split(",").map((n) => parseInt(n.trim(), 10)).filter((n) => n >= 1 && n <= 11);
+      const nums = raw.split(",").map(n => parseInt(n.trim(), 10)).filter(n => n >= 1 && n <= 11);
       if (!nums.length) return null;
       const name = window.__INITIAL_NAME__ || "";
-      return { modules: Array.from(new Set(nums)).sort((a, b) => a - b), name };
+      return {
+        modules: Array.from(new Set(nums)).sort((a, b) => a - b),
+        name
+      };
     } catch (e) {
       return null;
     }
@@ -438,13 +583,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
               setSelectionState(saved);
             }
           }
-        } catch (e) {
-        } finally {
+        } catch (e) {} finally {
           setLoaded(true);
         }
       })();
     }, []);
-    const chooseSelection = async (nums) => {
+    const chooseSelection = async nums => {
       setSelectionState(nums);
       setAssignedByLink(false);
       setAssignedName("");
@@ -454,7 +598,13 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
         console.error("Could not save selection", e);
       }
     };
-    return { selection, assignedByLink, assignedName, loaded, chooseSelection };
+    return {
+      selection,
+      assignedByLink,
+      assignedName,
+      loaded,
+      chooseSelection
+    };
   }
   function useSavedSets() {
     const [sets, setSets] = useState([]);
@@ -467,13 +617,12 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
             const parsed = JSON.parse(result.value);
             if (Array.isArray(parsed)) setSets(parsed);
           }
-        } catch (e) {
-        } finally {
+        } catch (e) {} finally {
           setLoaded(true);
         }
       })();
     }, []);
-    const persist = async (next) => {
+    const persist = async next => {
       setSets(next);
       try {
         await window.storage.set("speech-series-saved-sets", JSON.stringify(next));
@@ -482,692 +631,645 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       }
     };
     const addSet = (name, modules) => {
-      const next = [...sets.filter((s) => s.name !== name), { name, modules }];
+      const next = [...sets.filter(s => s.name !== name), {
+        name,
+        modules
+      }];
       persist(next);
     };
-    const removeSet = (name) => {
-      persist(sets.filter((s) => s.name !== name));
+    const removeSet = name => {
+      persist(sets.filter(s => s.name !== name));
     };
-    return { sets, loaded, addSet, removeSet };
+    return {
+      sets,
+      loaded,
+      addSet,
+      removeSet
+    };
   }
   function lessonStatus(lesson, progress) {
-    const key = `lesson-${lesson.number}`;
-    const entry = progress[key] || { steps: [], selfCheck: false };
+    const key = "lesson-".concat(lesson.number);
+    const entry = progress[key] || {
+      steps: [],
+      selfCheck: false
+    };
     const totalSteps = lesson.steps.length;
     const doneSteps = entry.steps.length;
     const complete = doneSteps === totalSteps && entry.selfCheck;
     const started = doneSteps > 0 || entry.selfCheck;
-    return { doneSteps, totalSteps, complete, started, entry };
+    return {
+      doneSteps,
+      totalSteps,
+      complete,
+      started,
+      entry
+    };
   }
-  function Stamp({ visible }) {
-    return /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          position: "absolute",
-          top: 18,
-          right: 18,
-          width: 92,
-          height: 92,
-          borderRadius: "50%",
-          border: `3px solid ${COLORS.maroon}`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          textAlign: "center",
-          color: COLORS.maroon,
-          fontFamily: "'Bebas Neue', sans-serif",
-          fontSize: 13,
-          letterSpacing: 1,
-          lineHeight: 1.15,
-          transform: visible ? "rotate(-12deg) scale(1)" : "rotate(-12deg) scale(0.6)",
-          opacity: visible ? 0.92 : 0,
-          transition: "all 0.45s cubic-bezier(.34,1.56,.64,1)",
-          pointerEvents: "none",
-          background: "rgba(122,30,30,0.04)"
-        }
+  function Stamp({
+    visible
+  }) {
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        position: "absolute",
+        top: 18,
+        right: 18,
+        width: 92,
+        height: 92,
+        borderRadius: "50%",
+        border: "3px solid ".concat(COLORS.maroon),
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        textAlign: "center",
+        color: COLORS.maroon,
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: 13,
+        letterSpacing: 1,
+        lineHeight: 1.15,
+        transform: visible ? "rotate(-12deg) scale(1)" : "rotate(-12deg) scale(0.6)",
+        opacity: visible ? 0.92 : 0,
+        transition: "all 0.45s cubic-bezier(.34,1.56,.64,1)",
+        pointerEvents: "none",
+        background: "rgba(122,30,30,0.04)"
+      }
+    }, "DRILL", /* @__PURE__ */React.createElement("br", null), "COMPLETE");
+  }
+  function SidebarItem({
+    lesson,
+    active,
+    onClick,
+    progress
+  }) {
+    const {
+      doneSteps,
+      totalSteps,
+      complete,
+      started
+    } = lessonStatus(lesson, progress);
+    return /* @__PURE__ */React.createElement("button", {
+      onClick,
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        width: "100%",
+        textAlign: "left",
+        padding: "11px 14px",
+        marginBottom: 4,
+        borderRadius: 6,
+        border: "none",
+        cursor: "pointer",
+        background: active ? COLORS.maroon : "transparent",
+        color: active ? COLORS.cream50 : COLORS.paperDim,
+        transition: "background 0.15s ease"
       },
-      "DRILL",
-      /* @__PURE__ */ React.createElement("br", null),
-      "COMPLETE"
-    );
-  }
-  function SidebarItem({ lesson, active, onClick, progress }) {
-    const { doneSteps, totalSteps, complete, started } = lessonStatus(lesson, progress);
-    return /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        onClick,
-        style: {
-          display: "flex",
-          alignItems: "center",
-          gap: 12,
-          width: "100%",
-          textAlign: "left",
-          padding: "11px 14px",
-          marginBottom: 4,
-          borderRadius: 6,
-          border: "none",
-          cursor: "pointer",
-          background: active ? COLORS.maroon : "transparent",
-          color: active ? COLORS.cream50 : COLORS.paperDim,
-          transition: "background 0.15s ease"
-        },
-        onMouseEnter: (e) => {
-          if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.06)";
-        },
-        onMouseLeave: (e) => {
-          if (!active) e.currentTarget.style.background = "transparent";
-        }
+      onMouseEnter: e => {
+        if (!active) e.currentTarget.style.background = "rgba(255,255,255,0.06)";
       },
-      /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11,
-            width: 20,
-            height: 20,
-            flexShrink: 0,
-            borderRadius: "50%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            border: `1px solid ${active ? COLORS.cream50 : COLORS.slateLight}`,
-            background: complete ? COLORS.brass : "transparent",
-            color: complete ? COLORS.ink : "inherit"
-          }
-        },
-        complete ? "\u2713" : String(lesson.number).padStart(2, "0")
-      ),
-      /* @__PURE__ */ React.createElement("span", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 14.5,
-            fontWeight: 600,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis"
-          }
-        },
-        lesson.title.split(":")[0]
-      ), started && !complete && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10,
-            opacity: 0.7,
-            marginTop: 2
-          }
-        },
-        doneSteps,
-        "/",
-        totalSteps,
-        " reps"
-      ))
-    );
+      onMouseLeave: e => {
+        if (!active) e.currentTarget.style.background = "transparent";
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        width: 20,
+        height: 20,
+        flexShrink: 0,
+        borderRadius: "50%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        border: "1px solid ".concat(active ? COLORS.cream50 : COLORS.slateLight),
+        background: complete ? COLORS.brass : "transparent",
+        color: complete ? COLORS.ink : "inherit"
+      }
+    }, complete ? "\u2713" : String(lesson.number).padStart(2, "0")), /* @__PURE__ */React.createElement("span", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 14.5,
+        fontWeight: 600,
+        whiteSpace: "nowrap",
+        overflow: "hidden",
+        textOverflow: "ellipsis"
+      }
+    }, lesson.title.split(":")[0]), started && !complete && /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10,
+        opacity: 0.7,
+        marginTop: 2
+      }
+    }, doneSteps, "/", totalSteps, " reps")));
   }
-  function StepCard({ step, idx, lessonNum, done, onToggle }) {
+  function StepCard({
+    step,
+    idx,
+    lessonNum,
+    done,
+    onToggle
+  }) {
     const [meaningOpen, setMeaningOpen] = useState(true);
-    return /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          display: "flex",
-          gap: 16,
-          padding: "20px 0",
-          borderBottom: `1px solid ${COLORS.line}`
-        }
-      },
-      /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: onToggle,
-          "aria-label": done ? "Mark rep incomplete" : "Mark rep complete",
-          style: {
-            flexShrink: 0,
-            width: 30,
-            height: 30,
-            borderRadius: "50%",
-            border: `2px solid ${done ? COLORS.brass : COLORS.maroon}`,
-            background: done ? COLORS.brass : "transparent",
-            color: done ? COLORS.ink : COLORS.maroon,
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 12,
-            fontWeight: 600,
-            cursor: "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            marginTop: 2,
-            transition: "all 0.15s ease"
-          }
-        },
-        done ? "\u2713" : idx + 1
-      ),
-      /* @__PURE__ */ React.createElement("div", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement(
-        "h3",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontWeight: 700,
-            fontSize: 18,
-            color: COLORS.ink,
-            margin: "2px 0 8px 0",
-            textDecoration: done ? "line-through" : "none",
-            textDecorationColor: COLORS.slateLight,
-            opacity: done ? 0.65 : 1
-          }
-        },
-        step.title
-      ), /* @__PURE__ */ React.createElement(
-        "p",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10.5,
-            letterSpacing: 0.6,
-            textTransform: "uppercase",
-            color: COLORS.maroon,
-            margin: "0 0 6px 0",
-            fontWeight: 600
-          }
-        },
-        "What it means"
-      ), /* @__PURE__ */ React.createElement(
-        "p",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 15.5,
-            lineHeight: 1.6,
-            color: COLORS.inkSoft,
-            margin: "0 0 14px 0"
-          }
-        },
-        step.context
-      ), /* @__PURE__ */ React.createElement(
-        "p",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10.5,
-            letterSpacing: 0.6,
-            textTransform: "uppercase",
-            color: COLORS.maroon,
-            margin: "0 0 8px 0",
-            fontWeight: 600
-          }
-        },
-        "How to do it"
-      ), /* @__PURE__ */ React.createElement("ul", { style: { margin: 0, paddingLeft: 20 } }, step.howto.map((h, i) => /* @__PURE__ */ React.createElement(
-        "li",
-        {
-          key: i,
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 15,
-            lineHeight: 1.65,
-            color: COLORS.inkSoft,
-            marginBottom: 6
-          }
-        },
-        h
-      ))))
-    );
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 16,
+        padding: "20px 0",
+        borderBottom: "1px solid ".concat(COLORS.line)
+      }
+    }, /* @__PURE__ */React.createElement("button", {
+      onClick: onToggle,
+      "aria-label": done ? "Mark rep incomplete" : "Mark rep complete",
+      style: {
+        flexShrink: 0,
+        width: 30,
+        height: 30,
+        borderRadius: "50%",
+        border: "2px solid ".concat(done ? COLORS.brass : COLORS.maroon),
+        background: done ? COLORS.brass : "transparent",
+        color: done ? COLORS.ink : COLORS.maroon,
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        fontWeight: 600,
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 2,
+        transition: "all 0.15s ease"
+      }
+    }, done ? "\u2713" : idx + 1), /* @__PURE__ */React.createElement("div", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /* @__PURE__ */React.createElement("h3", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontWeight: 700,
+        fontSize: 18,
+        color: COLORS.ink,
+        margin: "2px 0 8px 0",
+        textDecoration: done ? "line-through" : "none",
+        textDecorationColor: COLORS.slateLight,
+        opacity: done ? 0.65 : 1
+      }
+    }, step.title), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10.5,
+        letterSpacing: 0.6,
+        textTransform: "uppercase",
+        color: COLORS.maroon,
+        margin: "0 0 6px 0",
+        fontWeight: 600
+      }
+    }, "What it means"), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 15.5,
+        lineHeight: 1.6,
+        color: COLORS.inkSoft,
+        margin: "0 0 14px 0"
+      }
+    }, step.context), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10.5,
+        letterSpacing: 0.6,
+        textTransform: "uppercase",
+        color: COLORS.maroon,
+        margin: "0 0 8px 0",
+        fontWeight: 600
+      }
+    }, "How to do it"), /* @__PURE__ */React.createElement("ul", {
+      style: {
+        margin: 0,
+        paddingLeft: 20
+      }
+    }, step.howto.map((h, i) => /* @__PURE__ */React.createElement("li", {
+      key: i,
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 15,
+        lineHeight: 1.65,
+        color: COLORS.inkSoft,
+        marginBottom: 6
+      }
+    }, h)))));
   }
-  function VideoRow({ video }) {
+  function VideoRow({
+    video
+  }) {
     const [open, setOpen] = useState(false);
-    return /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          border: `1px solid ${COLORS.line}`,
-          borderRadius: 6,
-          marginBottom: 10,
-          overflow: "hidden",
-          background: COLORS.cream50
-        }
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        border: "1px solid ".concat(COLORS.line),
+        borderRadius: 6,
+        marginBottom: 10,
+        overflow: "hidden",
+        background: COLORS.cream50
+      }
+    }, /* @__PURE__ */React.createElement("button", {
+      onClick: () => setOpen(!open),
+      style: {
+        width: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "space-between",
+        gap: 12,
+        padding: "13px 16px",
+        background: "transparent",
+        border: "none",
+        cursor: "pointer",
+        textAlign: "left"
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        minWidth: 0
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontWeight: 600,
+        fontSize: 15,
+        color: COLORS.ink
+      }
+    }, video.title), /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 13,
+        color: COLORS.slate,
+        marginTop: 2
+      }
+    }, video.focus)), /* @__PURE__ */React.createElement("span", {
+      style: {
+        flexShrink: 0,
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        color: COLORS.maroon,
+        border: "1px solid ".concat(COLORS.maroon),
+        borderRadius: 4,
+        padding: "5px 10px"
+      }
+    }, open ? "HIDE" : "WATCH")), open && /* @__PURE__ */React.createElement("div", null, /* @__PURE__ */React.createElement("div", {
+      style: {
+        position: "relative",
+        paddingTop: "56.25%",
+        background: "#000"
+      }
+    }, /* @__PURE__ */React.createElement("iframe", {
+      src: "https://www.youtube.com/embed/".concat(video.id),
+      title: video.title,
+      style: {
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        border: 0
       },
-      /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: () => setOpen(!open),
-          style: {
-            width: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 12,
-            padding: "13px 16px",
-            background: "transparent",
-            border: "none",
-            cursor: "pointer",
-            textAlign: "left"
-          }
-        },
-        /* @__PURE__ */ React.createElement("div", { style: { minWidth: 0 } }, /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              fontFamily: "'Source Serif 4', serif",
-              fontWeight: 600,
-              fontSize: 15,
-              color: COLORS.ink
-            }
-          },
-          video.title
-        ), /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 13,
-              color: COLORS.slate,
-              marginTop: 2
-            }
-          },
-          video.focus
-        )),
-        /* @__PURE__ */ React.createElement(
-          "span",
-          {
-            style: {
-              flexShrink: 0,
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 11,
-              color: COLORS.maroon,
-              border: `1px solid ${COLORS.maroon}`,
-              borderRadius: 4,
-              padding: "5px 10px"
-            }
-          },
-          open ? "HIDE" : "WATCH"
-        )
-      ),
-      open && /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("div", { style: { position: "relative", paddingTop: "56.25%", background: "#000" } }, /* @__PURE__ */ React.createElement(
-        "iframe",
-        {
-          src: `https://www.youtube.com/embed/${video.id}`,
-          title: video.title,
-          style: { position: "absolute", top: 0, left: 0, width: "100%", height: "100%", border: 0 },
-          allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
-          allowFullScreen: true
-        }
-      )), /* @__PURE__ */ React.createElement("div", { style: { padding: "8px 16px 12px" } }, /* @__PURE__ */ React.createElement(
-        "a",
-        {
-          href: `https://www.youtube.com/watch?v=${video.id}`,
-          target: "_blank",
-          rel: "noopener noreferrer",
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11,
-            color: COLORS.slate
-          }
-        },
-        "backup link \u2192 youtube.com"
-      )))
-    );
+      allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
+      allowFullScreen: true
+    })), /* @__PURE__ */React.createElement("div", {
+      style: {
+        padding: "8px 16px 12px"
+      }
+    }, /* @__PURE__ */React.createElement("a", {
+      href: "https://www.youtube.com/watch?v=".concat(video.id),
+      target: "_blank",
+      rel: "noopener noreferrer",
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        color: COLORS.slate
+      }
+    }, "backup link \u2192 youtube.com"))));
   }
-  function LessonView({ lesson, progress, toggleStep, toggleSelfCheck }) {
-    const { doneSteps, totalSteps, complete, entry } = lessonStatus(lesson, progress);
-    return /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          background: COLORS.paper,
-          borderRadius: 10,
-          position: "relative",
-          boxShadow: "0 1px 0 rgba(0,0,0,0.04), 0 12px 30px -16px rgba(0,0,0,0.35)",
-          padding: "40px 44px 48px",
-          maxWidth: 760,
-          margin: "0 auto"
-        }
+  function LessonView({
+    lesson,
+    progress,
+    toggleStep,
+    toggleSelfCheck
+  }) {
+    const {
+      doneSteps,
+      totalSteps,
+      complete,
+      entry
+    } = lessonStatus(lesson, progress);
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        background: COLORS.paper,
+        borderRadius: 10,
+        position: "relative",
+        boxShadow: "0 1px 0 rgba(0,0,0,0.04), 0 12px 30px -16px rgba(0,0,0,0.35)",
+        padding: "40px 44px 48px",
+        maxWidth: 760,
+        margin: "0 auto"
+      }
+    }, /* @__PURE__ */React.createElement(Stamp, {
+      visible: complete
+    }), /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11.5,
+        letterSpacing: 1.5,
+        color: COLORS.maroon,
+        fontWeight: 600,
+        marginBottom: 10
+      }
+    }, "MODULE ", String(lesson.number).padStart(2, "0"), " / 11 \xB7 TRAINING SERIES"), /* @__PURE__ */React.createElement("h1", {
+      style: {
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: 42,
+        letterSpacing: 0.5,
+        color: COLORS.ink,
+        margin: "0 0 6px 0",
+        lineHeight: 1.05
+      }
+    }, lesson.title), /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 14,
+        color: COLORS.slate,
+        marginBottom: 28,
+        paddingBottom: 24,
+        borderBottom: "2px solid ".concat(COLORS.ink)
+      }
+    }, "COMM 1311 \xB7 COMM 1315 \xB7 Professional Communication"), /* @__PURE__ */React.createElement(SectionLabel, null, "Quick Lesson"), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 16.5,
+        lineHeight: 1.7,
+        color: COLORS.inkSoft,
+        margin: "0 0 24px 0"
+      }
+    }, lesson.quick_lesson), /* @__PURE__ */React.createElement("div", {
+      style: {
+        position: "relative",
+        background: COLORS.ink,
+        color: COLORS.paper,
+        padding: "20px 24px",
+        borderRadius: 6,
+        marginBottom: 32
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10.5,
+        letterSpacing: 1.4,
+        color: COLORS.brassSoft,
+        fontWeight: 600,
+        marginBottom: 8
+      }
+    }, "TAKEAWAY"), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 17,
+        lineHeight: 1.6,
+        margin: 0,
+        fontStyle: "italic"
+      }
+    }, lesson.takeaway)), /* @__PURE__ */React.createElement(SectionLabel, null, "Practical Steps ", /* @__PURE__ */React.createElement("span", {
+      style: {
+        color: COLORS.slate,
+        fontWeight: 400
+      }
+    }, "(", doneSteps, "/", totalSteps, " reps logged)")), /* @__PURE__ */React.createElement("div", {
+      style: {
+        marginBottom: 8
+      }
+    }, lesson.steps.map((s, i) => /* @__PURE__ */React.createElement(StepCard, {
+      key: i,
+      step: {
+        title: s[0],
+        context: s[1],
+        howto: s[2]
       },
-      /* @__PURE__ */ React.createElement(Stamp, { visible: complete }),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11.5,
-            letterSpacing: 1.5,
-            color: COLORS.maroon,
-            fontWeight: 600,
-            marginBottom: 10
-          }
-        },
-        "MODULE ",
-        String(lesson.number).padStart(2, "0"),
-        " / 11 \xB7 TRAINING SERIES"
-      ),
-      /* @__PURE__ */ React.createElement(
-        "h1",
-        {
-          style: {
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 42,
-            letterSpacing: 0.5,
-            color: COLORS.ink,
-            margin: "0 0 6px 0",
-            lineHeight: 1.05
-          }
-        },
-        lesson.title
-      ),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 14,
-            color: COLORS.slate,
-            marginBottom: 28,
-            paddingBottom: 24,
-            borderBottom: `2px solid ${COLORS.ink}`
-          }
-        },
-        "COMM 1311 \xB7 COMM 1315 \xB7 Professional Communication"
-      ),
-      /* @__PURE__ */ React.createElement(SectionLabel, null, "Quick Lesson"),
-      /* @__PURE__ */ React.createElement(
-        "p",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 16.5,
-            lineHeight: 1.7,
-            color: COLORS.inkSoft,
-            margin: "0 0 24px 0"
-          }
-        },
-        lesson.quick_lesson
-      ),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            position: "relative",
-            background: COLORS.ink,
-            color: COLORS.paper,
-            padding: "20px 24px",
-            borderRadius: 6,
-            marginBottom: 32
-          }
-        },
-        /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 10.5,
-              letterSpacing: 1.4,
-              color: COLORS.brassSoft,
-              fontWeight: 600,
-              marginBottom: 8
-            }
-          },
-          "TAKEAWAY"
-        ),
-        /* @__PURE__ */ React.createElement(
-          "p",
-          {
-            style: {
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 17,
-              lineHeight: 1.6,
-              margin: 0,
-              fontStyle: "italic"
-            }
-          },
-          lesson.takeaway
-        )
-      ),
-      /* @__PURE__ */ React.createElement(SectionLabel, null, "Practical Steps ", /* @__PURE__ */ React.createElement("span", { style: { color: COLORS.slate, fontWeight: 400 } }, "(", doneSteps, "/", totalSteps, " reps logged)")),
-      /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 8 } }, lesson.steps.map((s, i) => /* @__PURE__ */ React.createElement(
-        StepCard,
-        {
-          key: i,
-          step: { title: s[0], context: s[1], howto: s[2] },
-          idx: i,
-          lessonNum: lesson.number,
-          done: entry.steps.includes(i),
-          onToggle: () => toggleStep(lesson.number, i)
-        }
-      ))),
-      lesson.framework && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            border: `1.5px dashed ${COLORS.brass}`,
-            borderRadius: 6,
-            padding: "14px 18px",
-            margin: "20px 0 8px",
-            background: "rgba(192,136,41,0.07)"
-          }
-        },
-        /* @__PURE__ */ React.createElement(
-          "span",
-          {
-            style: {
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 11,
-              fontWeight: 700,
-              color: COLORS.maroon,
-              letterSpacing: 0.4
-            }
-          },
-          "FRAMEWORK SPOTLIGHT:"
-        ),
-        " ",
-        /* @__PURE__ */ React.createElement("span", { style: { fontFamily: "'Source Serif 4', serif", fontSize: 15, color: COLORS.inkSoft } }, "This lesson incorporates ", /* @__PURE__ */ React.createElement("strong", null, lesson.framework), ", woven directly into the reps above.")
-      ),
-      /* @__PURE__ */ React.createElement("div", { style: { marginTop: 36 } }, /* @__PURE__ */ React.createElement(SectionLabel, null, "Game Film \u2014 Watch for Further Review"), lesson.videos.map((v, i) => /* @__PURE__ */ React.createElement(VideoRow, { key: i, video: { title: v[0], id: v[1], focus: v[2] } })), /* @__PURE__ */ React.createElement(
-        "p",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10.5,
-            color: COLORS.slateLight,
-            marginTop: 8
-          }
-        },
-        "If a video doesn't load, use its backup link to open YouTube directly."
-      )),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            marginTop: 36,
-            borderTop: `2px solid ${COLORS.ink}`,
-            paddingTop: 24
-          }
-        },
-        /* @__PURE__ */ React.createElement(SectionLabel, null, "End-of-Drill Check"),
-        /* @__PURE__ */ React.createElement(
-          "p",
-          {
-            style: {
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 15.5,
-              lineHeight: 1.65,
-              color: COLORS.inkSoft,
-              margin: "0 0 16px 0"
-            }
-          },
-          lesson.self_check
-        ),
-        /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => toggleSelfCheck(lesson.number),
-            style: {
-              display: "flex",
-              alignItems: "center",
-              gap: 10,
-              background: entry.selfCheck ? COLORS.brass : "transparent",
-              color: entry.selfCheck ? COLORS.ink : COLORS.maroon,
-              border: `2px solid ${entry.selfCheck ? COLORS.brass : COLORS.maroon}`,
-              borderRadius: 6,
-              padding: "10px 18px",
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 12.5,
-              fontWeight: 700,
-              letterSpacing: 0.5,
-              cursor: "pointer",
-              transition: "all 0.15s ease"
-            }
-          },
-          /* @__PURE__ */ React.createElement(
-            "span",
-            {
-              style: {
-                width: 18,
-                height: 18,
-                borderRadius: 4,
-                border: `2px solid ${entry.selfCheck ? COLORS.ink : COLORS.maroon}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: 11,
-                background: entry.selfCheck ? COLORS.ink : "transparent",
-                color: entry.selfCheck ? COLORS.brass : "transparent"
-              }
-            },
-            "\u2713"
-          ),
-          entry.selfCheck ? "CHECK COMPLETE" : "MARK CHECK COMPLETE"
-        )
-      )
-    );
+      idx: i,
+      lessonNum: lesson.number,
+      done: entry.steps.includes(i),
+      onToggle: () => toggleStep(lesson.number, i)
+    }))), lesson.framework && /* @__PURE__ */React.createElement("div", {
+      style: {
+        border: "1.5px dashed ".concat(COLORS.brass),
+        borderRadius: 6,
+        padding: "14px 18px",
+        margin: "20px 0 8px",
+        background: "rgba(192,136,41,0.07)"
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        fontWeight: 700,
+        color: COLORS.maroon,
+        letterSpacing: 0.4
+      }
+    }, "FRAMEWORK SPOTLIGHT:"), " ", /* @__PURE__ */React.createElement("span", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 15,
+        color: COLORS.inkSoft
+      }
+    }, "This lesson incorporates ", /* @__PURE__ */React.createElement("strong", null, lesson.framework), ", woven directly into the reps above.")), /* @__PURE__ */React.createElement("div", {
+      style: {
+        marginTop: 36
+      }
+    }, /* @__PURE__ */React.createElement(SectionLabel, null, "Game Film \u2014 Watch for Further Review"), lesson.videos.map((v, i) => /* @__PURE__ */React.createElement(VideoRow, {
+      key: i,
+      video: {
+        title: v[0],
+        id: v[1],
+        focus: v[2]
+      }
+    })), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10.5,
+        color: COLORS.slateLight,
+        marginTop: 8
+      }
+    }, "If a video doesn't load, use its backup link to open YouTube directly.")), /* @__PURE__ */React.createElement("div", {
+      style: {
+        marginTop: 36,
+        borderTop: "2px solid ".concat(COLORS.ink),
+        paddingTop: 24
+      }
+    }, /* @__PURE__ */React.createElement(SectionLabel, null, "End-of-Drill Check"), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 15.5,
+        lineHeight: 1.65,
+        color: COLORS.inkSoft,
+        margin: "0 0 16px 0"
+      }
+    }, lesson.self_check), /* @__PURE__ */React.createElement("button", {
+      onClick: () => toggleSelfCheck(lesson.number),
+      style: {
+        display: "flex",
+        alignItems: "center",
+        gap: 10,
+        background: entry.selfCheck ? COLORS.brass : "transparent",
+        color: entry.selfCheck ? COLORS.ink : COLORS.maroon,
+        border: "2px solid ".concat(entry.selfCheck ? COLORS.brass : COLORS.maroon),
+        borderRadius: 6,
+        padding: "10px 18px",
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12.5,
+        fontWeight: 700,
+        letterSpacing: 0.5,
+        cursor: "pointer",
+        transition: "all 0.15s ease"
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        width: 18,
+        height: 18,
+        borderRadius: 4,
+        border: "2px solid ".concat(entry.selfCheck ? COLORS.ink : COLORS.maroon),
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: 11,
+        background: entry.selfCheck ? COLORS.ink : "transparent",
+        color: entry.selfCheck ? COLORS.brass : "transparent"
+      }
+    }, "\u2713"), entry.selfCheck ? "CHECK COMPLETE" : "MARK CHECK COMPLETE")));
   }
-  function SectionLabel({ children }) {
-    return /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          fontFamily: "'JetBrains Mono', monospace",
-          fontSize: 12,
-          letterSpacing: 1.2,
-          textTransform: "uppercase",
-          color: COLORS.ink,
-          fontWeight: 700,
-          marginBottom: 14,
-          display: "flex",
-          alignItems: "baseline",
-          gap: 8
-        }
-      },
-      /* @__PURE__ */ React.createElement("span", { style: { width: 18, height: 2, background: COLORS.maroon, display: "inline-block" } }),
-      children
-    );
+  function SectionLabel({
+    children
+  }) {
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        letterSpacing: 1.2,
+        textTransform: "uppercase",
+        color: COLORS.ink,
+        fontWeight: 700,
+        marginBottom: 14,
+        display: "flex",
+        alignItems: "baseline",
+        gap: 8
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        width: 18,
+        height: 2,
+        background: COLORS.maroon,
+        display: "inline-block"
+      }
+    }), children);
   }
-  function ModuleCard({ lesson, checked, onToggle, progress }) {
-    const { complete } = lessonStatus(lesson, progress);
-    return /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        onClick: onToggle,
-        style: {
-          textAlign: "left",
-          background: checked ? "rgba(122,30,30,0.06)" : COLORS.cream50,
-          border: `2px solid ${checked ? COLORS.maroon : COLORS.line}`,
-          borderRadius: 8,
-          padding: "16px 18px",
-          cursor: "pointer",
-          display: "flex",
-          gap: 14,
-          alignItems: "flex-start",
-          transition: "all 0.12s ease"
-        }
-      },
-      /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          style: {
-            flexShrink: 0,
-            width: 26,
-            height: 26,
-            borderRadius: 6,
-            border: `2px solid ${checked ? COLORS.maroon : COLORS.slateLight}`,
-            background: checked ? COLORS.maroon : "transparent",
-            color: COLORS.cream50,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 13,
-            fontWeight: 700,
-            marginTop: 2
-          }
-        },
-        checked ? "\u2713" : ""
-      ),
-      /* @__PURE__ */ React.createElement("span", { style: { flex: 1, minWidth: 0 } }, /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          style: {
-            display: "block",
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10.5,
-            letterSpacing: 0.8,
-            color: COLORS.maroon,
-            fontWeight: 700,
-            marginBottom: 4
-          }
-        },
-        "MODULE ",
-        String(lesson.number).padStart(2, "0"),
-        complete ? " \xB7 COMPLETE" : ""
-      ), /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          style: {
-            display: "block",
-            fontFamily: "'Source Serif 4', serif",
-            fontWeight: 700,
-            fontSize: 16.5,
-            color: COLORS.ink,
-            marginBottom: 4
-          }
-        },
-        lesson.title.split(":")[0]
-      ), /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          style: {
-            display: "block",
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 13.5,
-            lineHeight: 1.45,
-            color: COLORS.slate
-          }
-        },
-        BLURBS[lesson.number]
-      ))
-    );
+  function ModuleCard({
+    lesson,
+    checked,
+    onToggle,
+    progress
+  }) {
+    const {
+      complete
+    } = lessonStatus(lesson, progress);
+    return /* @__PURE__ */React.createElement("button", {
+      onClick: onToggle,
+      style: {
+        textAlign: "left",
+        background: checked ? "rgba(122,30,30,0.06)" : COLORS.cream50,
+        border: "2px solid ".concat(checked ? COLORS.maroon : COLORS.line),
+        borderRadius: 8,
+        padding: "16px 18px",
+        cursor: "pointer",
+        display: "flex",
+        gap: 14,
+        alignItems: "flex-start",
+        transition: "all 0.12s ease"
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        flexShrink: 0,
+        width: 26,
+        height: 26,
+        borderRadius: 6,
+        border: "2px solid ".concat(checked ? COLORS.maroon : COLORS.slateLight),
+        background: checked ? COLORS.maroon : "transparent",
+        color: COLORS.cream50,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 13,
+        fontWeight: 700,
+        marginTop: 2
+      }
+    }, checked ? "\u2713" : ""), /* @__PURE__ */React.createElement("span", {
+      style: {
+        flex: 1,
+        minWidth: 0
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        display: "block",
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10.5,
+        letterSpacing: 0.8,
+        color: COLORS.maroon,
+        fontWeight: 700,
+        marginBottom: 4
+      }
+    }, "MODULE ", String(lesson.number).padStart(2, "0"), complete ? " \xB7 COMPLETE" : ""), /* @__PURE__ */React.createElement("span", {
+      style: {
+        display: "block",
+        fontFamily: "'Source Serif 4', serif",
+        fontWeight: 700,
+        fontSize: 16.5,
+        color: COLORS.ink,
+        marginBottom: 4
+      }
+    }, lesson.title.split(":")[0]), /* @__PURE__ */React.createElement("span", {
+      style: {
+        display: "block",
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 13.5,
+        lineHeight: 1.45,
+        color: COLORS.slate
+      }
+    }, BLURBS[lesson.number])));
   }
-  function Picker({ initialSelection, assignedByLink, assignedName, progress, onStart }) {
+  function Picker({
+    initialSelection,
+    assignedByLink,
+    assignedName,
+    progress,
+    onStart
+  }) {
     const [picked, setPicked] = useState(() => new Set(initialSelection || []));
     const [copyState, setCopyState] = useState("idle");
     const [linkName, setLinkName] = useState("");
     const [newSetName, setNewSetName] = useState("");
     const [saveMsg, setSaveMsg] = useState("");
-    const { sets, loaded: setsLoaded, addSet, removeSet } = useSavedSets();
-    const toggle = (num) => {
-      setPicked((prev) => {
+    const {
+      sets,
+      loaded: setsLoaded,
+      addSet,
+      removeSet
+    } = useSavedSets();
+    const toggle = num => {
+      setPicked(prev => {
         const next = new Set(prev);
         next.has(num) ? next.delete(num) : next.add(num);
         return next;
       });
     };
-    const selectAll = () => setPicked(new Set(LESSONS.map((l) => l.number)));
-    const clearAll = () => setPicked(/* @__PURE__ */ new Set());
-    const loadSet = (set) => {
+    const selectAll = () => setPicked(new Set(LESSONS.map(l => l.number)));
+    const clearAll = () => setPicked(/* @__PURE__ */new Set());
+    const loadSet = set => {
       setPicked(new Set(set.modules));
       setLinkName(set.name);
     };
@@ -1177,7 +1279,7 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       if (nums) params.set("modules", nums);
       if (linkName.trim()) params.set("name", linkName.trim());
       const query = params.toString();
-      return query ? `${DEPLOY_URL}?${query}` : DEPLOY_URL;
+      return query ? "".concat(DEPLOY_URL, "?").concat(query) : DEPLOY_URL;
     };
     const copyLink = async () => {
       const link = buildLink();
@@ -1195,385 +1297,300 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
       addSet(name, Array.from(picked).sort((a, b) => a - b));
       setLinkName(name);
       setNewSetName("");
-      setSaveMsg(`Saved "${name}"`);
+      setSaveMsg("Saved \"".concat(name, "\""));
       setTimeout(() => setSaveMsg(""), 2e3);
     };
     const count = picked.size;
-    return /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          background: COLORS.paper,
-          borderRadius: 10,
-          boxShadow: "0 1px 0 rgba(0,0,0,0.04), 0 12px 30px -16px rgba(0,0,0,0.35)",
-          padding: "40px 44px 40px",
-          maxWidth: 880,
-          margin: "0 auto"
-        }
-      },
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11.5,
-            letterSpacing: 1.5,
-            color: COLORS.maroon,
-            fontWeight: 600,
-            marginBottom: 10
-          }
-        },
-        "SUPPLEMENTAL RESOURCE"
-      ),
-      /* @__PURE__ */ React.createElement(
-        "h1",
-        {
-          style: {
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 40,
-            letterSpacing: 0.5,
-            color: COLORS.ink,
-            margin: "0 0 10px 0",
-            lineHeight: 1.05
-          }
-        },
-        "Choose Your Modules"
-      ),
-      /* @__PURE__ */ React.createElement(
-        "p",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 16,
-            lineHeight: 1.6,
-            color: COLORS.inkSoft,
-            maxWidth: 620,
-            margin: "0 0 24px 0"
-          }
-        },
-        "This isn't a course you have to finish top to bottom. Pick only the skills you need to work on \u2014 or select all 11 for the full series."
-      ),
-      assignedByLink && /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            background: "rgba(192,136,41,0.12)",
-            border: `1.5px solid ${COLORS.brass}`,
-            borderRadius: 6,
-            padding: "12px 16px",
-            marginBottom: 24,
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 14,
-            color: COLORS.inkSoft
-          }
-        },
-        /* @__PURE__ */ React.createElement("strong", { style: { color: COLORS.maroon } }, "Assigned by your instructor", assignedName ? `: ${assignedName}` : "", "."),
-        " ",
-        "This link pre-selected ",
-        initialSelection.length,
-        " module",
-        initialSelection.length === 1 ? "" : "s",
-        " for you below. You can still adjust the selection before starting."
-      ),
-      setsLoaded && sets.length > 0 && /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 24 } }, /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 11,
-            letterSpacing: 1,
-            color: COLORS.slate,
-            fontWeight: 700,
-            marginBottom: 8,
-            textTransform: "uppercase"
-          }
-        },
-        "Your saved sets"
-      ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", flexWrap: "wrap", gap: 8 } }, sets.map((s) => /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          key: s.name,
-          style: {
-            display: "inline-flex",
-            alignItems: "center",
-            gap: 8,
-            border: `1px solid ${COLORS.line}`,
-            borderRadius: 20,
-            padding: "5px 6px 5px 14px",
-            background: COLORS.cream50
-          }
-        },
-        /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => loadSet(s),
-            style: {
-              background: "none",
-              border: "none",
-              cursor: "pointer",
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 13.5,
-              fontWeight: 600,
-              color: COLORS.ink
-            }
-          },
-          s.name,
-          " ",
-          /* @__PURE__ */ React.createElement("span", { style: { color: COLORS.slateLight, fontWeight: 400 } }, "(", s.modules.length, ")")
-        ),
-        /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: () => removeSet(s.name),
-            "aria-label": `Delete ${s.name}`,
-            style: {
-              background: COLORS.line,
-              border: "none",
-              borderRadius: "50%",
-              width: 18,
-              height: 18,
-              fontSize: 11,
-              lineHeight: "18px",
-              color: COLORS.slate,
-              cursor: "pointer"
-            }
-          },
-          "\xD7"
-        )
-      )))),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            display: "flex",
-            gap: 16,
-            alignItems: "center",
-            marginBottom: 16,
-            flexWrap: "wrap"
-          }
-        },
-        /* @__PURE__ */ React.createElement(
-          "span",
-          {
-            style: {
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 12,
-              color: COLORS.slate
-            }
-          },
-          count,
-          " of 11 selected"
-        ),
-        /* @__PURE__ */ React.createElement("button", { onClick: selectAll, style: linkButtonStyle }, "Select all"),
-        /* @__PURE__ */ React.createElement("button", { onClick: clearAll, style: linkButtonStyle }, "Clear")
-      ),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-            gap: 12,
-            marginBottom: 28
-          }
-        },
-        LESSONS.map((l) => /* @__PURE__ */ React.createElement(
-          ModuleCard,
-          {
-            key: l.number,
-            lesson: l,
-            checked: picked.has(l.number),
-            onToggle: () => toggle(l.number),
-            progress
-          }
-        ))
-      ),
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            borderTop: `2px solid ${COLORS.ink}`,
-            paddingTop: 22
-          }
-        },
-        /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 11,
-              letterSpacing: 1,
-              color: COLORS.slate,
-              fontWeight: 700,
-              marginBottom: 10,
-              textTransform: "uppercase"
-            }
-          },
-          "For instructors \u2014 build an assignment"
-        ),
-        DEPLOY_URL === "REPLACE_WITH_YOUR_WEB_APP_URL" && /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              background: "rgba(122,30,30,0.08)",
-              border: `1.5px solid ${COLORS.maroon}`,
-              borderRadius: 6,
-              padding: "10px 14px",
-              marginBottom: 14,
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 13,
-              color: COLORS.maroon
-            }
-          },
-          "Setup needed: open ",
-          /* @__PURE__ */ React.createElement("code", null, "Code.gs"),
-          " in the Apps Script editor and set",
-          " ",
-          /* @__PURE__ */ React.createElement("code", null, "DEPLOY_URL"),
-          " near the top to this app's actual Web App URL, save, then redeploy (Deploy \u2192 Manage deployments \u2192 edit \u2192 New version). Assignment links won't work correctly until that's set."
-        ),
-        /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 14 } }, /* @__PURE__ */ React.createElement(
-          "input",
-          {
-            value: linkName,
-            onChange: (e) => setLinkName(e.target.value),
-            placeholder: "Assignment name (optional) \\u2014 e.g. Speech 1 Prep",
-            style: {
-              flex: "1 1 260px",
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 14,
-              padding: "9px 12px",
-              border: `1px solid ${COLORS.line}`,
-              borderRadius: 6,
-              background: COLORS.cream50,
-              color: COLORS.ink
-            }
-          }
-        ), /* @__PURE__ */ React.createElement("div", { style: { display: "flex", gap: 6 } }, /* @__PURE__ */ React.createElement(
-          "input",
-          {
-            value: newSetName,
-            onChange: (e) => setNewSetName(e.target.value),
-            placeholder: "Save as a reusable set\\u2026",
-            style: {
-              width: 190,
-              fontFamily: "'Source Serif 4', serif",
-              fontSize: 14,
-              padding: "9px 12px",
-              border: `1px solid ${COLORS.line}`,
-              borderRadius: 6,
-              background: COLORS.cream50,
-              color: COLORS.ink
-            }
-          }
-        ), /* @__PURE__ */ React.createElement(
-          "button",
-          {
-            onClick: saveCurrentAsSet,
-            disabled: !newSetName.trim() || count === 0,
-            style: {
-              fontFamily: "'JetBrains Mono', monospace",
-              fontSize: 11.5,
-              fontWeight: 700,
-              color: !newSetName.trim() || count === 0 ? COLORS.slateLight : COLORS.cream50,
-              background: !newSetName.trim() || count === 0 ? COLORS.line : COLORS.ink,
-              border: "none",
-              borderRadius: 6,
-              padding: "0 14px",
-              cursor: !newSetName.trim() || count === 0 ? "default" : "pointer",
-              whiteSpace: "nowrap"
-            }
-          },
-          saveMsg || "SAVE SET"
-        ))),
-        /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              flexWrap: "wrap",
-              gap: 14
-            }
-          },
-          /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(
-            "button",
-            {
-              onClick: copyLink,
-              disabled: count === 0,
-              style: {
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 12,
-                fontWeight: 600,
-                letterSpacing: 0.3,
-                color: count === 0 ? COLORS.slateLight : COLORS.maroon,
-                background: "transparent",
-                border: `1px solid ${count === 0 ? COLORS.line : COLORS.maroon}`,
-                borderRadius: 6,
-                padding: "10px 16px",
-                cursor: count === 0 ? "default" : "pointer"
-              }
-            },
-            copyState === "copied" ? "\u2713 LINK COPIED" : "COPY ASSIGNMENT LINK"
-          ), copyState === "manual" && /* @__PURE__ */ React.createElement(
-            "input",
-            {
-              readOnly: true,
-              value: buildLink(),
-              onFocus: (e) => e.target.select(),
-              style: {
-                display: "block",
-                marginTop: 8,
-                width: "100%",
-                maxWidth: 420,
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 11,
-                padding: "6px 8px",
-                border: `1px solid ${COLORS.line}`,
-                borderRadius: 4,
-                color: COLORS.inkSoft
-              }
-            }
-          ), /* @__PURE__ */ React.createElement(
-            "p",
-            {
-              style: {
-                fontFamily: "'Source Serif 4', serif",
-                fontSize: 12.5,
-                color: COLORS.slateLight,
-                margin: "6px 0 0 0",
-                maxWidth: 380
-              }
-            },
-            "Name it, copy the link, and share it \u2014 students who open it land on those modules automatically. Save as a set to reuse it next semester."
-          )),
-          /* @__PURE__ */ React.createElement(
-            "button",
-            {
-              onClick: () => onStart(Array.from(picked).sort((a, b) => a - b)),
-              disabled: count === 0,
-              style: {
-                fontFamily: "'JetBrains Mono', monospace",
-                fontSize: 13.5,
-                fontWeight: 700,
-                letterSpacing: 0.5,
-                color: count === 0 ? COLORS.slateLight : COLORS.cream50,
-                background: count === 0 ? COLORS.line : COLORS.maroon,
-                border: "none",
-                borderRadius: 6,
-                padding: "13px 26px",
-                cursor: count === 0 ? "default" : "pointer",
-                whiteSpace: "nowrap"
-              }
-            },
-            "START ",
-            count > 0 ? `(${count}) ` : "",
-            "\u2192"
-          )
-        )
-      )
-    );
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        background: COLORS.paper,
+        borderRadius: 10,
+        boxShadow: "0 1px 0 rgba(0,0,0,0.04), 0 12px 30px -16px rgba(0,0,0,0.35)",
+        padding: "40px 44px 40px",
+        maxWidth: 880,
+        margin: "0 auto"
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11.5,
+        letterSpacing: 1.5,
+        color: COLORS.maroon,
+        fontWeight: 600,
+        marginBottom: 10
+      }
+    }, "SUPPLEMENTAL RESOURCE"), /* @__PURE__ */React.createElement("h1", {
+      style: {
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: 40,
+        letterSpacing: 0.5,
+        color: COLORS.ink,
+        margin: "0 0 10px 0",
+        lineHeight: 1.05
+      }
+    }, "Choose Your Modules"), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 16,
+        lineHeight: 1.6,
+        color: COLORS.inkSoft,
+        maxWidth: 620,
+        margin: "0 0 24px 0"
+      }
+    }, "This isn't a course you have to finish top to bottom. Pick only the skills you need to work on \u2014 or select all 11 for the full series."), assignedByLink && /* @__PURE__ */React.createElement("div", {
+      style: {
+        background: "rgba(192,136,41,0.12)",
+        border: "1.5px solid ".concat(COLORS.brass),
+        borderRadius: 6,
+        padding: "12px 16px",
+        marginBottom: 24,
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 14,
+        color: COLORS.inkSoft
+      }
+    }, /* @__PURE__ */React.createElement("strong", {
+      style: {
+        color: COLORS.maroon
+      }
+    }, "Assigned by your instructor", assignedName ? ": ".concat(assignedName) : "", "."), " ", "This link pre-selected ", initialSelection.length, " module", initialSelection.length === 1 ? "" : "s", " for you below. You can still adjust the selection before starting."), setsLoaded && sets.length > 0 && /* @__PURE__ */React.createElement("div", {
+      style: {
+        marginBottom: 24
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        letterSpacing: 1,
+        color: COLORS.slate,
+        fontWeight: 700,
+        marginBottom: 8,
+        textTransform: "uppercase"
+      }
+    }, "Your saved sets"), /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "flex",
+        flexWrap: "wrap",
+        gap: 8
+      }
+    }, sets.map(s => /* @__PURE__ */React.createElement("span", {
+      key: s.name,
+      style: {
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 8,
+        border: "1px solid ".concat(COLORS.line),
+        borderRadius: 20,
+        padding: "5px 6px 5px 14px",
+        background: COLORS.cream50
+      }
+    }, /* @__PURE__ */React.createElement("button", {
+      onClick: () => loadSet(s),
+      style: {
+        background: "none",
+        border: "none",
+        cursor: "pointer",
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 13.5,
+        fontWeight: 600,
+        color: COLORS.ink
+      }
+    }, s.name, " ", /* @__PURE__ */React.createElement("span", {
+      style: {
+        color: COLORS.slateLight,
+        fontWeight: 400
+      }
+    }, "(", s.modules.length, ")")), /* @__PURE__ */React.createElement("button", {
+      onClick: () => removeSet(s.name),
+      "aria-label": "Delete ".concat(s.name),
+      style: {
+        background: COLORS.line,
+        border: "none",
+        borderRadius: "50%",
+        width: 18,
+        height: 18,
+        fontSize: 11,
+        lineHeight: "18px",
+        color: COLORS.slate,
+        cursor: "pointer"
+      }
+    }, "\xD7"))))), /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 16,
+        alignItems: "center",
+        marginBottom: 16,
+        flexWrap: "wrap"
+      }
+    }, /* @__PURE__ */React.createElement("span", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        color: COLORS.slate
+      }
+    }, count, " of 11 selected"), /* @__PURE__ */React.createElement("button", {
+      onClick: selectAll,
+      style: linkButtonStyle
+    }, "Select all"), /* @__PURE__ */React.createElement("button", {
+      onClick: clearAll,
+      style: linkButtonStyle
+    }, "Clear")), /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+        gap: 12,
+        marginBottom: 28
+      }
+    }, LESSONS.map(l => /* @__PURE__ */React.createElement(ModuleCard, {
+      key: l.number,
+      lesson: l,
+      checked: picked.has(l.number),
+      onToggle: () => toggle(l.number),
+      progress
+    }))), /* @__PURE__ */React.createElement("div", {
+      style: {
+        borderTop: "2px solid ".concat(COLORS.ink),
+        paddingTop: 22
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        letterSpacing: 1,
+        color: COLORS.slate,
+        fontWeight: 700,
+        marginBottom: 10,
+        textTransform: "uppercase"
+      }
+    }, "For instructors \u2014 build an assignment"), DEPLOY_URL === "REPLACE_WITH_YOUR_WEB_APP_URL" && /* @__PURE__ */React.createElement("div", {
+      style: {
+        background: "rgba(122,30,30,0.08)",
+        border: "1.5px solid ".concat(COLORS.maroon),
+        borderRadius: 6,
+        padding: "10px 14px",
+        marginBottom: 14,
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 13,
+        color: COLORS.maroon
+      }
+    }, "Setup needed: open ", /* @__PURE__ */React.createElement("code", null, "Code.gs"), " in the Apps Script editor and set", " ", /* @__PURE__ */React.createElement("code", null, "DEPLOY_URL"), " near the top to this app's actual Web App URL, save, then redeploy (Deploy \u2192 Manage deployments \u2192 edit \u2192 New version). Assignment links won't work correctly until that's set."), /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 10,
+        flexWrap: "wrap",
+        marginBottom: 14
+      }
+    }, /* @__PURE__ */React.createElement("input", {
+      value: linkName,
+      onChange: e => setLinkName(e.target.value),
+      placeholder: "Assignment name (optional) \\u2014 e.g. Speech 1 Prep",
+      style: {
+        flex: "1 1 260px",
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 14,
+        padding: "9px 12px",
+        border: "1px solid ".concat(COLORS.line),
+        borderRadius: 6,
+        background: COLORS.cream50,
+        color: COLORS.ink
+      }
+    }), /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "flex",
+        gap: 6
+      }
+    }, /* @__PURE__ */React.createElement("input", {
+      value: newSetName,
+      onChange: e => setNewSetName(e.target.value),
+      placeholder: "Save as a reusable set\\u2026",
+      style: {
+        width: 190,
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 14,
+        padding: "9px 12px",
+        border: "1px solid ".concat(COLORS.line),
+        borderRadius: 6,
+        background: COLORS.cream50,
+        color: COLORS.ink
+      }
+    }), /* @__PURE__ */React.createElement("button", {
+      onClick: saveCurrentAsSet,
+      disabled: !newSetName.trim() || count === 0,
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11.5,
+        fontWeight: 700,
+        color: !newSetName.trim() || count === 0 ? COLORS.slateLight : COLORS.cream50,
+        background: !newSetName.trim() || count === 0 ? COLORS.line : COLORS.ink,
+        border: "none",
+        borderRadius: 6,
+        padding: "0 14px",
+        cursor: !newSetName.trim() || count === 0 ? "default" : "pointer",
+        whiteSpace: "nowrap"
+      }
+    }, saveMsg || "SAVE SET"))), /* @__PURE__ */React.createElement("div", {
+      style: {
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: 14
+      }
+    }, /* @__PURE__ */React.createElement("div", null, /* @__PURE__ */React.createElement("button", {
+      onClick: copyLink,
+      disabled: count === 0,
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        fontWeight: 600,
+        letterSpacing: 0.3,
+        color: count === 0 ? COLORS.slateLight : COLORS.maroon,
+        background: "transparent",
+        border: "1px solid ".concat(count === 0 ? COLORS.line : COLORS.maroon),
+        borderRadius: 6,
+        padding: "10px 16px",
+        cursor: count === 0 ? "default" : "pointer"
+      }
+    }, copyState === "copied" ? "\u2713 LINK COPIED" : "COPY ASSIGNMENT LINK"), copyState === "manual" && /* @__PURE__ */React.createElement("input", {
+      readOnly: true,
+      value: buildLink(),
+      onFocus: e => e.target.select(),
+      style: {
+        display: "block",
+        marginTop: 8,
+        width: "100%",
+        maxWidth: 420,
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 11,
+        padding: "6px 8px",
+        border: "1px solid ".concat(COLORS.line),
+        borderRadius: 4,
+        color: COLORS.inkSoft
+      }
+    }), /* @__PURE__ */React.createElement("p", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 12.5,
+        color: COLORS.slateLight,
+        margin: "6px 0 0 0",
+        maxWidth: 380
+      }
+    }, "Name it, copy the link, and share it \u2014 students who open it land on those modules automatically. Save as a set to reuse it next semester.")), /* @__PURE__ */React.createElement("button", {
+      onClick: () => onStart(Array.from(picked).sort((a, b) => a - b)),
+      disabled: count === 0,
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 13.5,
+        fontWeight: 700,
+        letterSpacing: 0.5,
+        color: count === 0 ? COLORS.slateLight : COLORS.cream50,
+        background: count === 0 ? COLORS.line : COLORS.maroon,
+        border: "none",
+        borderRadius: 6,
+        padding: "13px 26px",
+        cursor: count === 0 ? "default" : "pointer",
+        whiteSpace: "nowrap"
+      }
+    }, "START ", count > 0 ? "(".concat(count, ") ") : "", "\u2192"))));
   }
   var linkButtonStyle = {
     fontFamily: "'JetBrains Mono', monospace",
@@ -1590,8 +1607,19 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     const [activeNum, setActiveNum] = useState(null);
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [forcePicker, setForcePicker] = useState(false);
-    const { progress, loaded: progressLoaded, toggleStep, toggleSelfCheck } = useProgress();
-    const { selection, assignedByLink, assignedName, loaded: selectionLoaded, chooseSelection } = useSelection();
+    const {
+      progress,
+      loaded: progressLoaded,
+      toggleStep,
+      toggleSelfCheck
+    } = useProgress();
+    const {
+      selection,
+      assignedByLink,
+      assignedName,
+      loaded: selectionLoaded,
+      chooseSelection
+    } = useSelection();
     useEffect(() => {
       if (selection && selection.length && activeNum === null) {
         setActiveNum(selection[0]);
@@ -1600,266 +1628,222 @@ function(a,b,c){if(!Vd(b))throw Error(m(200));return Wd(null,a,b,!1,c)};Q.unmoun
     const showPicker = selectionLoaded && (forcePicker || !selection || selection.length === 0);
     const selectedLessons = useMemo(() => {
       if (!selection) return [];
-      return LESSONS.filter((l) => selection.includes(l.number));
+      return LESSONS.filter(l => selection.includes(l.number));
     }, [selection]);
-    const activeLesson = useMemo(
-      () => LESSONS.find((l) => l.number === activeNum) || selectedLessons[0] || LESSONS[0],
-      [activeNum, selectedLessons]
-    );
-    const totalComplete = useMemo(
-      () => selectedLessons.filter((l) => lessonStatus(l, progress).complete).length,
-      [progress, selectedLessons]
-    );
-    const activeIdxInSelection = selectedLessons.findIndex((l) => l.number === activeNum);
+    const activeLesson = useMemo(() => LESSONS.find(l => l.number === activeNum) || selectedLessons[0] || LESSONS[0], [activeNum, selectedLessons]);
+    const totalComplete = useMemo(() => selectedLessons.filter(l => lessonStatus(l, progress).complete).length, [progress, selectedLessons]);
+    const activeIdxInSelection = selectedLessons.findIndex(l => l.number === activeNum);
     const goPrev = () => {
       if (activeIdxInSelection > 0) {
         setActiveNum(selectedLessons[activeIdxInSelection - 1].number);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       }
     };
     const goNext = () => {
       if (activeIdxInSelection >= 0 && activeIdxInSelection < selectedLessons.length - 1) {
         setActiveNum(selectedLessons[activeIdxInSelection + 1].number);
-        window.scrollTo({ top: 0, behavior: "smooth" });
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
       }
     };
-    const globalStyles = /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("style", null, FONT_IMPORT), /* @__PURE__ */ React.createElement("style", null, `
-        * { box-sizing: border-box; }
-        body { margin: 0; }
-        ::selection { background: ${COLORS.brassSoft}; color: ${COLORS.ink}; }
-        a { color: inherit; }
-        button:focus-visible, a:focus-visible { outline: 2px solid ${COLORS.brassSoft}; outline-offset: 2px; }
-        @media (max-width: 860px) {
-          .sd-sidebar { position: fixed !important; left: 0; top: 0; bottom: 0; z-index: 30; transform: translateX(-100%); transition: transform 0.2s ease; }
-          .sd-sidebar.open { transform: translateX(0); }
-          .sd-main { padding: 20px 14px 60px !important; }
-          .sd-card { padding: 26px 20px 34px !important; }
-          .sd-hamburger { display: flex !important; }
-        }
-      `));
+    const globalStyles = /* @__PURE__ */React.createElement(React.Fragment, null, /* @__PURE__ */React.createElement("style", null, FONT_IMPORT), /* @__PURE__ */React.createElement("style", null, "\n        * { box-sizing: border-box; }\n        body { margin: 0; }\n        ::selection { background: ".concat(COLORS.brassSoft, "; color: ").concat(COLORS.ink, "; }\n        a { color: inherit; }\n        button:focus-visible, a:focus-visible { outline: 2px solid ").concat(COLORS.brassSoft, "; outline-offset: 2px; }\n        @media (max-width: 860px) {\n          .sd-sidebar { position: fixed !important; left: 0; top: 0; bottom: 0; z-index: 30; transform: translateX(-100%); transition: transform 0.2s ease; }\n          .sd-sidebar.open { transform: translateX(0); }\n          .sd-main { padding: 20px 14px 60px !important; }\n          .sd-card { padding: 26px 20px 34px !important; }\n          .sd-hamburger { display: flex !important; }\n        }\n      ")));
     if (showPicker) {
-      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: COLORS.ink, padding: "48px 20px 80px" } }, globalStyles, /* @__PURE__ */ React.createElement(
-        Picker,
-        {
-          initialSelection: selection || [],
-          assignedByLink: !forcePicker && assignedByLink,
-          assignedName,
-          progress,
-          onStart: (nums) => {
-            chooseSelection(nums);
-            setActiveNum(nums[0]);
-            setForcePicker(false);
-          }
+      return /* @__PURE__ */React.createElement("div", {
+        style: {
+          minHeight: "100vh",
+          background: COLORS.ink,
+          padding: "48px 20px 80px"
         }
-      ));
+      }, globalStyles, /* @__PURE__ */React.createElement(Picker, {
+        initialSelection: selection || [],
+        assignedByLink: !forcePicker && assignedByLink,
+        assignedName,
+        progress,
+        onStart: nums => {
+          chooseSelection(nums);
+          setActiveNum(nums[0]);
+          setForcePicker(false);
+        }
+      }));
     }
     if (!selectionLoaded || !progressLoaded || activeNum === null) {
-      return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: COLORS.ink } }, globalStyles);
+      return /* @__PURE__ */React.createElement("div", {
+        style: {
+          minHeight: "100vh",
+          background: COLORS.ink
+        }
+      }, globalStyles);
     }
-    return /* @__PURE__ */ React.createElement("div", { style: { minHeight: "100vh", background: COLORS.ink, display: "flex" } }, globalStyles, /* @__PURE__ */ React.createElement(
-      "aside",
-      {
-        className: `sd-sidebar${sidebarOpen ? " open" : ""}`,
-        style: {
-          width: 280,
-          flexShrink: 0,
-          background: COLORS.ink,
-          borderRight: `1px solid ${COLORS.inkSoft}`,
-          padding: "28px 18px",
-          height: "100vh",
-          overflowY: "auto"
-        }
-      },
-      /* @__PURE__ */ React.createElement("div", { style: { marginBottom: 18, paddingLeft: 4 } }, /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 10.5,
-            letterSpacing: 1.5,
-            color: COLORS.brassSoft,
-            fontWeight: 600,
-            marginBottom: 4
-          }
-        },
-        "SPEECH DELIVERY"
-      ), /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 26,
-            color: COLORS.paper,
-            letterSpacing: 0.5,
-            lineHeight: 1
-          }
-        },
-        "Training Series"
-      ), /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            fontFamily: "'Source Serif 4', serif",
-            fontSize: 12.5,
-            color: COLORS.slateLight,
-            marginTop: 8
-          }
-        },
-        progressLoaded ? `${totalComplete} of ${selectedLessons.length} drills complete` : "Loading progress\u2026"
-      ), /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          style: {
-            height: 4,
-            background: COLORS.inkSoft,
-            borderRadius: 2,
-            marginTop: 8,
-            overflow: "hidden"
-          }
-        },
-        /* @__PURE__ */ React.createElement(
-          "div",
-          {
-            style: {
-              height: "100%",
-              width: `${totalComplete / Math.max(selectedLessons.length, 1) * 100}%`,
-              background: COLORS.brass,
-              transition: "width 0.3s ease"
-            }
-          }
-        )
-      ), /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: () => setForcePicker(true),
-          style: {
-            ...linkButtonStyle,
-            color: COLORS.brassSoft,
-            fontSize: 11,
-            marginTop: 12
-          }
-        },
-        "\u2190 Change modules"
-      )),
-      /* @__PURE__ */ React.createElement("nav", null, selectedLessons.map((l) => /* @__PURE__ */ React.createElement(
-        SidebarItem,
-        {
-          key: l.number,
-          lesson: l,
-          active: l.number === activeNum,
-          progress,
-          onClick: () => {
-            setActiveNum(l.number);
-            setSidebarOpen(false);
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }
-        }
-      )))
-    ), /* @__PURE__ */ React.createElement("main", { className: "sd-main", style: { flex: 1, padding: "40px 32px 80px", minWidth: 0 } }, /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        className: "sd-hamburger",
-        style: {
-          display: "none",
-          alignItems: "center",
-          gap: 10,
-          marginBottom: 18
-        }
-      },
-      /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          onClick: () => setSidebarOpen(!sidebarOpen),
-          style: {
-            background: COLORS.maroon,
-            color: COLORS.paper,
-            border: "none",
-            borderRadius: 6,
-            padding: "8px 14px",
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 12,
-            fontWeight: 700,
-            cursor: "pointer"
-          }
-        },
-        "MODULES"
-      ),
-      /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          style: {
-            fontFamily: "'Bebas Neue', sans-serif",
-            fontSize: 20,
-            color: COLORS.paper
-          }
-        },
-        "Module ",
-        String(activeNum).padStart(2, "0")
-      )
-    ), /* @__PURE__ */ React.createElement("div", { className: "sd-card" }, /* @__PURE__ */ React.createElement(
-      LessonView,
-      {
-        lesson: activeLesson,
-        progress,
-        toggleStep,
-        toggleSelfCheck
+    return /* @__PURE__ */React.createElement("div", {
+      style: {
+        minHeight: "100vh",
+        background: COLORS.ink,
+        display: "flex"
       }
-    )), /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        style: {
-          maxWidth: 760,
-          margin: "28px auto 0",
-          display: "flex",
-          justifyContent: "space-between",
-          gap: 12
-        }
-      },
-      /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          disabled: activeIdxInSelection <= 0,
-          onClick: goPrev,
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: 0.4,
-            color: activeIdxInSelection <= 0 ? COLORS.slate : COLORS.paper,
-            background: "transparent",
-            border: `1px solid ${activeIdxInSelection <= 0 ? COLORS.inkSoft : COLORS.slateLight}`,
-            borderRadius: 6,
-            padding: "10px 18px",
-            cursor: activeIdxInSelection <= 0 ? "default" : "pointer"
-          }
-        },
-        "\u2190 PREV MODULE"
-      ),
-      /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          disabled: activeIdxInSelection >= selectedLessons.length - 1,
-          onClick: goNext,
-          style: {
-            fontFamily: "'JetBrains Mono', monospace",
-            fontSize: 12,
-            fontWeight: 600,
-            letterSpacing: 0.4,
-            color: activeIdxInSelection >= selectedLessons.length - 1 ? COLORS.slate : COLORS.paper,
-            background: "transparent",
-            border: `1px solid ${activeIdxInSelection >= selectedLessons.length - 1 ? COLORS.inkSoft : COLORS.slateLight}`,
-            borderRadius: 6,
-            padding: "10px 18px",
-            cursor: activeIdxInSelection >= selectedLessons.length - 1 ? "default" : "pointer"
-          }
-        },
-        "NEXT MODULE \u2192"
-      )
-    )));
+    }, globalStyles, /* @__PURE__ */React.createElement("aside", {
+      className: "sd-sidebar".concat(sidebarOpen ? " open" : ""),
+      style: {
+        width: 280,
+        flexShrink: 0,
+        background: COLORS.ink,
+        borderRight: "1px solid ".concat(COLORS.inkSoft),
+        padding: "28px 18px",
+        height: "100vh",
+        overflowY: "auto"
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        marginBottom: 18,
+        paddingLeft: 4
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 10.5,
+        letterSpacing: 1.5,
+        color: COLORS.brassSoft,
+        fontWeight: 600,
+        marginBottom: 4
+      }
+    }, "SPEECH DELIVERY"), /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: 26,
+        color: COLORS.paper,
+        letterSpacing: 0.5,
+        lineHeight: 1
+      }
+    }, "Training Series"), /* @__PURE__ */React.createElement("div", {
+      style: {
+        fontFamily: "'Source Serif 4', serif",
+        fontSize: 12.5,
+        color: COLORS.slateLight,
+        marginTop: 8
+      }
+    }, progressLoaded ? "".concat(totalComplete, " of ").concat(selectedLessons.length, " drills complete") : "Loading progress\u2026"), /* @__PURE__ */React.createElement("div", {
+      style: {
+        height: 4,
+        background: COLORS.inkSoft,
+        borderRadius: 2,
+        marginTop: 8,
+        overflow: "hidden"
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      style: {
+        height: "100%",
+        width: "".concat(totalComplete / Math.max(selectedLessons.length, 1) * 100, "%"),
+        background: COLORS.brass,
+        transition: "width 0.3s ease"
+      }
+    })), /* @__PURE__ */React.createElement("button", {
+      onClick: () => setForcePicker(true),
+      style: {
+        ...linkButtonStyle,
+        color: COLORS.brassSoft,
+        fontSize: 11,
+        marginTop: 12
+      }
+    }, "\u2190 Change modules")), /* @__PURE__ */React.createElement("nav", null, selectedLessons.map(l => /* @__PURE__ */React.createElement(SidebarItem, {
+      key: l.number,
+      lesson: l,
+      active: l.number === activeNum,
+      progress,
+      onClick: () => {
+        setActiveNum(l.number);
+        setSidebarOpen(false);
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth"
+        });
+      }
+    })))), /* @__PURE__ */React.createElement("main", {
+      className: "sd-main",
+      style: {
+        flex: 1,
+        padding: "40px 32px 80px",
+        minWidth: 0
+      }
+    }, /* @__PURE__ */React.createElement("div", {
+      className: "sd-hamburger",
+      style: {
+        display: "none",
+        alignItems: "center",
+        gap: 10,
+        marginBottom: 18
+      }
+    }, /* @__PURE__ */React.createElement("button", {
+      onClick: () => setSidebarOpen(!sidebarOpen),
+      style: {
+        background: COLORS.maroon,
+        color: COLORS.paper,
+        border: "none",
+        borderRadius: 6,
+        padding: "8px 14px",
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        fontWeight: 700,
+        cursor: "pointer"
+      }
+    }, "MODULES"), /* @__PURE__ */React.createElement("span", {
+      style: {
+        fontFamily: "'Bebas Neue', sans-serif",
+        fontSize: 20,
+        color: COLORS.paper
+      }
+    }, "Module ", String(activeNum).padStart(2, "0"))), /* @__PURE__ */React.createElement("div", {
+      className: "sd-card"
+    }, /* @__PURE__ */React.createElement(LessonView, {
+      lesson: activeLesson,
+      progress,
+      toggleStep,
+      toggleSelfCheck
+    })), /* @__PURE__ */React.createElement("div", {
+      style: {
+        maxWidth: 760,
+        margin: "28px auto 0",
+        display: "flex",
+        justifyContent: "space-between",
+        gap: 12
+      }
+    }, /* @__PURE__ */React.createElement("button", {
+      disabled: activeIdxInSelection <= 0,
+      onClick: goPrev,
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        fontWeight: 600,
+        letterSpacing: 0.4,
+        color: activeIdxInSelection <= 0 ? COLORS.slate : COLORS.paper,
+        background: "transparent",
+        border: "1px solid ".concat(activeIdxInSelection <= 0 ? COLORS.inkSoft : COLORS.slateLight),
+        borderRadius: 6,
+        padding: "10px 18px",
+        cursor: activeIdxInSelection <= 0 ? "default" : "pointer"
+      }
+    }, "\u2190 PREV MODULE"), /* @__PURE__ */React.createElement("button", {
+      disabled: activeIdxInSelection >= selectedLessons.length - 1,
+      onClick: goNext,
+      style: {
+        fontFamily: "'JetBrains Mono', monospace",
+        fontSize: 12,
+        fontWeight: 600,
+        letterSpacing: 0.4,
+        color: activeIdxInSelection >= selectedLessons.length - 1 ? COLORS.slate : COLORS.paper,
+        background: "transparent",
+        border: "1px solid ".concat(activeIdxInSelection >= selectedLessons.length - 1 ? COLORS.inkSoft : COLORS.slateLight),
+        borderRadius: 6,
+        padding: "10px 18px",
+        cursor: activeIdxInSelection >= selectedLessons.length - 1 ? "default" : "pointer"
+      }
+    }, "NEXT MODULE \u2192"))));
   }
   ReactDOM.createRoot(document.getElementById("root")).render(React.createElement(App));
 })();
-
 </script>
 
 </body>
