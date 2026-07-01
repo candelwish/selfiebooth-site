@@ -44,7 +44,7 @@ function doGet(e) {
 
   // Diagnostic probes: ?probe=bigplain | libs  — isolate what breaks the sandbox.
   if (e && e.parameter && e.parameter.probe) {
-    return probePage(e.parameter.probe);
+    return probePage(e.parameter);
   }
 
   var modules = (e && e.parameter && e.parameter.modules) ? e.parameter.modules : '';
@@ -70,7 +70,8 @@ function doGet(e) {
 }
 
 // Diagnostic probe pages to isolate what breaks Google's sandbox content writer.
-function probePage(which) {
+function probePage(params) {
+  var which = params.probe;
   var head = '<!DOCTYPE html><html><head><base target="_top">'
            + '<meta name="viewport" content="width=device-width, initial-scale=1"></head>'
            + '<body style="font-family:sans-serif;padding:24px;line-height:1.5">';
@@ -123,6 +124,47 @@ function probePage(which) {
     h = h.split('https://www.youtube.com/watch?v=').join('https-x-//www.youtube.com/watch?v=');
     return HtmlService.createHtmlOutput(h).setTitle('probe appnourl')
       .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+  }
+
+  if (which === 'sizetest') {
+    // Deliver blocks 0+1+2 PLUS a duplicate of the 132 KB ReactDOM block, so the
+    // total inline script (~275 KB) EXCEEDS the full app, but with ZERO app
+    // content -- only known-good library code. If this is blank, the failure is
+    // purely the SIZE of inline script (fix: load React from a CDN to shrink it).
+    // If it renders "React=...", size is fine and the app block's content is the
+    // real cause (then use ?probe=slice to bisect it).
+    var big = scripts[0] + scripts[1] + scripts[2] + scripts[2];
+    var check2 = '<script>try{document.getElementById("o").textContent='
+      + '"delivered OK; React="+(typeof React!=="undefined"?React.version:"MISSING");}'
+      + 'catch(err){document.getElementById("o").textContent="ERR "+err;}<\/script>';
+    return HtmlService.createHtmlOutput(
+      head + '<h1>Probe: sizetest (~275 KB of pure library script)</h1>'
+      + '<div id="o" style="font-weight:bold">running...</div>' + big + check2 + tail
+    ).setTitle('probe sizetest');
+  }
+
+  if (which === 'slice') {
+    // Deliver blocks 0+1+2 + a byte-slice [from%,to%] of the app block's inner
+    // JS (wrapped in its own <script>). Blank => the culprit bytes are in this
+    // slice. Rendered (#o shows the byte count) => this slice delivers fine.
+    // Binary-search using ?probe=slice&from=<pct>&to=<pct>.
+    var libs2 = scripts[0] + scripts[1] + scripts[2];
+    var appInner = scripts[scripts.length - 1]
+      .replace(/^<script>/, '').replace(/<\/script>\s*$/, '');
+    var from = params.from ? parseInt(params.from, 10) : 0;
+    var to = params.to ? parseInt(params.to, 10) : 100;
+    var a = Math.floor(appInner.length * from / 100);
+    var b = Math.floor(appInner.length * to / 100);
+    var slice = appInner.substring(a, b);
+    return HtmlService.createHtmlOutput(
+      head + '<h1>Probe: slice ' + from + '%-' + to + '% (' + (b - a) + ' bytes)</h1>'
+      + '<div id="o" style="font-weight:bold">running...</div>'
+      + libs2
+      + '<script>' + slice + '<\/script>'
+      + '<script>document.getElementById("o").textContent="slice delivered OK ('
+      + (b - a) + ' bytes)";<\/script>'
+      + tail
+    ).setTitle('probe slice ' + from + '-' + to);
   }
 
   return HtmlService.createHtmlOutput(head + '<p>unknown probe: ' + which + '</p>' + tail)
