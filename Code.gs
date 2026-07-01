@@ -167,6 +167,32 @@ function probePage(params) {
     ).setTitle('probe slice ' + from + '-' + to);
   }
 
+  if (which === 'b64') {
+    // Cause-agnostic fix test: replace the app <script> block with a base64
+    // payload (pure A-Za-z0-9+/=, none of the sequences that break Google's
+    // sandbox serializer) plus a tiny loader that decodes it and injects a real
+    // <script> at runtime. If this renders "Choose Your Modules", we make it
+    // permanent. Library blocks (0,1,2) stay as normal inline scripts.
+    var full = HtmlService.createHtmlOutputFromFile('Index').getContent();
+    full = full
+      .replace('"<?= deployUrl ?>"', function () { return JSON.stringify(DEPLOY_URL); })
+      .replace('"<?= modulesParam ?>"', function () { return '""'; })
+      .replace('"<?= nameParam ?>"', function () { return '""'; });
+    var appBlock = full.match(/<script>[\s\S]*?<\/script>/g).pop();
+    var appInner = appBlock.replace(/^<script>/, '').replace(/<\/script>\s*$/, '');
+    var b64 = Utilities.base64Encode(appInner, Utilities.Charset.UTF_8);
+    var loader = '<script id="__appsrc" type="text/plain">' + b64 + '<\/script>'
+      + '<script>(function(){try{var b=document.getElementById("__appsrc").textContent;'
+      + 'var code=decodeURIComponent(escape(atob(b)));'
+      + 'var s=document.createElement("script");s.text=code;'
+      + 'document.body.appendChild(s);}catch(err){'
+      + 'document.body.insertAdjacentHTML("beforeend","<pre>loader error: "+err+"</pre>");}})();<\/script>';
+    var page = full.replace(appBlock, loader);
+    return HtmlService.createHtmlOutput(page)
+      .setTitle('Speech Delivery Skills Series')
+      .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+  }
+
   return HtmlService.createHtmlOutput(head + '<p>unknown probe: ' + which + '</p>' + tail)
     .setTitle('probe');
 }
