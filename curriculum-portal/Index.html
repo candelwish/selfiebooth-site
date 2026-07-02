@@ -146,6 +146,14 @@
   .vcard .vmeta .vt{flex:1; font-size:.92rem}
   .vcard .vmeta a{color:#bcd0ff; font-size:.82rem; white-space:nowrap}
   .vcard iframe{width:100%; aspect-ratio:16/9; border:0; display:block}
+  .vfacade.mediafacade{aspect-ratio:16/9; background:linear-gradient(135deg,#2b1a3a,#3a2140);
+    display:flex; flex-direction:column; align-items:center; justify-content:center; gap:10px; padding:14px; text-align:center}
+  .mediafacade .mplay{width:56px; height:56px; border-radius:50%; background:rgba(236,72,153,.95);
+    color:#fff; display:flex; align-items:center; justify-content:center; font-size:1.3rem}
+  .mediafacade .mtitle{font-size:.9rem; color:#f6e9ff; max-width:92%}
+  .vtag.flag-c{background:#0f7a3d; color:#fff}
+  .vtag.flag-m{background:#c98a00; color:#231a00}
+  .vtag.flag-x{background:#b3261e; color:#fff}
 
   .navbtns{display:flex; justify-content:space-between; gap:10px; margin-top:20px}
   .navbtns .btn.ghost:disabled{opacity:.4; cursor:not-allowed}
@@ -623,6 +631,15 @@ function renderLesson(key){
     html += "<div class='videos' id='videos-host'></div></div>";
   }
 
+  /* Classroom Media (teacher's own Drive clips) */
+  var media = lessonMedia(key);
+  if(media.length){
+    html += "<div class='block'><h3><span aria-hidden='true'>&#127916;</span> Classroom Media</h3>";
+    html += "<p style='margin:.1rem 0 .7rem; color:var(--muted)'>Short discussion clips. Preview before showing " +
+      "&mdash; check the language flag.</p>";
+    html += "<div class='videos' id='media-host'></div></div>";
+  }
+
   /* Cross-module connections (e.g. PC lesson -> Fluid Speaker delivery lesson) */
   if(L.related && L.related.length){
     html += "<div class='block' style='border-left:5px solid var(--red); background:linear-gradient(90deg,#ffffff,#fff5fb)'>";
@@ -664,6 +681,50 @@ function renderLesson(key){
   }
   wireCollapsibles();
   if(vids.length){ renderVideos(key); }
+  if(media.length){ renderMedia(key); }
+}
+
+function lessonMedia(key){ return (typeof MEDIA !== "undefined" && MEDIA[key]) ? MEDIA[key] : []; }
+function flagClass(f){
+  f = (f || "").toLowerCase();
+  if(f.indexOf("explicit") >= 0){ return "flag-x"; }
+  if(f.indexOf("mild") >= 0){ return "flag-m"; }
+  return "flag-c";
+}
+function renderMedia(key){
+  var host = $("media-host"); if(!host){ return; }
+  var clips = lessonMedia(key);
+  clips.forEach(function(c){
+    var card = document.createElement("div"); card.className = "vcard";
+    var facade = document.createElement("div"); facade.className = "vfacade mediafacade";
+    facade.innerHTML = "<div class='mplay' aria-hidden='true'>&#9654;</div>" +
+      "<div class='mtitle'>" + esc(c.t) + "</div>";
+    facade.setAttribute("aria-label", "Play clip: " + c.t);
+    makeButton(facade, function(){
+      var f = document.createElement("iframe");
+      f.setAttribute("title", c.t);
+      f.setAttribute("allow", "autoplay");
+      f.setAttribute("allowfullscreen", "true");
+      f.src = "https://drive.google.com/file/d/" + c.id + "/preview";
+      card.replaceChild(f, facade);
+    });
+    var meta = document.createElement("div"); meta.className = "vmeta";
+    meta.innerHTML = "<span class='vtag " + flagClass(c.flag) + "'>" + esc(c.flag || "Clip") + "</span>" +
+      "<span class='vt'>" + esc(c.t) + (c.length ? (" &middot; " + esc(c.length)) : "") + "</span>" +
+      "<a href='https://drive.google.com/file/d/" + esc(c.id) + "/view' target='_blank' rel='noopener'>Open in Drive &#8599;</a>";
+    card.appendChild(facade); card.appendChild(meta);
+    if(c.dq && c.dq.length){
+      var dq = document.createElement("div"); dq.className = "collap";
+      dq.setAttribute("data-open","false"); dq.setAttribute("aria-expanded","false");
+      var qs = ""; c.dq.forEach(function(q){ qs += "<li>" + esc(q) + "</li>"; });
+      dq.innerHTML = "<div class='block-h' role='button' tabindex='0' style='padding:8px 12px'>" +
+        "<span class='caret' aria-hidden='true'>&#9660;</span>Discussion questions</div>" +
+        "<div class='block-b' style='padding:0 14px 12px'><ul style='margin:.3rem 0'>" + qs + "</ul></div>";
+      card.appendChild(dq);
+    }
+    host.appendChild(card);
+  });
+  wireCollapsibles();
 }
 
 function simpleCard(title, body){
