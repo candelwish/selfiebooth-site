@@ -621,6 +621,26 @@ function renderLesson(key){
       esc(L.project) + "</div></div>";
   }
 
+  /* Classwork & Check: daily activity sheet + module quiz (+ instructor-only key) */
+  if(L.activity_url || L.quiz_url || (instr && L.quiz_key_url)){
+    html += "<div class='block'><h3><span aria-hidden='true'>&#9997;&#65039;</span> Classwork &amp; Check</h3>" +
+      "<div class='resbar' style='margin:0'>";
+    if(L.activity_url){
+      html += "<a class='res' href='" + esc(L.activity_url) + "' target='_blank' rel='noopener'>" +
+        "<span aria-hidden='true'>&#128203;</span>Daily Activity Sheet</a>";
+    }
+    if(L.quiz_url){
+      html += "<a class='res' href='" + esc(L.quiz_url) + "' target='_blank' rel='noopener'>" +
+        "<span aria-hidden='true'>&#9989;</span>Module Quiz</a>";
+    }
+    if(instr && L.quiz_key_url){
+      html += "<a class='res' href='" + esc(L.quiz_key_url) + "' target='_blank' rel='noopener' " +
+        "style='background:#fff4d6;border-color:#eedca0'>" +
+        "<span aria-hidden='true'>&#128273;</span>Answer Key (instructor)</a>";
+    }
+    html += "</div></div>";
+  }
+
   /* Supplemental resources */
   var supp = [];
   if(L.supp_video){ supp.push(["Video supplements", LINKS.supp_video]); }
