@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Iron Session — Workout Tracker</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0e0d0f; --panel:#1a181c; --panel2:#232026;
+    --red:#c8102e; --red-dim:#8d0b20;
+    --gold:#f2b705; --gold-dim:#a67f04;
+    --ink:#f5f2ee; --ink-dim:#9a949c;
+    --ok:#3fae6a;
+    --radius:14px;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  html,body{margin:0; padding:0; background:var(--bg); color:var(--ink);
+    font-family:'Barlow',sans-serif; font-size:16px;}
+  .display{font-family:'Barlow Condensed',sans-serif;}
+
+  header{padding:18px 16px 10px; display:flex; align-items:baseline; justify-content:space-between;}
+  header h1{margin:0; font-family:'Barlow Condensed'; font-weight:800; font-size:26px;
+    letter-spacing:.04em; text-transform:uppercase;}
+  header h1 span{color:var(--gold);}
+  #sessionClock{font-family:'Barlow Condensed'; font-weight:600; font-size:20px; color:var(--ink-dim);}
+  #sessionClock.live{color:var(--gold);}
+
+  /* Day tabs */
+  .tabs{display:flex; gap:8px; padding:0 16px 14px;}
+  .tab{flex:1; padding:12px 4px; border:1px solid var(--panel2); border-radius:var(--radius);
+    background:var(--panel); color:var(--ink-dim); text-align:center; cursor:pointer;
+    font-family:'Barlow Condensed'; font-weight:600; font-size:17px; letter-spacing:.03em; text-transform:uppercase;}
+  .tab small{display:block; font-family:'Barlow'; font-weight:400; font-size:11px; text-transform:none; letter-spacing:0;}
+  .tab.active{background:var(--red); border-color:var(--red); color:#fff;}
+  .tab.active small{color:#ffd9df;}
+
+  main{padding:0 16px 120px;}
+
+  /* Progress */
+  .progress{height:6px; background:var(--panel2); border-radius:3px; margin:0 0 16px; overflow:hidden;}
+  .progress i{display:block; height:100%; width:0%; background:linear-gradient(90deg,var(--gold),var(--red)); transition:width .3s;}
+
+  /* Exercise cards */
+  .exercise{background:var(--panel); border:1px solid var(--panel2); border-radius:var(--radius);
+    margin-bottom:14px; overflow:hidden;}
+  .exercise.done{border-color:var(--ok);}
+  .ex-head{padding:14px 16px 10px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px;}
+  .ex-head h2{margin:0; font-family:'Barlow Condensed'; font-weight:800; font-size:21px; letter-spacing:.02em;}
+  .ex-target{font-size:13px; color:var(--gold); font-weight:600; white-space:nowrap;}
+  .ex-note{padding:0 16px 10px; font-size:13px; color:var(--ink-dim); line-height:1.4;}
+  .ex-note.caution{color:#f0a4b0;}
+
+  /* How-to drawer */
+  .howto-toggle{margin:0 16px 10px; padding:9px 14px; border:1px solid var(--gold-dim);
+    border-radius:10px; background:transparent; color:var(--gold);
+    font-family:'Barlow Condensed'; font-weight:600; font-size:15px; letter-spacing:.06em;
+    text-transform:uppercase; cursor:pointer; display:inline-flex; align-items:center; gap:6px;}
+  .howto{display:none; margin:0 12px 12px; padding:14px; background:var(--panel2);
+    border-radius:12px;}
+  .howto.open{display:block;}
+  .howto .diagram{background:var(--bg); border-radius:10px; padding:8px; margin-bottom:12px;
+    display:flex; justify-content:center;}
+  .howto .diagram svg{max-width:260px; width:100%; height:auto;}
+  .photos{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:12px;}
+  .photos figure{margin:0; background:var(--bg); border-radius:10px; overflow:hidden;}
+  .photos img{width:100%; height:auto; display:block; background:#fff;}
+  .photos figcaption{padding:5px 0 7px; text-align:center; font-family:'Barlow Condensed';
+    font-weight:600; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:var(--gold);}
+  .video-wrap{position:relative; width:100%; padding-top:56.25%; border-radius:10px;
+    overflow:hidden; margin-bottom:12px; background:var(--bg);}
+  .video-wrap iframe{position:absolute; inset:0; width:100%; height:100%; border:0;}
+  .video-link{display:flex; align-items:center; justify-content:center; gap:8px; width:100%;
+    padding:12px; margin-bottom:12px; border:1px solid var(--red); border-radius:10px;
+    background:rgba(200,16,46,.1); color:#ff8fa0; text-decoration:none;
+    font-family:'Barlow Condensed'; font-weight:600; font-size:16px; letter-spacing:.05em;
+    text-transform:uppercase;}
+  .howto h3{margin:10px 0 6px; font-family:'Barlow Condensed'; font-weight:600; font-size:15px;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--gold);}
+  .howto ol{margin:0; padding-left:20px; font-size:14px; line-height:1.55; color:var(--ink);}
+  .howto ol li{margin-bottom:4px;}
+  .howto .mistake{margin-top:10px; padding:10px 12px; border-left:3px solid var(--red);
+    background:rgba(200,16,46,.08); border-radius:0 8px 8px 0; font-size:13px; line-height:1.45;}
+  .howto .mistake b{color:#f0a4b0;}
+
+  .sets{padding:0 12px 12px;}
+  .setrow{display:grid; grid-template-columns:34px 1fr 1fr 64px; gap:8px; align-items:center; padding:6px 0;}
+  .setrow .setnum{font-family:'Barlow Condensed'; font-weight:600; font-size:17px; color:var(--ink-dim); text-align:center;}
+  .stepper{display:flex; align-items:center; background:var(--panel2); border-radius:10px; overflow:hidden;}
+  .stepper button{width:44px; height:48px; border:0; background:transparent; color:var(--gold);
+    font-size:22px; font-weight:600; cursor:pointer;}
+  .stepper input{width:100%; min-width:0; height:48px; border:0; background:transparent; color:var(--ink);
+    text-align:center; font-family:'Barlow Condensed'; font-weight:600; font-size:20px;}
+  .stepper input:focus{outline:none;}
+  .stepper .unit{font-size:10px; color:var(--ink-dim); position:absolute;}
+  .logbtn{height:48px; border:0; border-radius:10px; background:var(--red); color:#fff;
+    font-family:'Barlow Condensed'; font-weight:600; font-size:16px; letter-spacing:.05em; cursor:pointer;}
+  .logbtn.logged{background:var(--ok);}
+  .collabels{display:grid; grid-template-columns:34px 1fr 1fr 64px; gap:8px; padding:2px 0 4px;
+    font-size:10px; text-transform:uppercase; letter-spacing:.08em; color:var(--ink-dim); text-align:center;}
+
+  /* SIGNATURE: rest timer takeover */
+  #restOverlay{position:fixed; inset:0; background:rgba(14,13,15,.96); display:none;
+    flex-direction:column; align-items:center; justify-content:center; z-index:50;}
+  #restOverlay.show{display:flex;}
+  .ring{position:relative; width:240px; height:240px;}
+  .ring svg{transform:rotate(-90deg);}
+  .ring .track{stroke:var(--panel2); fill:none; stroke-width:10;}
+  .ring .arc{stroke:var(--gold); fill:none; stroke-width:10; stroke-linecap:round;
+    transition:stroke-dashoffset 1s linear;}
+  .ring .time{position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family:'Barlow Condensed'; font-weight:800; font-size:72px;}
+  #restLabel{margin-top:14px; font-family:'Barlow Condensed'; font-weight:600; font-size:18px;
+    letter-spacing:.14em; text-transform:uppercase; color:var(--ink-dim);}
+  .rest-actions{margin-top:26px; display:flex; gap:12px;}
+  .rest-actions button{padding:14px 22px; border-radius:12px; border:1px solid var(--panel2);
+    background:var(--panel); color:var(--ink); font-family:'Barlow Condensed'; font-weight:600;
+    font-size:17px; letter-spacing:.04em; cursor:pointer;}
+  .rest-actions .skip{background:var(--red); border-color:var(--red); color:#fff;}
+
+  /* Footer bar */
+  footer{position:fixed; left:0; right:0; bottom:0; background:var(--panel);
+    border-top:1px solid var(--panel2); padding:10px 16px calc(10px + env(safe-area-inset-bottom));
+    display:flex; gap:10px; align-items:center;}
+  footer .restpick{display:flex; gap:6px;}
+  footer .restpick button{padding:10px 12px; border-radius:10px; border:1px solid var(--panel2);
+    background:transparent; color:var(--ink-dim); font-family:'Barlow Condensed'; font-weight:600; cursor:pointer;}
+  footer .restpick button.sel{border-color:var(--gold); color:var(--gold);}
+  #finishBtn{flex:1; height:48px; border:0; border-radius:12px; background:var(--gold); color:#141216;
+    font-family:'Barlow Condensed'; font-weight:800; font-size:18px; letter-spacing:.06em;
+    text-transform:uppercase; cursor:pointer;}
+
+  /* Summary */
+  #summary{display:none; padding:30px 16px;}
+  #summary h2{font-family:'Barlow Condensed'; font-weight:800; font-size:30px; margin:0 0 6px;
+    text-transform:uppercase;}
+  #summary .stat{background:var(--panel); border:1px solid var(--panel2); border-radius:var(--radius);
+    padding:16px; margin-bottom:10px; display:flex; justify-content:space-between;}
+  #summary .stat b{font-family:'Barlow Condensed'; font-size:22px; color:var(--gold);}
+  #summary button{width:100%; height:52px; margin-top:12px; border:0; border-radius:12px;
+    background:var(--red); color:#fff; font-family:'Barlow Condensed'; font-weight:800;
+    font-size:18px; letter-spacing:.06em; text-transform:uppercase; cursor:pointer;}
+
+  @media (prefers-reduced-motion: reduce){ .ring .arc{transition:none;} .progress i{transition:none;} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Iron<span>Session</span></h1>
+  <div id="sessionClock">00:00</div>
+</header>
+
+<div class="tabs" id="tabs"></div>
+
+<main>
+  <div class="progress"><i id="progressBar"></i></div>
+  <div id="exerciseList"></div>
+</main>
+
+<div id="restOverlay" aria-live="polite">
+  <div class="ring">
+    <svg width="240" height="240" viewBox="0 0 240 240">
+      <circle class="track" cx="120" cy="120" r="110"></circle>
+      <circle class="arc" id="restArc" cx="120" cy="120" r="110"></circle>
+    </svg>
+    <div class="time" id="restTime">90</div>
+  </div>
+  <div id="restLabel">Rest — next set loading</div>
+  <div class="rest-actions">
+    <button id="addTime">+30s</button>
+    <button class="skip" id="skipRest">Skip Rest</button>
+  </div>
+</div>
+
+<div id="summary">
+  <h2>Session Complete</h2>
+  <div class="stat"><span>Total time</span><b id="sumTime">—</b></div>
+  <div class="stat"><span>Sets logged</span><b id="sumSets">—</b></div>
+  <div class="stat"><span>Total volume (lbs)</span><b id="sumVolume">—</b></div>
+  <button onclick="location.reload()">New Session</button>
+</div>
+
+<footer>
+  <div class="restpick" id="restPick">
+    <button data-s="60">60s</button>
+    <button data-s="90" class="sel">90s</button>
+    <button data-s="120">120s</button>
+  </div>
+  <button id="finishBtn">Finish Workout</button>
+</footer>
+
+<script>
+/* ---------- Storage (localStorage in GAS deploy; memory fallback) ---------- */
+const store = (()=>{ 
+  let mem = {};
+  let ok = false;
+  try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); ok = true; } catch(e){}
+  return {
+    get:(k,d)=>{ try{ if(ok){ const v=localStorage.getItem(k); return v?JSON.parse(v):d; } }catch(e){} return (k in mem)?mem[k]:d; },
+    set:(k,v)=>{ try{ if(ok){ localStorage.setItem(k,JSON.stringify(v)); return; } }catch(e){} mem[k]=v; }
+  };
+})();
+
+/* ---------- Program data ---------- */
+const PROGRAM = {
+  A: { name:'Strength A', sub:'Push', exercises:[
+    {n:'Cable Chest Press', sets:3, reps:'10–12', note:'Elbows ~45°. Stop if clavicle area complains.', caution:true, svg:'press',
+      how:['Set both pulleys to chest height. Grab a handle in each hand and step forward into a staggered stance (one foot ahead of the other).',
+           'Start with hands at chest level, elbows bent and angled about 45° from your body — not flared straight out.',
+           'Press both handles forward until arms are nearly straight. Exhale as you push.',
+           'Slowly return to the start over 2–3 seconds. Slow on the way back is where the muscle grows.'],
+      mistake:'Flaring elbows straight out to the sides. This stresses the shoulder and collarbone area — keep elbows tucked ~45°.'},
+    {n:'Smith Incline Press (light)', sets:2, reps:'10', note:'Optional — skip on any shoulder discomfort.', caution:true, svg:'incline',
+      how:['Set the bench to a 30–45° incline under the Smith bar. Lie back so the bar lines up with your upper chest.',
+           'Grip slightly wider than shoulder width. Rotate the bar to unrack it.',
+           'Lower the bar slowly to just above your upper chest — do not bounce it.',
+           'Press up until arms are almost straight. The bar hooks let you re-rack instantly if anything feels off.'],
+      mistake:'Going too heavy too soon. This is the one lift closest to the old clavicle injury — stay light and stop at any twinge.'},
+    {n:'Cable Lateral Raise', sets:3, reps:'12–15', svg:'lateral',
+      how:['Set one pulley to the lowest position. Stand sideways to the machine, handle in your outside hand.',
+           'With a soft bend in the elbow, raise your arm out to the side until your hand reaches shoulder height — no higher.',
+           'Pause one second at the top, then lower slowly.',
+           'Do all reps on one arm, then switch sides.'],
+      mistake:'Swinging the weight up with momentum. If you have to swing, the weight is too heavy — this is a light, strict movement.'},
+    {n:'Cable Triceps Pushdown', sets:3, reps:'12', svg:'pushdown',
+      how:['Set the pulley high. Grab the bar or rope with palms down, elbows pinned to your sides.',
+           'Stand tall with a slight forward lean, feet shoulder width.',
+           'Push the handle down until arms are fully straight — squeeze the back of your arms at the bottom.',
+           'Let it rise slowly back to chest height. Elbows never leave your sides.'],
+      mistake:'Letting elbows drift forward or flare out — that turns it into a shoulder exercise. Imagine your elbows are glued to your ribs.'},
+    {n:'Cable Pallof Press', sets:3, reps:'10/side', note:'Anti-rotation core.', svg:'pallof',
+      how:['Set the pulley to chest height. Stand sideways to the machine, holding the handle with both hands at your chest.',
+           'Step away until there is tension on the cable. Feet shoulder width, knees soft.',
+           'Press the handle straight out in front of your chest. The cable will try to twist you toward the machine — resist it.',
+           'Hold 2 seconds, return to chest. That resistance IS the exercise. Switch sides after all reps.'],
+      mistake:'Letting your torso rotate toward the machine. Stay square — your core fighting the twist is the whole point.'}
+  ]},
+  B: { name:'Strength B', sub:'Pull', exercises:[
+    {n:'Seated Cable Row', sets:3, reps:'10–12', note:'Squeeze shoulder blades.', svg:'row',
+      how:['Set the pulley low. Sit on the bench facing the machine, feet planted, knees slightly bent.',
+           'Grab the handle with both hands, arms extended, back tall — not rounded.',
+           'Pull the handle to your lower ribs, driving your elbows straight back.',
+           'Squeeze your shoulder blades together at the end, then release slowly to full arm extension.'],
+      mistake:'Rounding your back or leaning way back to move the weight. Your torso stays mostly upright — arms and back do the work.'},
+    {n:'Lat Pulldown', sets:3, reps:'10–12', svg:'pulldown',
+      how:['Set the pulley high with the long bar or handles. Sit or kneel facing the machine.',
+           'Grip slightly wider than shoulders, palms facing away. Sit tall with chest up.',
+           'Pull the bar down to the top of your chest — think "elbows down to your back pockets."',
+           'Control it back up slowly until arms are fully stretched overhead.'],
+      mistake:'Pulling the bar behind your neck or using body lean/momentum. Bar comes to the front of your chest, torso stays tall.'},
+    {n:'Cable Face Pull', sets:3, reps:'15', note:'Priority — shoulder health.', svg:'facepull',
+      how:['Set the pulley at face height with the rope attachment. Grab the rope ends with thumbs pointing back toward you.',
+           'Step back for tension. Stand tall, feet shoulder width.',
+           'Pull the rope toward your face, spreading the ends apart so your hands finish beside your ears.',
+           'At the end position, your upper arms form a goalpost shape. Squeeze, then return slowly.'],
+      mistake:'Pulling to your chest instead of your face. Aim high — this movement protects your shoulders, so keep it strict and light.'},
+    {n:'Cable Biceps Curl', sets:3, reps:'12', svg:'curl',
+      how:['Set the pulley low with a bar or handles. Grab with palms facing up.',
+           'Stand tall, elbows pinned to your sides.',
+           'Curl the handle up toward your shoulders without moving your elbows or leaning back.',
+           'Lower slowly over 2–3 seconds to full arm extension.'],
+      mistake:'Swinging the hips or drifting elbows forward. Smaller weight with strict form beats heavy sloppy reps every time.'},
+    {n:'Cable Rear Delt Fly', sets:2, reps:'15', svg:'reardelt',
+      how:['Set both pulleys to shoulder height. Grab the left handle with your right hand and the right handle with your left (cables cross in front of you).',
+           'Step back, arms extended in front of your chest.',
+           'With slightly bent elbows, pull your arms apart and back like you are opening a big door with both hands.',
+           'Finish with arms out wide at shoulder height, squeeze between the shoulder blades, then return slowly.'],
+      mistake:'Bending the elbows and turning it into a row. Arms stay long — it should feel like the back of your shoulders is doing the work.'}
+  ]},
+  C: { name:'Strength C', sub:'Lower', exercises:[
+    {n:'Smith Box Squat', sets:3, reps:'8–10', note:'To bench height. Knee sets the depth.', caution:true, svg:'boxsquat',
+      how:['Place the bench behind you under the Smith bar. Set the bar so it rests across your upper back/shoulders (not your neck).',
+           'Feet shoulder width or slightly wider, toes turned out a little, positioned slightly in front of the bar path.',
+           'Unrack and sit back like you are reaching for a chair — hips go back first, knees track over toes.',
+           'Lightly touch the bench (do not plop down), then drive up through your heels to stand.'],
+      mistake:'Letting knees cave inward or dropping fast onto the bench. Slow, controlled, knees pushed slightly out — the bench is a depth target, not a seat.'},
+    {n:'Smith Romanian Deadlift', sets:3, reps:'10', note:'Hip hinge — minimal knee bend.', svg:'rdl',
+      how:['Set the Smith bar at hip height. Grip shoulder width, palms facing you, and stand tall with the bar against your thighs.',
+           'With knees only slightly bent, push your hips straight back — like closing a car door with your backside.',
+           'Let the bar slide down your thighs to about knee level. You should feel a stretch in the back of your legs.',
+           'Drive hips forward to stand tall. Back stays flat the entire time — this is a hip movement, not a back bend.'],
+      mistake:'Rounding the lower back or bending the knees into a squat. If you feel it in your lower back instead of your hamstrings, reset your form.'},
+    {n:'Cable Glute Kickback', sets:3, reps:'12/side', svg:'kickback',
+      how:['Set the pulley low and attach the ankle strap (or hook the handle under your foot).',
+           'Face the machine and hold the frame for balance.',
+           'Keeping your leg mostly straight, kick it back and slightly up, squeezing your glute at the top.',
+           'Return slowly. All reps one side, then switch. This builds the hips that protect your right knee.'],
+      mistake:'Arching your lower back to kick higher. Small, controlled range — the squeeze matters more than the height.'},
+    {n:'Smith Calf Raise', sets:3, reps:'15', svg:'calf',
+      how:['Set the Smith bar across your upper back as in the squat. Stand with feet hip width.',
+           'Optionally place your toes on a small plate or board so heels can drop below toe level.',
+           'Rise up onto the balls of your feet as high as you can. Pause one second at the top.',
+           'Lower slowly until you feel a stretch in your calves. Slow down, pause, drive up.'],
+      mistake:'Bouncing through reps. Each rep gets a full pause at the top and a slow stretch at the bottom.'},
+    {n:'Cable Woodchop', sets:3, reps:'10/side', svg:'woodchop',
+      how:['Set the pulley high. Stand sideways to the machine, both hands on the handle, arms extended.',
+           'Feet shoulder width, knees soft.',
+           'Pull the handle diagonally down and across your body — from high near the machine to low at your opposite hip.',
+           'Rotate through your torso, pivoting your near foot. Return slowly on the same diagonal. Switch sides after all reps.'],
+      mistake:'Chopping with just your arms. The power comes from your torso rotating — arms mostly just hold the handle.'}
+  ]}
+};
+
+/* ---------- Diagram library (side-view form illustrations) ---------- */
+const FIG = {
+  head:(x,y)=>`<circle cx="${x}" cy="${y}" r="8" fill="none" stroke="#f5f2ee" stroke-width="3"/>`,
+  L:(x1,y1,x2,y2,c='#f5f2ee')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="3" stroke-linecap="round"/>`,
+  arrow:(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#f2b705" stroke-width="2.5" stroke-linecap="round" marker-end="url(#ah)"/>`,
+  cable:(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#c8102e" stroke-width="2" stroke-dasharray="5 4"/>`,
+  defs:`<defs><marker id="ah" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f2b705"/></marker></defs>`,
+  wrap:(inner,label)=>`<svg viewBox="0 0 220 130" xmlns="http://www.w3.org/2000/svg">${FIG.defs}${inner}<text x="110" y="124" text-anchor="middle" fill="#9a949c" font-size="9" font-family="sans-serif" letter-spacing="1">${label}</text></svg>`
+};
+const DIAGRAMS = {
+  press: ()=>FIG.wrap(
+    FIG.L(28,20,28,105,'#4a4550')+FIG.cable(28,55,70,55)+
+    FIG.head(84,38)+FIG.L(84,46,84,85)+FIG.L(84,85,74,110)+FIG.L(84,85,98,110)+
+    FIG.L(84,55,70,55)+FIG.arrow(72,48,120,48)+FIG.L(84,55,115,50,'#f2b705'),
+    'STAND TALL · PRESS HANDLES FORWARD'),
+  incline: ()=>FIG.wrap(
+    FIG.L(30,110,120,60,'#4a4550')+FIG.L(120,60,150,60,'#4a4550')+
+    FIG.head(60,86)+FIG.L(66,90,105,68)+FIG.L(85,79,85,40,'#f2b705')+
+    FIG.L(65,40,105,40,'#c8102e')+FIG.arrow(110,60,110,32),
+    'INCLINE BENCH · PRESS BAR UP FROM UPPER CHEST'),
+  lateral: ()=>FIG.wrap(
+    FIG.L(20,20,20,105,'#4a4550')+FIG.cable(20,100,95,88)+
+    FIG.head(95,32)+FIG.L(95,40,95,82)+FIG.L(95,82,86,110)+FIG.L(95,82,105,110)+
+    FIG.L(95,52,95,88,'#f2b705')+FIG.arrow(100,85,140,55)+FIG.L(95,52,135,50,'#f2b705'),
+    'RAISE ARM OUT TO SHOULDER HEIGHT — NO HIGHER'),
+  pushdown: ()=>FIG.wrap(
+    FIG.L(30,15,30,105,'#4a4550')+FIG.cable(30,18,88,45)+
+    FIG.head(95,30)+FIG.L(95,38,95,82)+FIG.L(95,82,86,110)+FIG.L(95,82,104,110)+
+    FIG.L(95,50,88,60,'#f5f2ee')+FIG.L(88,60,88,90,'#f2b705')+FIG.arrow(100,55,100,95),
+    'ELBOWS PINNED · PUSH HANDLE DOWN'),
+  pallof: ()=>FIG.wrap(
+    FIG.L(20,20,20,105,'#4a4550')+FIG.cable(20,58,100,58)+
+    FIG.head(110,30)+FIG.L(110,38,110,82)+FIG.L(110,82,101,110)+FIG.L(110,82,119,110)+
+    FIG.L(110,55,150,58,'#f2b705')+FIG.arrow(115,48,155,48)+
+    `<text x="60" y="50" fill="#c8102e" font-size="9" font-family="sans-serif">cable pulls left</text>`,
+    'PRESS OUT · RESIST THE TWIST · STAY SQUARE'),
+  row: ()=>FIG.wrap(
+    FIG.L(20,20,20,105,'#4a4550')+FIG.cable(20,80,72,72)+
+    FIG.head(95,42)+FIG.L(95,50,95,88)+FIG.L(95,88,125,88)+FIG.L(125,88,125,105)+
+    FIG.L(95,62,72,72,'#f2b705')+FIG.arrow(75,64,100,64),
+    'SIT TALL · PULL HANDLE TO LOWER RIBS'),
+  pulldown: ()=>FIG.wrap(
+    FIG.L(30,12,30,105,'#4a4550')+FIG.cable(30,15,90,32)+
+    FIG.head(100,50)+FIG.L(100,58,100,92)+FIG.L(100,92,125,92)+
+    FIG.L(100,64,90,35,'#f5f2ee')+FIG.L(70,32,110,32,'#c8102e')+FIG.arrow(115,38,115,66),
+    'CHEST UP · PULL BAR TO TOP OF CHEST'),
+  facepull: ()=>FIG.wrap(
+    FIG.L(20,15,20,105,'#4a4550')+FIG.cable(20,42,85,42)+
+    FIG.head(105,42)+FIG.L(105,50,105,88)+FIG.L(105,88,96,112)+FIG.L(105,88,114,112)+
+    FIG.L(105,55,88,44,'#f2b705')+FIG.L(105,55,122,44,'#f2b705')+FIG.arrow(85,42,98,42),
+    'PULL ROPE TO FACE · HANDS FINISH BY EARS'),
+  curl: ()=>FIG.wrap(
+    FIG.L(25,20,25,105,'#4a4550')+FIG.cable(25,100,88,90)+
+    FIG.head(95,30)+FIG.L(95,38,95,82)+FIG.L(95,82,86,110)+FIG.L(95,82,104,110)+
+    FIG.L(95,52,95,68,'#f5f2ee')+FIG.L(95,68,102,50,'#f2b705')+FIG.arrow(112,80,112,50),
+    'ELBOWS AT SIDES · CURL UP · LOWER SLOW'),
+  reardelt: ()=>FIG.wrap(
+    FIG.L(20,15,20,105,'#4a4550')+FIG.cable(20,45,95,55)+FIG.cable(20,45,120,55)+
+    FIG.head(108,32)+FIG.L(108,40,108,84)+FIG.L(108,84,99,110)+FIG.L(108,84,117,110)+
+    FIG.L(108,52,80,50,'#f2b705')+FIG.L(108,52,138,50,'#f2b705')+
+    FIG.arrow(85,42,60,38)+FIG.arrow(132,42,158,38),
+    'ARMS LONG · PULL WIDE APART LIKE OPENING DOORS'),
+  boxsquat: ()=>FIG.wrap(
+    FIG.L(130,70,165,70,'#4a4550')+FIG.L(146,70,146,105,'#4a4550')+
+    FIG.head(85,32)+FIG.L(85,40,90,70)+FIG.L(90,70,98,70)+FIG.L(98,70,102,100)+
+    FIG.L(60,44,110,44,'#c8102e')+FIG.arrow(115,55,130,68)+
+    `<text x="55" y="115" fill="#9a949c" font-size="9" font-family="sans-serif">hips back → touch bench</text>`,
+    'BAR ON UPPER BACK · SIT BACK TO THE BENCH'),
+  rdl: ()=>FIG.wrap(
+    FIG.head(80,30)+FIG.L(80,38,95,62)+FIG.L(95,62,98,102)+
+    FIG.L(80,44,88,72,'#f5f2ee')+FIG.L(70,72,108,72,'#c8102e')+
+    FIG.arrow(115,45,130,60)+FIG.arrow(60,90,50,75)+
+    `<text x="130" y="90" fill="#9a949c" font-size="9" font-family="sans-serif">hips push back</text>`,
+    'FLAT BACK · BAR SLIDES DOWN THIGHS TO KNEES'),
+  kickback: ()=>FIG.wrap(
+    FIG.L(25,20,25,105,'#4a4550')+FIG.cable(25,100,95,102)+
+    FIG.head(70,32)+FIG.L(70,40,70,82)+FIG.L(70,55,42,50,'#f5f2ee')+
+    FIG.L(70,82,62,110)+FIG.L(70,82,105,95,'#f2b705')+FIG.arrow(95,88,130,78),
+    'HOLD FRAME · KICK LEG BACK · SQUEEZE GLUTE'),
+  calf: ()=>FIG.wrap(
+    FIG.head(100,28)+FIG.L(100,36,100,80)+FIG.L(78,40,122,40,'#c8102e')+
+    FIG.L(100,80,94,102)+FIG.L(100,80,106,102)+
+    FIG.L(85,110,120,110,'#4a4550')+FIG.arrow(135,100,135,70)+
+    `<text x="145" y="90" fill="#9a949c" font-size="9" font-family="sans-serif">rise on toes</text>`,
+    'PAUSE AT TOP · SLOW STRETCH AT BOTTOM'),
+  woodchop: ()=>FIG.wrap(
+    FIG.L(20,15,20,105,'#4a4550')+FIG.cable(20,25,90,40)+
+    FIG.head(105,35)+FIG.L(105,43,105,85)+FIG.L(105,85,96,112)+FIG.L(105,85,114,112)+
+    FIG.L(105,55,90,40,'#f2b705')+FIG.arrow(95,45,140,90),
+    'PULL DIAGONALLY HIGH-TO-LOW · ROTATE TORSO')
+};
+
+/* ---------- Form photos (public domain — free-exercise-db, verified URLs) ---------- */
+const PHOTO_BASE = 'https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/';
+const PHOTOS = {
+  press:    'Cable_Chest_Press',
+  incline:  'Smith_Machine_Incline_Bench_Press',
+  lateral:  'Cable_Seated_Lateral_Raise',
+  pushdown: 'Triceps_Pushdown_-_Rope_Attachment',
+  pallof:   'Pallof_Press',
+  row:      'Seated_Cable_Rows',
+  pulldown: 'Full_Range-Of-Motion_Lat_Pulldown',
+  facepull: 'Face_Pull',
+  curl:     'Standing_Biceps_Cable_Curl',
+  reardelt: 'Cable_Rear_Delt_Fly',
+  boxsquat: 'Barbell_Squat_To_A_Bench',
+  rdl:      'Romanian_Deadlift',
+  kickback: 'One-Legged_Cable_Kickback',
+  calf:     'Smith_Machine_Calf_Raise',
+  woodchop: 'Standing_Cable_Wood_Chop'
+};
+
+/* ---------- Video demos ----------
+   Paste a YouTube video ID (the part after watch?v=) for any exercise
+   to upgrade its button into an inline embedded player. Leave '' for a
+   one-tap "Watch demo" search link instead — never a broken embed. */
+const VIDEOS = {
+  press:'', incline:'', lateral:'', pushdown:'', pallof:'',
+  row:'', pulldown:'', facepull:'', curl:'', reardelt:'',
+  boxsquat:'', rdl:'', kickback:'', calf:'', woodchop:''
+};
+
+function mediaBlock(key, name){
+  const p = PHOTOS[key];
+  let html = '';
+  if(p){
+    html += `<div class="photos">
+      <figure><img loading="lazy" src="${PHOTO_BASE}${p}/0.jpg" alt="${name} start position"
+        onerror="this.closest('.photos').style.display='none'"><figcaption>Start</figcaption></figure>
+      <figure><img loading="lazy" src="${PHOTO_BASE}${p}/1.jpg" alt="${name} end position"><figcaption>Finish</figcaption></figure>
+    </div>`;
+  }
+  const vid = VIDEOS[key];
+  if(vid){
+    html += `<div class="video-wrap"><iframe loading="lazy"
+      src="https://www.youtube-nocookie.com/embed/${vid}" title="${name} demo"
+      allow="accelerometer; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>`;
+  } else {
+    const q = encodeURIComponent(name + ' proper form beginner');
+    html += `<a class="video-link" href="https://www.youtube.com/results?search_query=${q}"
+      target="_blank" rel="noopener">▶ Watch video demo</a>`;
+  }
+  return html;
+}
+
+let day = store.get('lastDay','A');
+let restSeconds = store.get('restSeconds',90);
+let logged = [];              // {exercise, set, weight, reps}
+let sessionStart = null, clockInt = null;
+let restInt = null, restRemaining = 0;
+
+const $  = s => document.querySelector(s);
+const $$ = s => document.querySelectorAll(s);
+
+/* ---------- Render tabs ---------- */
+function renderTabs(){
+  $('#tabs').innerHTML = Object.keys(PROGRAM).map(k=>
+    `<div class="tab ${k===day?'active':''}" data-d="${k}">${PROGRAM[k].name}<small>${PROGRAM[k].sub}</small></div>`).join('');
+  $$('.tab').forEach(t=>t.onclick=()=>{ day=t.dataset.d; store.set('lastDay',day); logged=[]; renderTabs(); renderExercises(); });
+}
+
+/* ---------- Render exercises ---------- */
+function renderExercises(){
+  const last = store.get('lastWeights_'+day, {});
+  $('#exerciseList').innerHTML = PROGRAM[day].exercises.map((ex,ei)=>{
+    const w = last[ex.n] || 20;
+    let rows = '';
+    for(let s=1; s<=ex.sets; s++){
+      rows += `<div class="setrow">
+        <div class="setnum">${s}</div>
+        <div class="stepper">
+          <button onclick="bump(this,-5)">−</button>
+          <input inputmode="numeric" value="${w}" data-f="w">
+          <button onclick="bump(this,5)">+</button>
+        </div>
+        <div class="stepper">
+          <button onclick="bump(this,-1)">−</button>
+          <input inputmode="numeric" value="10" data-f="r">
+          <button onclick="bump(this,1)">+</button>
+        </div>
+        <button class="logbtn" onclick="logSet(this,${ei},${s})">LOG</button>
+      </div>`;
+    }
+    const howto = ex.how ? `
+      <button class="howto-toggle" onclick="toggleHow(${ei})">▸ How to do this</button>
+      <div class="howto" id="how${ei}">
+        ${mediaBlock(ex.svg, ex.n)}
+        <div class="diagram">${DIAGRAMS[ex.svg] ? DIAGRAMS[ex.svg]() : ''}</div>
+        <h3>Step by step</h3>
+        <ol>${ex.how.map(s=>`<li>${s}</li>`).join('')}</ol>
+        <div class="mistake"><b>Watch out:</b> ${ex.mistake}</div>
+      </div>` : '';
+    return `<div class="exercise" id="ex${ei}">
+      <div class="ex-head"><h2>${ex.n}</h2><div class="ex-target">${ex.sets} × ${ex.reps}</div></div>
+      ${ex.note ? `<div class="ex-note ${ex.caution?'caution':''}">${ex.note}</div>` : ''}
+      ${howto}
+      <div class="sets">
+        <div class="collabels"><span></span><span>Weight lb</span><span>Reps</span><span></span></div>
+        ${rows}
+      </div>
+    </div>`;
+  }).join('');
+  updateProgress();
+}
+
+function toggleHow(ei){
+  const panel = $('#how'+ei);
+  const btn = panel.previousElementSibling;
+  panel.classList.toggle('open');
+  btn.textContent = panel.classList.contains('open') ? '▾ Hide instructions' : '▸ How to do this';
+}
+
+function bump(btn, delta){
+  const input = btn.parentElement.querySelector('input');
+  input.value = Math.max(0, (parseInt(input.value)||0) + delta);
+}
+
+/* ---------- Logging ---------- */
+function logSet(btn, ei, setNum){
+  if(!sessionStart) startClock();
+  const row = btn.closest('.setrow');
+  const weight = parseInt(row.querySelector('[data-f="w"]').value)||0;
+  const reps   = parseInt(row.querySelector('[data-f="r"]').value)||0;
+  const ex = PROGRAM[day].exercises[ei];
+
+  btn.classList.add('logged'); btn.textContent='✓'; btn.disabled=true;
+  logged.push({exercise:ex.n, set:setNum, weight, reps});
+
+  const lw = store.get('lastWeights_'+day, {}); lw[ex.n]=weight; store.set('lastWeights_'+day, lw);
+
+  const card = $('#ex'+ei);
+  if([...card.querySelectorAll('.logbtn')].every(b=>b.disabled)) card.classList.add('done');
+
+  updateProgress();
+  startRest(ex.n, setNum, ex.sets);
+}
+
+function updateProgress(){
+  const total = PROGRAM[day].exercises.reduce((a,e)=>a+e.sets,0);
+  $('#progressBar').style.width = Math.round(logged.length/total*100)+'%';
+}
+
+/* ---------- Session clock ---------- */
+function startClock(){
+  sessionStart = Date.now();
+  $('#sessionClock').classList.add('live');
+  clockInt = setInterval(()=>{
+    const s = Math.floor((Date.now()-sessionStart)/1000);
+    $('#sessionClock').textContent =
+      String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0');
+  },1000);
+}
+
+/* ---------- Rest timer (signature takeover) ---------- */
+const CIRC = 2*Math.PI*110;
+$('#restArc').style.strokeDasharray = CIRC;
+
+function startRest(name, setNum, totalSets){
+  restRemaining = restSeconds;
+  $('#restLabel').textContent = setNum < totalSets
+    ? `Rest — ${name} · set ${setNum+1} of ${totalSets} next`
+    : `Rest — ${name} complete`;
+  $('#restOverlay').classList.add('show');
+  tickRest();
+  clearInterval(restInt);
+  restInt = setInterval(()=>{
+    restRemaining--;
+    if(restRemaining<=0){ endRest(); if(navigator.vibrate) navigator.vibrate([200,100,200]); }
+    else tickRest();
+  },1000);
+}
+function tickRest(){
+  $('#restTime').textContent = restRemaining;
+  $('#restArc').style.strokeDashoffset = CIRC * (1 - restRemaining/Math.max(restSeconds,restRemaining));
+}
+function endRest(){ clearInterval(restInt); $('#restOverlay').classList.remove('show'); }
+$('#skipRest').onclick = endRest;
+$('#addTime').onclick = ()=>{ restRemaining += 30; tickRest(); };
+
+/* ---------- Rest picker ---------- */
+$$('#restPick button').forEach(b=>{
+  if(parseInt(b.dataset.s)===restSeconds) { $$('#restPick button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); }
+  b.onclick=()=>{ restSeconds=parseInt(b.dataset.s); store.set('restSeconds',restSeconds);
+    $$('#restPick button').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); };
+});
+
+/* ---------- Finish ---------- */
+$('#finishBtn').onclick = ()=>{
+  clearInterval(clockInt); endRest();
+  const secs = sessionStart ? Math.floor((Date.now()-sessionStart)/1000) : 0;
+  const vol = logged.reduce((a,l)=>a + l.weight*l.reps, 0);
+  $('#sumTime').textContent = Math.floor(secs/60)+' min';
+  $('#sumSets').textContent = logged.length;
+  $('#sumVolume').textContent = vol.toLocaleString();
+
+  const hist = store.get('history', []);
+  hist.push({date:new Date().toISOString(), day, minutes:Math.floor(secs/60), sets:logged, volume:vol});
+  store.set('history', hist);
+
+  document.querySelector('main').style.display='none';
+  document.querySelector('.tabs').style.display='none';
+  document.querySelector('footer').style.display='none';
+  $('#summary').style.display='block';
+};
+
+renderTabs();
+renderExercises();
+</script>
+</body>
+</html>
