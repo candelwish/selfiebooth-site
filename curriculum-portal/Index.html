@@ -190,6 +190,55 @@
   .rate .rbtn.on{background:var(--grad); color:#fff; border-color:transparent}
   .earnbanner{display:none; margin-top:12px; padding:14px; border-radius:12px; text-align:center;
     background:linear-gradient(90deg,#F7D774,#E9B949); color:#3a2c00; font-weight:800}
+  /* Teach-ready (PC) components */
+  .tbrief{background:linear-gradient(90deg,#f3e8ff,#eef7ff); border-left:5px solid var(--navy)}
+  .runsheet{border:1px solid var(--line); border-radius:10px; overflow:hidden; margin-top:8px}
+  .runrow{display:flex; gap:10px; padding:8px 12px; border-top:1px solid var(--line); align-items:flex-start}
+  .runrow:first-child{border-top:0}
+  .runrow .rt{flex:0 0 64px; font-weight:800; color:var(--red); font-size:.85rem; padding-top:2px}
+  .runrow .rl{flex:0 0 120px; font-weight:700; font-size:.9rem}
+  .runrow .rd{flex:1; font-size:.92rem}
+  .runday{background:#f3e8ff; font-weight:800; padding:6px 12px; color:var(--navy)}
+  .tsection{border:1px solid var(--line); border-radius:12px; margin:14px 0; overflow:hidden}
+  .tsection > .tsh{background:var(--grad); color:#fff; padding:10px 14px; font-weight:800; letter-spacing:.02em}
+  .tsection > .tsb{padding:12px 14px}
+  .core{font-size:1rem; margin:0 0 10px}
+  .core strong{color:var(--red)}
+  .beat{display:flex; gap:10px; margin:8px 0; align-items:flex-start}
+  .beat .bk{flex:0 0 58px; text-align:center; border-radius:8px; padding:3px 0; font-size:.78rem; font-weight:800}
+  .beat.say .bk{background:#e8f0ff; color:#1d4ed8}
+  .beat.ask .bk{background:#fff1e0; color:#b45309}
+  .beat.board .bk{background:#eafaf0; color:#15803d}
+  .beat.do .bk{background:#f6e8ff; color:#7c3aed}
+  .beat .bd{flex:1; font-size:.94rem}
+  .ttable{width:100%; border-collapse:collapse; margin:10px 0; font-size:.9rem}
+  .ttable td, .ttable th{border:1px solid var(--line); padding:7px 9px; text-align:left; vertical-align:top}
+  .ttable tr:first-child td{background:#f3e8ff; font-weight:800}
+  .tablewrap{overflow-x:auto}
+  .hookbox{background:#fff7e0; border:1px solid #eedca0; border-radius:10px; padding:10px 14px; margin:10px 0; font-weight:600}
+  .hookbox .hk{font-weight:800; color:#92400e; font-size:.78rem; letter-spacing:.05em}
+  .gnote{border:1px dashed #c9b6ec; border-radius:10px; padding:10px 14px; margin:10px 0; background:#fbf9ff}
+  .gnote .gq{margin:6px 0}
+  .gans{display:none; color:#15803d; font-weight:700}
+  .instr-answers .gans{display:inline}
+  .qc-item{border:1px solid var(--line); border-radius:10px; padding:10px 14px; margin-bottom:10px}
+  .qc-item .qq{font-weight:700}
+  .qc-model{display:none; margin-top:8px; background:#eafaf0; border-radius:8px; padding:8px 12px; font-size:.92rem}
+  .qc-model.open{display:block}
+  .actcard{border:2px solid var(--red); border-radius:12px; margin:14px 0; overflow:hidden}
+  .actcard > .ach{background:var(--red); color:#fff; padding:10px 14px; font-weight:800}
+  .actcard > .acb{padding:12px 14px}
+  .rubric{width:100%; border-collapse:collapse; font-size:.88rem; margin-top:8px}
+  .rubric td{border:1px solid var(--line); padding:7px 9px}
+  .rubric tr:first-child td{background:#1F2D5A; background:var(--navy); color:#fff; font-weight:700; text-align:center}
+  .rubric td.sc{text-align:center; width:70px}
+  .supbox{background:#eefaf2; border:1px solid #bfe8cd; border-radius:10px; padding:10px 14px}
+  @media print{
+    .topbar, .sidebar, .menu-btn, .navbtns, .resbar, .foot, .earnbanner, .vedit{display:none !important}
+    .panel{max-width:100%; padding:0}
+    body{background:#fff}
+    .tsection > .tsh{color:#000; background:#eee}
+  }
   /* Instructor content editors */
   .vedit{border:2px dashed #d9c7f5; border-radius:12px; padding:12px 14px; margin-top:12px; background:#faf7ff}
   .ved-row{display:flex; gap:8px; align-items:center; margin-bottom:8px; flex-wrap:wrap}
@@ -692,15 +741,39 @@ function renderLesson(key){
     html += "<div class='block'><h3>TEKS</h3><div>" + esc(L.teks || "—") + "</div></div>";
     html += "<div class='block'><h3>Objectives</h3><div>" + esc(L.objectives) + "</div>" +
       "<div style='margin-top:8px;color:#5b6472'><strong>Language:</strong> " + esc(L.language_obj) + "</div></div>";
-    html += collapCard("Activation / Warm-Up", L.activation);
-    html += collapCard("I Do (Model)", L.i_do);
-    html += collapCard("Demonstration", L.demonstration);
-    html += collapCard("Closure", L.closure);
+    if(!L.teach){
+      html += collapCard("Activation / Warm-Up", L.activation);
+      html += collapCard("I Do (Model)", L.i_do);
+      html += collapCard("Demonstration", L.demonstration);
+      html += collapCard("Closure", L.closure);
+    }
   }
 
-  /* Both roles */
-  html += simpleCard("We Do (Guided)", L.we_do);
-  html += simpleCard("You Do (Independent)", L.you_do);
+  /* Both roles (teach-ready lessons replace these with sections/run sheet) */
+  if(!L.teach){
+    html += simpleCard("We Do (Guided)", L.we_do);
+    html += simpleCard("You Do (Independent)", L.you_do);
+  }
+
+  /* Teach-ready content (sections, quick check, activity, rubric, supports) */
+  if(L.teach){
+    html += renderTeachBlocks(L, instr);
+    if(L.teach.exit && L.teach.exit.length){
+      html += "<div class='block'><h3><span aria-hidden='true'>&#127915;</span> Exit Ticket</h3>" +
+        "<div id='exit-host'></div>" +
+        "<button class='btn red' id='exit-btn'>Check my answers</button>" +
+        "<div class='earnbanner' id='exit-banner' role='status'></div></div>";
+    }
+    if(L.quiz && L.quiz.length){
+      html += "<div class='block'><h3><span aria-hidden='true'>&#128221;</span> Module Quiz (in-app)</h3>" +
+        "<p style='margin:.1rem 0 .8rem; color:var(--muted)'>" +
+        (instr ? "Instructor view: answers and models shown inline. Use Print for a paper copy." :
+                 "7 auto-checked questions + 3 written responses. Answer everything, then check.") + "</p>" +
+        "<div id='quiz-host'></div>" +
+        "<button class='btn red' id='quiz-btn'>Check quiz</button>" +
+        "<div class='earnbanner' id='quiz-banner' role='status'></div></div>";
+    }
+  }
 
   /* Engagement Lab blocks: The Move, Quick Tips, The Rep */
   if(L.lab){
@@ -872,6 +945,215 @@ function renderLesson(key){
   if(L.lab && L.mastery && L.mastery.length){ renderMastery(key); }
   if($("edit-videos-btn")){ $("edit-videos-btn").addEventListener("click", function(){ renderVideoEditor(key); }); }
   if($("edit-links-btn")){ $("edit-links-btn").addEventListener("click", function(){ renderLinkEditor(key); }); }
+  if(L.teach){
+    wireTeach(key);
+    if(L.teach.exit && L.teach.exit.length && $("exit-host")){
+      renderCheckSet($("exit-host"), L.teach.exit, { ns: "ex", instr: instr });
+      $("exit-btn").addEventListener("click", function(){
+        var res = gradeCheckSet($("exit-host"), L.teach.exit, "ex");
+        var ban = $("exit-banner");
+        ban.style.display = "block";
+        if(res.answered < res.mcCount){
+          ban.textContent = "Answer all " + res.mcCount + " questions first!";
+          return;
+        }
+        ban.innerHTML = "You got " + res.correct + " of " + res.mcCount +
+          (res.correct === res.mcCount ? " &mdash; nailed it! Lesson marked done." : " &mdash; review the explanations above, then you can retry.");
+        if(res.correct === res.mcCount){
+          var done = getDone();
+          if(!done[key]){ done[key] = 1; setDone(done); updateProgress(); buildSidebar(); }
+          var mb = $("mark-btn");
+          if(mb){ mb.className = "btn mark done"; mb.innerHTML = "&#10003; Done"; }
+        }
+      });
+    }
+    if(L.quiz && L.quiz.length && $("quiz-host")){
+      renderCheckSet($("quiz-host"), L.quiz, { ns: "qz", instr: instr });
+      $("quiz-btn").addEventListener("click", function(){
+        var res = gradeCheckSet($("quiz-host"), L.quiz, "qz");
+        var ban = $("quiz-banner");
+        ban.style.display = "block";
+        if(res.answered < res.mcCount){
+          ban.textContent = "Answer all " + res.mcCount + " multiple-choice questions first!";
+          return;
+        }
+        ban.innerHTML = "Multiple-choice score: " + res.correct + " / " + res.mcCount +
+          ". Written responses: compare yours with the model answers" + (res.correct >= res.mcCount - 1 ? " &mdash; strong work!" : ".");
+      });
+    }
+  }
+}
+
+/* ======================= Teach-ready rendering (PC) ======================= */
+function beatClass(s){
+  if(s.indexOf("Say:") === 0){ return ["say","SAY"]; }
+  if(s.indexOf("Ask:") === 0){ return ["ask","ASK"]; }
+  if(s.indexOf("Board:") === 0){ return ["board","BOARD"]; }
+  if(s.indexOf("Do:") === 0){ return ["do","DO"]; }
+  return ["say","SAY"];
+}
+function tTable(tbl, cls){
+  if(!tbl || !tbl.head || !tbl.rows){ return ""; }
+  var out = "<div class='tablewrap'><table class='" + (cls || "ttable") + "'><tr>";
+  tbl.head.forEach(function(hd){ out += "<td>" + esc(hd) + "</td>"; });
+  out += "</tr>";
+  tbl.rows.forEach(function(r){
+    out += "<tr>";
+    r.forEach(function(c){ out += "<td>" + c + "</td>"; });
+    out += "</tr>";
+  });
+  return out + "</table></div>";
+}
+function renderTeachBlocks(L, instr){
+  var T = L.teach, html = "";
+  if(!T){ return ""; }
+  /* Teacher brief + run sheet (instructor only) */
+  if(instr){
+    html += "<div class='block tbrief'><h3>Teacher Brief" +
+      " <button class='link' onclick='window.print()' style='font-size:.8rem'>&#128424;&#65039; Print lesson</button></h3>" +
+      "<div>" + esc(T.brief) + "</div></div>";
+    if(T.run && T.run.length){
+      html += "<div class='block'><h3><span aria-hidden='true'>&#9201;&#65039;</span> Run Sheet</h3><div class='runsheet'>";
+      T.run.forEach(function(dayObj){
+        if(T.run.length > 1){ html += "<div class='runday'>Day " + esc(dayObj.day) + "</div>"; }
+        (dayObj.blocks || []).forEach(function(b){
+          html += "<div class='runrow'><div class='rt'>" + esc(b.t) + "</div>" +
+            "<div class='rl'>" + esc(b.label) + "</div><div class='rd'>" + b.d + "</div></div>";
+        });
+      });
+      html += "</div></div>";
+    }
+  }
+  /* Content sections */
+  (T.sections || []).forEach(function(s, si){
+    html += "<div class='tsection'><div class='tsh'>" + (si+1) + " &nbsp;|&nbsp; " + esc(s.title) + "</div><div class='tsb'>";
+    if(s.core){ html += "<p class='core'>" + s.core + "</p>"; }
+    if(instr && s.script && s.script.length){
+      s.script.forEach(function(beat){
+        var bc = beatClass(beat);
+        var body = beat.replace(/^(Say:|Ask:|Board:|Do:)\s*/, "");
+        html += "<div class='beat " + bc[0] + "'><div class='bk'>" + bc[1] + "</div><div class='bd'>" + body + "</div></div>";
+      });
+    }
+    if(s.table){ html += tTable(s.table); }
+    if(s.hook){ html += "<div class='hookbox'><div class='hk'>MEMORY HOOK</div>" + s.hook + "</div>"; }
+    if(s.guided && s.guided.length){
+      html += "<div class='gnote" + (instr ? " instr-answers" : "") + "'><strong>Guided notes &mdash; fill in as we discuss</strong>";
+      s.guided.forEach(function(g){
+        html += "<div class='gq'>" + esc(g.q) + (instr ? " <span class='gans'>&rarr; " + esc(g.a) + "</span>" : "") + "</div>";
+      });
+      html += "</div>";
+    }
+    html += "</div></div>";
+  });
+  /* Quick check */
+  if(T.quickcheck && T.quickcheck.length){
+    html += "<div class='block'><h3><span aria-hidden='true'>&#129300;</span> Quick Check</h3>" +
+      "<p style='margin:.1rem 0 .8rem; color:var(--muted)'>Answer in complete sentences" +
+      (instr ? " (model answers shown for instructor)." : ", then compare with the model answer.") + "</p>";
+    T.quickcheck.forEach(function(qc, qi){
+      html += "<div class='qc-item'><div class='qq'>" + (qi+1) + ". " + esc(qc.q) + "</div>";
+      if(instr){
+        html += "<div class='qc-model open'><strong>Model:</strong> " + esc(qc.a) + "</div>";
+      } else {
+        html += "<button class='link qc-reveal' data-qc='" + qi + "'>Show model answer</button>" +
+          "<div class='qc-model' id='qcm-" + qi + "'><strong>Model:</strong> " + esc(qc.a) + "</div>";
+      }
+      html += "</div>";
+    });
+    html += "</div>";
+  }
+  /* Activity + rubric */
+  if(T.activity){
+    var A = T.activity;
+    html += "<div class='actcard'><div class='ach'>&#128296; " + esc(A.title) + "</div><div class='acb'>";
+    if(A.format){ html += "<div style='font-weight:700; margin-bottom:6px'>" + esc(A.format) + "</div>"; }
+    if(A.scenario){ html += "<p>" + A.scenario + "</p>"; }
+    (A.parts || []).forEach(function(pt){
+      html += "<div style='margin-top:8px'><strong>" + esc(pt.t) + "</strong><ul>";
+      (pt.items || []).forEach(function(it){ html += "<li>" + it + "</li>"; });
+      html += "</ul></div>";
+    });
+    if(A.evidence){ html += tTable(A.evidence); }
+    if(T.rubric && T.rubric.criteria){
+      html += "<h4 style='margin:12px 0 0'>Scoring Guide <span style='font-weight:400; color:var(--muted)'>(circle the score)</span></h4>";
+      var R = { head: ["Criteria"].concat(T.rubric.levels || ["Advanced 4","Proficient 3","Developing 2","Beginning 1"]),
+        rows: T.rubric.criteria.map(function(c){ return [esc(c), "4", "3", "2", "1"]; }) };
+      html += "<div class='tablewrap'><table class='rubric'><tr>";
+      R.head.forEach(function(hd){ html += "<td>" + esc(hd) + "</td>"; });
+      html += "</tr>";
+      T.rubric.criteria.forEach(function(c){
+        html += "<tr><td>" + esc(c) + "</td><td class='sc'>4</td><td class='sc'>3</td><td class='sc'>2</td><td class='sc'>1</td></tr>";
+      });
+      html += "</table></div><div style='margin-top:6px; font-weight:700'>Total: ____ / " + (T.rubric.criteria.length * 4) + "</div>";
+    }
+    html += "</div></div>";
+  }
+  /* Supports (instructor only) */
+  if(instr && T.supports && T.supports.length){
+    html += "<div class='block supbox'><h3>Supports &amp; Differentiation</h3><ul style='margin:.3rem 0 0 1.1rem'>";
+    T.supports.forEach(function(sp){ html += "<li>" + esc(sp) + "</li>"; });
+    html += "</ul></div>";
+  }
+  return html;
+}
+function wireTeach(key){
+  var btns = document.querySelectorAll(".qc-reveal");
+  for(var i = 0; i < btns.length; i++){
+    (function(b){
+      b.addEventListener("click", function(){
+        var m = $("qcm-" + b.getAttribute("data-qc"));
+        if(m){ m.classList.toggle("open"); }
+      });
+    })(btns[i]);
+  }
+}
+/* Interactive exit ticket / module quiz (auto-scored MC + reveal short answers) */
+function renderCheckSet(host, items, opts){
+  items.forEach(function(m, qi){
+    var d = document.createElement("div");
+    d.className = "mq";
+    d.setAttribute("data-q", String(qi));
+    var inner = "<div class='qt'>" + (qi+1) + ". " + esc(m.q) + "</div>";
+    if(m.opts){
+      m.opts.forEach(function(o, oi){
+        inner += "<label><input type='radio' name='" + opts.ns + qi + "' value='" + oi + "'> <span>" + esc(o) + "</span></label>";
+      });
+      inner += "<div class='why'></div>";
+    } else {
+      inner += "<div class='qc-model" + (opts.instr ? " open" : "") + "' id='" + opts.ns + "sa-" + qi + "'><strong>Model:</strong> " + esc(m.a) + "</div>" +
+        (opts.instr ? "" : "<button class='link' data-sa='" + opts.ns + "sa-" + qi + "'>Show model answer</button>");
+    }
+    d.innerHTML = inner;
+    host.appendChild(d);
+  });
+  var sabtns = host.querySelectorAll("[data-sa]");
+  for(var i = 0; i < sabtns.length; i++){
+    (function(b){
+      b.addEventListener("click", function(){
+        var m = document.getElementById(b.getAttribute("data-sa"));
+        if(m){ m.classList.toggle("open"); }
+      });
+    })(sabtns[i]);
+  }
+}
+function gradeCheckSet(host, items, ns){
+  var answered = 0, correct = 0, mcCount = 0;
+  items.forEach(function(m, qi){
+    if(!m.opts){ return; }
+    mcCount++;
+    var box = host.querySelector("[data-q='" + qi + "']");
+    var sel = box.querySelector("input:checked");
+    box.classList.remove("correct", "wrong");
+    if(!sel){ return; }
+    answered++;
+    var ok = (+sel.value === m.ans);
+    if(ok){ correct++; }
+    box.classList.add(ok ? "correct" : "wrong");
+    box.querySelector(".why").innerHTML =
+      (ok ? "<strong>&#10003; Correct.</strong> " : "<strong>Not quite &mdash; answer: " + esc(m.opts[m.ans]) + ".</strong> ") + esc(m.why || "");
+  });
+  return { answered: answered, correct: correct, mcCount: mcCount };
 }
 
 /* ======================= Instructor content editors ======================= */
